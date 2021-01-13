@@ -1,4 +1,8 @@
 import './style';
 import App from './components/app';
+import { AuthProvider } from './context/AuthContext';
 
-export default App;
+export default () =>
+  <AuthProvider>
+    <App />
+  </AuthProvider>

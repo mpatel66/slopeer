@@ -1,16 +1,11 @@
 import { h } from 'preact';
-import { Router } from 'preact-router';
-
-import Header from './header';
-
-// Code-splitting is automated for `routes` directory
-import Home from '../routes/home';
-import Profile from '../routes/profile';
 import AuthenticatedApp from './authenticatedApp';
 import UnauthenticatedApp from './unauthenticadedApp';
+import { useAuth } from '../context/AuthContext';
 
 const App = () => {
-  const user = false;//auth.getCurrentUser()
+  const { user } = useAuth();
+  console.log('user', user);
   return (
     <div id="app">
       {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}

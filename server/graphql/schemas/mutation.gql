@@ -47,6 +47,6 @@ module.exports = `
     updateUser(_id: ID!, input: UpdateUserInput): User!
     saveRoute(userId: ID!, routeId: ID!): User!
     unsaveRoute(userId: ID!, routeId: ID!): User!
-    login(input: LoginInput!): String
+    login(email: String!, password: String!): String
   }
   `;

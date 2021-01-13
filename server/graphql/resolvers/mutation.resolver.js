@@ -42,7 +42,7 @@ exports.saveRoute = async (_, { userId, routeId }) =>
 exports.unsaveRoute = async (_, { userId, routeId }) =>
   await User.findByIdAndUpdate(userId, { $pull: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
 
-exports.login = async (_, { input: { email, password } }, { res }) => {
+exports.login = async (_, { email, password }, { res }) => {
   const user = await User.findOne({ email });
   if (!user) {
     res.status(400);

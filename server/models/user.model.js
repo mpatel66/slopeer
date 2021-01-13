@@ -10,12 +10,10 @@ const userSchema = new Schema({
   saved_routes: { type: [{ type: String, ref: 'Route' }], default: [] }
 });
 
-userSchema.methods.generateAuthToken = () => {
+userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     {
       _id: this._id,
-      username: this.username,
-      profile_picture: this.profile_picture
     },
     process.env.JWTPrivateKey
   );
