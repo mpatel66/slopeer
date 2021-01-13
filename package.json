@@ -1,0 +1,39 @@
+{
+  "name": "slopeer",
+  "version": "1.0.0",
+  "description": "App for browsing, saving and creating rock climbing routes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guillemgarciagomez/slopeer.git"
+  },
+  "author": "Guillem Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guillemgarciagomez/slopeer/issues"
+  },
+  "homepage": "https://github.com/guillemgarciagomez/slopeer#readme",
+  "devDependencies": {
+    "cz-changelog": "^1.0.1",
+    "eslint": "^7.17.0",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "husky": "^4.3.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "gulp lint"
+    }
+  },
+  "dependencies": {
+    "gulp-load-plugins": "^2.0.6"
+  }
+}
