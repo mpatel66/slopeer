@@ -5,7 +5,8 @@ function addDefSrcIgnore (srcArr) {
   return srcArr.concat([
     '!node_modules{,/**}',
     '!.git{,/**}',
-    '!**/node_modules{,/**}'
+    '!**/node_modules{,/**}',
+    '!client{,/**}',
   ]);
 }
 
