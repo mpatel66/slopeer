@@ -1,0 +1,7 @@
+module.exports = `
+  type Query {
+    routes(owner: ID public: Boolean): [Route]!
+    route(_id: ID!): Route
+    user(_id: ID!): User
+  }
+  `;

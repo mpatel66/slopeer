@@ -1,0 +1,47 @@
+module.exports = `
+
+  input NewRouteInput {
+    name: String!
+    grade: String!
+    public: Boolean!
+    owner: String!
+    lat: String!
+    lng: String!
+    type: String!
+    picture: String
+    description: String
+  }
+
+  input UpdateRouteInput {
+    name: String
+    grade: String
+    public: Boolean
+    picture: String
+    description: String
+    lat: String
+    lng: String
+  }
+
+  input NewUserInput {
+    email: String!
+    username: String!
+    password: String!
+    profile_picture: String
+  }
+
+   input UpdateUserInput {
+    username: String
+    profile_picture: String
+  }
+
+  type Mutation {
+    createRoute(input: NewRouteInput!): Route!
+    updateRoute(_id: ID!, input: UpdateRouteInput!): Route!
+    removeRoute(_id: ID!): Route!
+    createUser(input: NewUserInput): User
+    updateUser(_id: ID!, input: UpdateUserInput): User!
+    saveRoute(userId: ID!, routeId: ID!): User!
+    unsaveRoute(userId: ID!, routeId: ID!): User!
+    login(email: String, password: String): User
+  }
+  `;
