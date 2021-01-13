@@ -4,7 +4,7 @@ module.exports = `
     name: String!
     grade: String!
     public: Boolean!
-    owner: String!
+    author: String!
     lat: String!
     lng: String!
     type: String!
@@ -34,14 +34,19 @@ module.exports = `
     profile_picture: String
   }
 
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
   type Mutation {
-    createRoute(input: NewRouteInput!): Route!
+    createRoute(input: NewRouteInput!): Route
     updateRoute(_id: ID!, input: UpdateRouteInput!): Route!
     removeRoute(_id: ID!): Route!
-    createUser(input: NewUserInput): User
+    createUser(input: NewUserInput): String
     updateUser(_id: ID!, input: UpdateUserInput): User!
     saveRoute(userId: ID!, routeId: ID!): User!
     unsaveRoute(userId: ID!, routeId: ID!): User!
-    login(email: String, password: String): User
+    login(input: LoginInput!): String
   }
   `;
