@@ -19,12 +19,14 @@ const queries = {
         name
         grade
         picture
+        type
       }
       saved_routes {
         _id
         name
         grade
         picture
+        type
       }
     }
   }

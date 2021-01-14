@@ -8,13 +8,14 @@ import Footer from '../footer';
 import Map from '../../routes/map';
 import Profile from '../../routes/profile';
 import Redirect from '../redirect';
+import MyRoutes from '../../routes/myRoutes';
 
 const AuthenticatedApp = () => (
   <>
     <Router>
       <Map path="/" />
       <Profile path="/profile/" user="me" />
-      <Profile path="/profile/:user" />
+      <MyRoutes path="/myRoutes" />
       <Redirect default to='/' />
     </Router>
     <Footer />

@@ -1,5 +1,5 @@
 import { route } from 'preact-router'
-import { gradeBckgColor, gradeColor } from '../../utils/gradeUtils';
+import { gradeBckgColor, gradeColor } from '../../utils/routes';
 import style from './style.css'
 
 const SmallRouteCard = ({ data: { name, grade, _id } }) =>

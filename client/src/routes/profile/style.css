@@ -19,6 +19,7 @@
   font-size: 1.5rem;
   transition: transform 0.2s;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .logout:hover , .logout:active{

@@ -1,10 +1,10 @@
 const gradeColors = {
-  "1": ["white", "black"],
-  "2": ["white", "black"],
-  "3": ["white", "black"],
-  "4a": ["white", "black"],
-  "4b": ["white", "black"],
-  "4c": ["white", "black"],
+  "1": ["#e6e6e6", "black"],
+  "2": ["#e6e6e6", "black"],
+  "3": ["#e6e6e6", "black"],
+  "4a": ["#e6e6e6", "black"],
+  "4b": ["#e6e6e6", "black"],
+  "4c": ["#e6e6e6", "black"],
   "5a": ["yellow", "black"],
   "5b": ["yellow", "black"],
   "5c": ["yellow", "black"],
@@ -37,4 +37,17 @@ const gradeColors = {
 const gradeBckgColor = grade => gradeColors[grade][0];
 const gradeColor = grade => gradeColors[grade][1];
 
-export { gradeBckgColor, gradeColor }
+const selectPlaceholder = (type) => {
+  switch (type) {
+    case 'boulder':
+      return 'assets/images/boulder.png'
+    case 'psicobloc':
+      return 'assets/images/psicobloc.png'
+    default:
+      return 'assets/images/sport.png'
+  }
+}
+
+const routePicture = (picture, type) => picture ? picture : selectPlaceholder(type);
+
+export { gradeBckgColor, gradeColor, routePicture }
