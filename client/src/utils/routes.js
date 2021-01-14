@@ -40,11 +40,11 @@ const gradeColor = grade => gradeColors[grade][1];
 const selectPlaceholder = (type) => {
   switch (type) {
     case 'boulder':
-      return 'assets/images/boulder.png'
+      return '/assets/images/boulder.png'
     case 'psicobloc':
-      return 'assets/images/psicobloc.png'
+      return '/assets/images/psicobloc.png'
     default:
-      return 'assets/images/sport.png'
+      return '/assets/images/sport.png'
   }
 }
 

@@ -5,7 +5,7 @@ exports.routes = async (_, args) =>
   await Route.find({ ...args })
     .populate('author');
 
-exports.route = () => { };
+exports.route = async (_, { _id }) => await Route.findById(_id).populate('author');
 
 exports.user = async (_, { _id }) =>
   await User.findById(_id)

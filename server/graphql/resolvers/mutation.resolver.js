@@ -39,6 +39,7 @@ exports.updateUser = async (_, { _id, input }) =>
 exports.saveRoute = async (_, { userId, routeId }) =>
   await User.findByIdAndUpdate(userId, { $push: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
 
+
 exports.unsaveRoute = async (_, { userId, routeId }) =>
   await User.findByIdAndUpdate(userId, { $pull: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
 

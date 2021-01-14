@@ -3,7 +3,7 @@ import { gradeBckgColor, gradeColor } from '../../utils/routes';
 import style from './style.css'
 
 const SmallRouteCard = ({ data: { name, grade, _id } }) =>
-  <div class={style.smallCard} onClick={() => route(`/routeDetails/${_id}`)} >
+  <div class={style.smallCard} onClick={() => route(`/route/${_id}`)} >
     <h3 class={style.name}>{name}</h3>
     <div
       style={

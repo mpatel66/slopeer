@@ -1,0 +1,65 @@
+.routeDetails {
+  background-color: #fafafa;
+  color: #333;
+  height: 100%;
+  max-width: 60rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save {
+  width: 4rem;
+}
+
+.picture {
+  max-width: 93%;
+  margin: 0.8rem;
+  box-shadow: 0 0 15px -1px #928888ad;
+  box-sizing: border-box;
+}
+
+.routeInfo {
+  margin: 0 auto;
+  max-width: 30rem;
+}
+.routeInfo > * {
+  margin-left: 1rem;
+}
+
+.grade {
+  text-align: center;
+  padding: 0.6rem 0;
+  max-width: 20rem;
+}
+
+.light, .description {
+  color: #888
+}
+
+.description {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+.show {
+  background-color: #a4161b;
+  color: #fff;
+  border: none;
+  margin-bottom: 4rem;
+  width: 50%;
+  max-width: 20rem;
+  height: 3rem;
+  font-size: 1.3rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.show:hover , .show:active{
+  filter: brightness(90%);
+  transform: translateY(-2px);
+}

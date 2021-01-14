@@ -4,7 +4,7 @@ import { routePicture, gradeColor, gradeBckgColor } from '../../utils/routes';
 import style from './style';
 
 const LargeRouteCard = ({ data: { picture, name, grade, _id, type } }) =>
-  <div class={style.split} onClick={() => route(`routes/${_id}`)}>
+  <div class={style.split} onClick={() => route(`route/${_id}`)}>
     <div class={style.picture} style={{ backgroundImage: `url(${routePicture(picture, type)}` }}></div>
     <div class={style.routeData}>
       <h2 class={style.routeName}>{name}</h2>

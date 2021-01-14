@@ -33,17 +33,17 @@ const queries = {
   `,
   routeDetailsQuery: gql`
     query ($_id: ID!) {
-      routes(_id: $_id) {
+      route(_id: $_id) {
         _id
         name
         grade
         picture
-        owner {
+        author {
           _id
           username
         }
         type
-        notes
+        description
         lat
         lng
     }
@@ -55,6 +55,7 @@ const queries = {
     	username
       profile_picture
     	owned_routes {
+        _id
         name
         public
         grade
