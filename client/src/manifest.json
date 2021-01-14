@@ -1,8 +1,8 @@
 {
   "name": "Slopeer",
   "short_name": "slopeer",
-  "start_url": "/map",
-  "scope": "http://192.168.1.52:8080/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",

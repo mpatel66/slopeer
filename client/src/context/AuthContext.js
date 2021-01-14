@@ -11,38 +11,44 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmZmMDFjNDUyZDA2
 function AuthProvider (props) {
   const [user, setUser] = useState(null)
 
+  const loginWithToken = (token) => {
+    try {
+      const payload = JwtDecode(token);
+      setUser(payload._id ? payload._id : null);
+      localStorage.setItem('accessToken', token);
+    } catch {
+      setUser(null);
+    }
+  }
+
   function checkUser () {
     const token = localStorage.getItem('accessToken');
-    if (token) {
-      try {
-        const payload = JwtDecode(token);
-        const { _id } = payload;
-        setUser(_id ? _id : null);
-      } catch {
-        setUser(null);
-      }
-    } else setUser(null);
+    token ? loginWithToken(token) : setUser(null);
   }
 
   checkUser();
 
+
   const login = async (credentials) => {
-    const res = await authService.login(credentials)
-    const { data } = res;
-    if (data.login) {
-      localStorage.setItem('accessToken', data.login);
-      checkUser();
-    }
-    return { data }
+    const { data: { login: token } } = await authService.login(credentials)
+    if (token) loginWithToken(token);
+    return token ? true : false;
+
   }
-  // const register = () => { } // register the user
+
+  const register = async (data) => {
+    const { data: { createUser: token } } = await authService.register(data)
+    if (token) loginWithToken(token);
+    return token ? true : false;
+  }
+
   const logout = () => {
     localStorage.removeItem('accessToken');
     setUser(null);
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }} {...props} />
+    <AuthContext.Provider value={{ user, register, login, logout }} {...props} />
   )
 }
 

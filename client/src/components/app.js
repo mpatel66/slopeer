@@ -5,7 +5,6 @@ import { useAuth } from '../context/AuthContext';
 
 const App = () => {
   const { user } = useAuth();
-  console.log('user', user);
   return (
     <div id="app">
       {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
