@@ -17,11 +17,12 @@
   width: 50%;
   height: 3rem;
   font-size: 1.5rem;
-  transition: transform 0.2s;
+  transition: all 0.2s;
   cursor: pointer;
   font-weight: bold;
 }
 
 .logout:hover , .logout:active{
-  transform: scale(1.1);
+  filter: brightness(90%);
+  transform: translateY(-2px);
 }
