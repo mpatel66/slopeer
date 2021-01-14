@@ -9,7 +9,8 @@ import Map from '../../routes/map';
 import Profile from '../../routes/profile';
 import Redirect from '../redirect';
 import MyRoutes from '../../routes/myRoutes';
-import RouteDetails from '../routeDetails';
+import RouteDetails from '../../routes/routeDetails';
+import AddRoute from '../../routes/addRoute';
 
 const AuthenticatedApp = () => (
   <>
@@ -18,6 +19,7 @@ const AuthenticatedApp = () => (
       <Profile path="/profile/" user="me" />
       <MyRoutes path="/myRoutes" />
       <RouteDetails path="/route/:id" />
+      <AddRoute path="/addRoute" />
       <Redirect default to='/' />
     </Router>
     <Footer />
