@@ -1,0 +1,9 @@
+.addForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.addForm h3 {
+  margin-bottom: 0;
+}
