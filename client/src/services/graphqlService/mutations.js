@@ -8,7 +8,7 @@ const mutations = {
   `,
   register: gql`
   mutation($email: String!, $username:String!, $password:String!) {
-    createUser(email: $email, username: $username, password: $password)
+    createUser(input: {email: $email, username: $username, password: $password})
   }
   `
 }

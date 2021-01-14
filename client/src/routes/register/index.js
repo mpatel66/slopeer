@@ -18,8 +18,8 @@ const Register = () => {
     if (validateForm()) {
 
       e.preventDefault();
-      const { data: { login: token } } = await register(userData);
-      if (!token) {
+      const success = await register(userData);
+      if (!success) {
         setError(true);
         setUserData(prevData => ({ ...prevData, email: '', password: '' }));
       }
@@ -40,7 +40,7 @@ const Register = () => {
         <input type='text' name='email' value={userData.email} placeholder='Email' />
         <input type='text' name='username' value={userData.username} placeholder='Username' />
         <input type='password' name='password' value={userData.password} placeholder='Password' />
-        <button type='submit' disabled={validateForm()}>Register</button>
+        <button type='submit' disabled={!validateForm()}>Register</button>
       </form>
       {error ? <p>Email already registered!</p> : null}
       <h3>OR</h3>

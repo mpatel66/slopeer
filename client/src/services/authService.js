@@ -1,4 +1,4 @@
-import { client, mutations, queries } from './graphqlService';
+import { client, mutations } from './graphqlService';
 
 const login = async (credentials) => {
   return await client.mutation(mutations.login, credentials)
