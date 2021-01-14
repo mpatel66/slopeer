@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 
 import { useAuth } from '../../context/AuthContext';
 import NavButton from '../../components/navButton';
+import Content from '../../components/content';
 
 const initialCredentials = { email: '', password: '' };
 
@@ -28,7 +29,7 @@ const Login = () => {
   const validateForm = () => credentials.email && credentials.password;
 
   return (
-    <>
+    <Content>
       <h3>Log in to Slopeer</h3>
       <form onChange={handleForm} onSubmit={loginWithCredentials}>
         <input type='text' name='email' value={credentials.email} placeholder='Enter your email' />
@@ -38,7 +39,7 @@ const Login = () => {
       {error ? <p>Invalid email and/or password!</p> : null}
       <h3>OR</h3>
       <NavButton text={'REGISTER'} to={'/register'} />
-    </>
+    </Content >
   )
 }
 export default Login;

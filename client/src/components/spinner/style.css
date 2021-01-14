@@ -1,0 +1,19 @@
+.spinner_wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.spinner {
+  border: 1rem solid #ccc;
+  border-radius: 50%;
+  border-top: 1rem solid  #a4161b;
+  width: 10rem;
+  height: 10rem;
+  animation: spin 1s ease-in-out infinite;
+  margin-top: 50%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

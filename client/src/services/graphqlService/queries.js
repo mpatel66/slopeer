@@ -46,6 +46,19 @@ const queries = {
         lng
     }
     }
+  `,
+  userDataQuery: gql`
+  query($_id: ID!) {
+    user(_id: $_id) {
+    	username
+      profile_picture
+    	owned_routes {
+        name
+        public
+        grade
+    }
+    }
+  }
   `
 }
 

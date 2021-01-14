@@ -1,0 +1,26 @@
+.smallCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0,0,0,.12);
+  width: 90%;
+  margin-bottom: 0.8rem;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.smallCard:hover {
+  transform: translateY(3px);
+  background-color: rgba(204, 204, 204, 0.63);
+}
+
+.grade {
+  width: 4rem;
+  height: 100%;
+  text-align: center;
+  border-left: 1px solid #ccc;
+}
+
+.name {
+  margin-left: 1rem;
+}

@@ -2,6 +2,7 @@ import { useState } from 'preact/hooks';
 
 import { useAuth } from '../../context/AuthContext';
 import NavButton from '../../components/navButton';
+import Content from '../../components/content';
 
 const initialUserData = {
   email: '',
@@ -34,7 +35,7 @@ const Register = () => {
   const validateForm = () => userData.email && userData.username && userData.password
 
   return (
-    <>
+    <Content>
       <h3>Register to Slopeer</h3>
       <form onChange={handleForm} onSubmit={registerUser}>
         <input type='text' name='email' value={userData.email} placeholder='Email' />
@@ -45,7 +46,7 @@ const Register = () => {
       {error ? <p>Email already registered!</p> : null}
       <h3>OR</h3>
       <NavButton text={'LOGIN'} to={'/login'} />
-    </>
+    </Content>
   )
 }
 
