@@ -31,9 +31,11 @@
     "@urql/preact": "^1.4.4",
     "graphql": "^15.4.0",
     "jwt-decode": "^3.1.2",
+    "mapbox-gl": "^2.0.1",
     "preact": "^10.3.2",
     "preact-render-to-string": "^5.1.4",
-    "preact-router": "^3.2.1"
+    "preact-router": "^3.2.1",
+    "worker-loader": "^3.0.7"
   },
   "jest": {
     "preset": "jest-preset-preact",
