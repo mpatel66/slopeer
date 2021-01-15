@@ -6,13 +6,13 @@ import Content from '../../components/content';
 import SmallRouteCard from '../../components/smallRouteCard';
 import style from './style.css';
 
-const defaultPicture = 'assets/images/avatar.svg'
+const defaultPicture = '/assets/images/avatar.svg'
 
-const Profile = () => {
+const Profile = ({ matches: { id } }) => {
   const { user, logout } = useAuth();
   const [{ data, fetching, error }, _] = useQuery({
     query: queries.userDataQuery,
-    variables: { _id: user },
+    variables: { _id: id },
   });
 
   const renderUserData = ({ username, profile_picture, owned_routes }) => {
@@ -22,7 +22,10 @@ const Profile = () => {
       <div class={style.userData}>
         <h1>{username}</h1>
         <img src={profile_picture} alt={`${username} profile picture`} class={style.avatar} />
-        <button onClick={logout} class={style.logout}>LOGOUT</button>
+        {user === id ?
+          <button onClick={logout} class={style.logout}>LOGOUT</button>
+          : null
+        }
         <h2>Public Routes</h2>
         {routes.map(route => <SmallRouteCard data={route} />)}
       </div>

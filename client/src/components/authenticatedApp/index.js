@@ -16,7 +16,7 @@ const AuthenticatedApp = () => (
   <>
     <Router>
       <Map path="/" />
-      <Profile path="/profile/" user="me" />
+      <Profile path="/profile/:id" />
       <MyRoutes path="/myRoutes" />
       <RouteDetails path="/route/:id" />
       <AddRoute path="/addRoute" />

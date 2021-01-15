@@ -36,8 +36,18 @@
   max-width: 20rem;
 }
 
+.author {
+  color: #a4161b;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.author:hover{
+  filter: brightness(90%);
+}
+
 .light, .description {
-  color: #888
+  color: #888;
 }
 
 .description {

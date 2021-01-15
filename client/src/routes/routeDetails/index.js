@@ -1,4 +1,4 @@
-import { route } from 'preact-router';
+import { route, Link } from 'preact-router';
 import { useQuery } from '@urql/preact';
 import { useState } from 'preact/hooks';
 import { queries, toggleSaveRoute } from '../../services/graphqlService';
@@ -38,7 +38,7 @@ const RouteDetails = ({ matches: { id: _id } }) => {
 
   const renderRouteDetails = () => {
 
-    const { name, grade, picture, author: { username }, type, description, lat, lng, _id } = data.route
+    const { name, grade, picture, author: { username, _id: userId }, type, description, lat, lng, _id } = data.route
 
     const owned = userRoutes.user.owned_routes.filter(route => route._id === _id).length > 0;
     setSaved(userRoutes.user.saved_routes.filter(route => route._id === _id).length > 0);
@@ -70,7 +70,7 @@ const RouteDetails = ({ matches: { id: _id } }) => {
           </h3>
         </center>
         <div class={style.routeInfo}>
-          <h2>AUTHOR <span class={style.light}>{username}</span></h2>
+          <h2>AUTHOR <Link href={`/profile/${userId}`} class={style.author}>{username}</Link> </h2>
           <h3>TYPE <span class={style.light}>{type[0].toUpperCase() + type.slice(1)}</span></h3>
           {
             description ?
