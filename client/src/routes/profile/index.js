@@ -1,4 +1,5 @@
 import { useQuery } from '@urql/preact';
+import { route } from 'preact-router';
 import { queries } from '../../services/graphqlService';
 import Spinner from '../../components/spinner';
 import { useAuth } from "../../context/AuthContext";
@@ -23,7 +24,15 @@ const Profile = ({ matches: { id } }) => {
         <h1>{username}</h1>
         <img src={profile_picture} alt={`${username} profile picture`} class={style.avatar} />
         {user === id ?
-          <button onClick={logout} class={style.logout}>LOGOUT</button>
+          <div class={style.personal}>
+            <button onClick={logout} class={style.logout}>LOGOUT</button>
+            <img
+              src='/assets/images/edit.svg'
+              alt='edit'
+              class={style.edit}
+              onClick={() => route('/editProfile')}
+            />
+          </div >
           : null
         }
         <h2>Public Routes</h2>

@@ -10,6 +10,12 @@
   margin-bottom: 2rem;
 }
 
+.personal {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .logout {
   background-color: #a4161b;
   color: #fff;
@@ -22,7 +28,16 @@
   font-weight: bold;
 }
 
-.logout:hover , .logout:active{
+.edit {
+  width: 3rem;
+  margin-left: 2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit:hover,
+.logout:hover{
   filter: brightness(90%);
   transform: translateY(-2px);
 }
+

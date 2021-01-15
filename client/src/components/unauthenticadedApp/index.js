@@ -8,7 +8,7 @@ const UnauthenticatedApp = () =>
   <Router>
     <Login path='/login' />
     <Register path='/register' />
-    <Redirect default to='login' />
+    <Redirect default to='/login' />
   </Router>
 
 export default UnauthenticatedApp;

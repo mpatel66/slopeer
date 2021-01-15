@@ -44,7 +44,14 @@ const mutations = {
       }) {
         _id
       }
+    }`
+  ,
+  updateUser: gql`
+  mutation($_id:ID! ,$username: String!, $profile_picture: String){
+    updateUser(_id:$_id, input: {username: $username, profile_picture:$profile_picture}){
+      _id
     }
-  `
+  }`
+  ,
 }
 export default mutations;

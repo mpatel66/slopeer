@@ -11,6 +11,7 @@ import Redirect from '../redirect';
 import MyRoutes from '../../routes/myRoutes';
 import RouteDetails from '../../routes/routeDetails';
 import AddRoute from '../../routes/addRoute';
+import EditProfile from '../../routes/editProfile';
 
 const AuthenticatedApp = () => (
   <>
@@ -20,6 +21,7 @@ const AuthenticatedApp = () => (
       <MyRoutes path="/myRoutes" />
       <RouteDetails path="/route/:id" />
       <AddRoute path="/addRoute" />
+      <EditProfile path="/editProfile" />
       <Redirect default to='/' />
     </Router>
     <Footer />
