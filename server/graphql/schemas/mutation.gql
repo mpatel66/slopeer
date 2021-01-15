@@ -4,7 +4,7 @@ module.exports = `
     name: String!
     grade: String!
     public: Boolean!
-    author: String!
+    author: ID!
     lat: String!
     lng: String!
     type: String!

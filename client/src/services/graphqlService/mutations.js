@@ -29,5 +29,22 @@ const mutations = {
       }
     }`
   ,
+  createRoute: gql`
+    mutation($name: String!, $grade: String!, $public:Boolean!, $author: ID!, $lat: String!, $lng: String!, $type: String!, $picture: String, $description: String) {
+      createRoute(input: {
+        name: $name,
+        grade: $grade,
+        public: $public,
+        author: $author,
+        lat: $lat,
+        lng: $lng,
+        type: $type,
+        picture: $picture,
+        description: $description
+      }) {
+        _id
+      }
+    }
+  `
 }
 export default mutations;

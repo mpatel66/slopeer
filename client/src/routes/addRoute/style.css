@@ -7,3 +7,32 @@
 .addForm h3 {
   margin-bottom: 0;
 }
+
+.activeButton, .submitReady {
+  background-color: #a4161b;
+  color: #fff;
+  border: none;
+  width: 40%;
+  height: 3rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.ghostButton, .submitPending {
+  background-color: #fff;
+  border: 2px solid #a4161b;
+  color: #a4161b;
+  width: 40%;
+  height: 3rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.buttonWrap{
+  width: 90%;
+  max-width: 30rem;
+  display: flex;
+  justify-content: space-around;
+}
