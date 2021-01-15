@@ -1,0 +1,48 @@
+.preview {
+  background-color: rgba(255, 255, 255, 0.671);
+  color: #333;
+  position: fixed;
+  top: 2rem;
+  margin-left: 1rem;
+  width: 80%;
+  box-shadow: 0 0 15px -1px #928888ad;
+   max-width: 30rem;
+  height: 6rem;
+  z-index: 40;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.preview:hover{
+  filter: brightness(90%);
+}
+
+.picture {
+  height: 100%;
+  width: 10rem;
+  max-width: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.close {
+  align-self: start;
+  border: none;
+  color: #a4161a;
+  font-size: 2rem;
+  font-weight: bolder;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.close:hover {
+  transform: scale(1.1);
+  filter: brightness(90%);
+}
+
+.type {
+  color: #7d7a7a;
+}

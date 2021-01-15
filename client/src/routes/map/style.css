@@ -19,3 +19,22 @@
   padding: 6px;
   font-weight: bold;
 }
+
+.marker {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.marker:hover, .marker:active {
+  filter: brightness(90%);
+  border: 1px solid purple;
+}

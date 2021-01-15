@@ -2,8 +2,11 @@ import { useRef, useState, useEffect } from 'preact/hooks';
 import { useQuery } from '@urql/preact';
 import mapboxgl from 'mapbox-gl';
 
+import RouteMarker from '../../components/routeMarker';
+import RoutePreview from '../../components/routePreview'
 import { queries } from '../../services/graphqlService';
 import style from './style.css';
+import Content from '../../components/content';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoiZG9uZ3VpbGxhdW1lIiwiYSI6ImNram9saHN0bDBhb2Yyc281ZWk0Nmo3ajgifQ.q67m_193eBeK-Jti0fQ0TQ';
@@ -17,6 +20,7 @@ const Map = () => {
   const mapContainerRef = useRef(null);
   const [mapState, setMapState] = useState(initialMapState);
   const [map, setMap] = useState(null);
+  const [routePreview, setRoutePreview] = useState(null);
 
   const [{ data }, _] = useQuery({ query: queries.publicRoutesQuery });
 
@@ -51,10 +55,10 @@ const Map = () => {
   useEffect(() => {
     if (map && data) {
       data.routes.forEach(route => {
-        // let el = RouteMarker(route);
-        // el.className = style.marker;
-        // el.activeClassName = style.markerActive
-        new mapboxgl.Marker()
+        const el = RouteMarker(route.grade);
+        el.className = style.marker;
+        el.addEventListener('click', () => setRoutePreview(route._id));
+        new mapboxgl.Marker(el)
           .setLngLat([route.lng, route.lat])
           .addTo(map);
       })
@@ -63,11 +67,18 @@ const Map = () => {
     , [data, map])
 
   return (
-    <div>
-      <div class={style.sideBarStyle}>
+    <>
+      {routePreview ?
+        <Content>
+          <RoutePreview _id={routePreview} closePreview={() => setRoutePreview(null)} />
+        </Content>
+        : null}
+      <div>
+        <div class={style.sideBarStyle}>
+        </div>
+        <div class={style.mapContainer} ref={mapContainerRef} />
       </div>
-      <div class={style.mapContainer} ref={mapContainerRef} />
-    </div>
+    </>
   );
 }
 
