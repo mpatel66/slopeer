@@ -46,6 +46,22 @@ const mutations = {
       }
     }`
   ,
+  updateRoute: gql`
+  mutation($_id: ID!, $name: String!, $grade: String!, $public:Boolean!, $type: String!, $picture: String, $description: String) {
+    updateRoute(
+      _id: $_id,
+      input: {
+      name: $name,
+      grade: $grade,
+      public: $public,
+      type: $type,
+      picture: $picture,
+      description: $description
+    }) {
+      _id
+    }
+  }`
+  ,
   updateUser: gql`
   mutation($_id:ID! ,$username: String!, $profile_picture: String){
     updateUser(_id:$_id, input: {username: $username, profile_picture:$profile_picture}){

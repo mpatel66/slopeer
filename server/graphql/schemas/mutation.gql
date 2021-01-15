@@ -17,6 +17,7 @@ module.exports = `
     grade: String
     public: Boolean
     picture: String
+    type: String
     description: String
     lat: String
     lng: String

@@ -11,8 +11,16 @@
   justify-content: center;
 }
 
-.save {
-  width: 4rem;
+.icon {
+  width: 3rem;
+  cursor: pointer;
+  margin-left: 2rem;
+  transition: all 0.2s;
+}
+
+.icon:hover {
+  transform: translateY(-3px);
+  filter: brightness(90%);
 }
 
 .picture {

@@ -32,7 +32,6 @@ const EditProfile = () => {
         }));
       }
     } else {
-      console.log(e.target.name, e.target.value);
       setUserData(prevData => ({
         ...prevData,
         [e.target.name]: e.target.value

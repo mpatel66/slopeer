@@ -37,6 +37,7 @@ const queries = {
         _id
         name
         grade
+        public
         picture
         author {
           _id

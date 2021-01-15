@@ -11,6 +11,7 @@ import Content from '../../components/content';
 
 const saveIcon = '/assets/images/save.svg';
 const savedIcon = '/assets/images/saved.svg';
+const editIcon = '/assets/images/edit.svg';
 
 const RouteDetails = ({ matches: { id: _id } }) => {
 
@@ -48,12 +49,18 @@ const RouteDetails = ({ matches: { id: _id } }) => {
         <div class={style.title}>
           <h1>{name}</h1>
           {
-            owned ? null :
+            owned ?
+              <img
+                src={editIcon}
+                alt='edit Icon' class={style.icon}
+                onClick={() => route(`/editRoute/${_id}`)}
+              />
+              :
               <img
                 src={saved ? savedIcon : saveIcon}
                 alt="saveIcon"
                 onClick={handleToggleSave}
-                class={style.save}
+                class={style.icon}
               />
           }
         </div>
