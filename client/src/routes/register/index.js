@@ -3,12 +3,14 @@ import { useState } from 'preact/hooks';
 import { useAuth } from '../../context/AuthContext';
 import NavButton from '../../components/navButton';
 import Content from '../../components/content';
+import style from './style.css';
 
 const initialUserData = {
   email: '',
   username: '',
   password: ''
 }
+const isEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
 
 const Register = () => {
   const { register } = useAuth();
@@ -16,8 +18,7 @@ const Register = () => {
   const [userData, setUserData] = useState(initialUserData);
 
   const registerUser = async (e) => {
-    if (validateForm()) {
-
+    if (isEmail(userData.email) && userData.username && userData.password) {
       e.preventDefault();
       const success = await register(userData);
       if (!success) {
@@ -29,24 +30,32 @@ const Register = () => {
 
 
   const handleForm = (e) => {
+    setError(false);
     setUserData(prevData => ({ ...prevData, [e.target.name]: e.target.value }));
   }
 
-  const validateForm = () => userData.email && userData.username && userData.password
 
   return (
-    <Content>
-      <h3>Register to Slopeer</h3>
-      <form onChange={handleForm} onSubmit={registerUser}>
-        <input type='text' name='email' value={userData.email} placeholder='Email' />
-        <input type='text' name='username' value={userData.username} placeholder='Username' />
-        <input type='password' name='password' value={userData.password} placeholder='Password' />
-        <button type='submit' disabled={!validateForm()}>Register</button>
-      </form>
-      {error ? <p>Email already registered!</p> : null}
-      <h3>OR</h3>
-      <NavButton text={'LOGIN'} to={'/login'} />
-    </Content>
+    <div class={style.main}>
+      <Content addStyle={{ height: '100%' }}>
+        <div class={style.register}>
+          <h1>SLOPEER</h1>
+          <h2>CREATE AN ACCOUNT</h2>
+          <form onChange={handleForm} onSubmit={registerUser}>
+            <input type='text' name='email' value={userData.email} placeholder='Email' />
+            <input type='text' name='username' value={userData.username} placeholder='Username' />
+            <input type='password' name='password' value={userData.password} placeholder='Password' />
+            {error ? <p>Email already registered!</p> :
+              <button type='submit'>Register</button>
+            }
+          </form>
+          <center>
+            <h3>— OR —</h3>
+            <NavButton text={'Log in'} to={'/login'} class={style.login} />
+          </center>
+        </div>
+      </Content>
+    </div>
   )
 }
 
