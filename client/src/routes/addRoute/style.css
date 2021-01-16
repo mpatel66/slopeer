@@ -1,38 +1,51 @@
-.main {
-  color: #333;
-  position: relative;
+.public,
+.coord,
+.type,
+.grade,
+.picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.main::before {
-  content: "";
-  position: fixed;
-  background-image: url(/assets/images/cover.jpg);
-  height: 120%;
-  width: 100%;
-  top: -20%;
+.public input {
+  height: 1.5rem;
+  width: 1.5rem !important;
+  margin-bottom: 0 !important;
 }
 
-.formCard {
-  background-color: #fafafa8a;
-  position: relative;
-  width: 80%;
-  margin: 4rem auto 6rem auto;
-  max-width: 50rem;
-  border-radius: 0.5rem;
+.coords {
+  box-shadow: 0 0 10px -1px rgba(51, 51, 51, 0.692);
 }
 
-.helper {
-  height: 1px;
+.coord input {
+  width: 40% !important;
+  margin-bottom: 0 !important;
 }
 
-.formCard h1{
-  margin: 0;
-  padding: 1rem 0;
-  text-align: center;
-  color: #a4161a;
+.coordsTitle {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
-.activeButton, .submitReady {
+.type select,
+.grade select {
+  width: 60% !important;
+  margin-bottom: 0 !important;
+}
+
+.description {
+  width: 90%;
+  height: 9rem;
+  max-width: 35rem;
+  font-size: 1rem;
+}
+
+.picture {
+  margin: 2rem 0;
+}
+
+.activeButton {
   background-color: #a4161b;
   color: #fff;
   border: none;
@@ -43,7 +56,7 @@
   cursor: pointer;
 }
 
-.ghostButton, .submitPending {
+.ghostButton {
   background-color: #fff;
   border: 2px solid #a4161b;
   color: #a4161b;
@@ -55,8 +68,9 @@
 }
 
 .buttonWrap{
-  width: 90%;
+  width: 100%;
   max-width: 30rem;
   display: flex;
   justify-content: space-around;
+  margin-bottom: 2rem;
 }

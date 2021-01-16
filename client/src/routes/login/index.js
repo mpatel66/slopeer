@@ -43,7 +43,7 @@ const Login = () => {
       </form>
       <center>
         <h3>— OR —</h3>
-        <NavButton text={'Register'} to={'/register'} class={style.register} />
+        <NavButton text={'Register'} to={'/register'} />
       </center>
     </FormCard>
   )

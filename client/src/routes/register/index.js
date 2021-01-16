@@ -2,19 +2,17 @@ import { useState } from 'preact/hooks';
 
 import { useAuth } from '../../context/AuthContext';
 import { NavButton, FormCard } from '../../components';
-import style from './style.css';
 
-const initialUserData = {
-  email: '',
-  username: '',
-  password: ''
-}
 const isEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
 
 const Register = () => {
   const { register } = useAuth();
   const [error, setError] = useState(false);
-  const [userData, setUserData] = useState(initialUserData);
+  const [userData, setUserData] = useState({
+    email: '',
+    username: '',
+    password: ''
+  });
 
   const registerUser = async (e) => {
     if (isEmail(userData.email) && userData.username && userData.password) {
@@ -27,12 +25,10 @@ const Register = () => {
     }
   }
 
-
   const handleForm = (e) => {
     setError(false);
     setUserData(prevData => ({ ...prevData, [e.target.name]: e.target.value }));
   }
-
 
   return (
     <FormCard>
@@ -48,7 +44,7 @@ const Register = () => {
       </form>
       <center>
         <h3>— OR —</h3>
-        <NavButton text={'Log in'} to={'/login'} class={style.login} />
+        <NavButton text={'Log in'} to={'/login'} />
       </center>
     </FormCard>
   )

@@ -13,7 +13,7 @@
 }
 
 .card {
-  background-color: #fafafa8a;
+  background-color: #fafafaa8;
   position: relative;
   width: 80%;
   margin: 4rem auto 6rem auto;
@@ -21,7 +21,8 @@
   border-radius: 0.5rem;
 }
 
-.card h1 {
+.card h1,
+.card h2{
   margin: 0;
   padding: 1rem 0;
   text-align: center;
@@ -34,15 +35,12 @@
   align-items: center;
 }
 
-.card form > * {
-  margin: 1rem 1rem 0 1rem;
+.card form input,
+.card form select
+ {
+  margin: 0 1rem 1rem 1rem;
   width: 90%;
   max-width: 35rem;
-}
-
-
-.card form input,
-.card form select {
   font-size: 1rem;
   background-color: #333;
   color: #fafafa;
@@ -50,7 +48,14 @@
   padding:0.4rem
 }
 
-.card form button {
+.card from checkbox {
+  height: 2rem;
+}
+
+.card form > button {
+  margin: 0 1rem 1rem 1rem;
+  width: 90%;
+  max-width: 35rem;
   background-color: #a4161b;
   padding: 0.5rem;
   color: #fff;
@@ -59,6 +64,26 @@
   transition: all 0.2s;
   cursor: pointer;
   font-weight: bold;
+}
+
+.card center button {
+  background-color: #fafafaa9;
+  border: 3px solid #a4161b;
+  color: #a4161b;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  transition: all 0.2s;
+  cursor: pointer;
+  width: 90%;
+  max-width: 35rem;
+  margin-bottom: 1rem;
+}
+
+.card form button:hover,
+.card center button:hover {
+  filter: brightness(90%);
+  transform: translateY(-2px);
 }
 
 .card form p {

@@ -39,9 +39,10 @@ const EditProfile = () => {
   }
 
   const updateUser = async (e) => {
+    e.preventDefault()
     const { username, profile_picture } = userData;
     const res = await updateProfile({ _id: user, username, profile_picture });
-    route(`/profile/${user}`)
+    route(`/profile/${user}`, true)
   }
 
   if (updatingProfile) return <Spinner />;

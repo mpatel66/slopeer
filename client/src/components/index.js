@@ -10,6 +10,7 @@ import RoutePreview from './routePreview';
 import SmallRouteCard from './smallRouteCard';
 import Spinner from './spinner';
 import UnauthenticatedApp from './unauthenticadedApp';
+import Upload from './upload';
 
 export {
   AuthenticatedApp,
@@ -24,4 +25,5 @@ export {
   SmallRouteCard,
   Spinner,
   UnauthenticatedApp,
+  Upload,
 }
