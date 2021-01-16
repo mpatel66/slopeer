@@ -45,6 +45,7 @@ const Map = () => {
         zoom: newMap.getZoom().toFixed(2)
       }
       setMapState(currentCords);
+      setRoutePreview(null)
       localStorage.setItem('mapLocation', JSON.stringify(currentCords));
     });
 
@@ -70,7 +71,7 @@ const Map = () => {
     <>
       {routePreview ?
         <Content>
-          <RoutePreview _id={routePreview} closePreview={() => setRoutePreview(null)} />
+          <RoutePreview _id={routePreview} />
         </Content>
         : null}
       <div>
