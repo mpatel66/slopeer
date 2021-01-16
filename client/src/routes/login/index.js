@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import NavButton from '../../components/navButton';
 import Content from '../../components/content';
 import style from './style.css';
+import FormCard from '../../components/formCard';
 
 const initialCredentials = { email: '', password: '' };
 
@@ -29,28 +30,24 @@ const Login = () => {
   }
 
   return (
-    <div class={style.main}>
-      <Content addStyle={{ height: '100%' }}>
-        <div class={style.login}>
-          <h1>SLOPEER</h1>
-          <center>
-            <img src='assets/icons/android-chrome-192x192.png' alt='slopeer icon' class={style.icon} />
-          </center>
-          <form onChange={handleForm} onSubmit={loginWithCredentials} class={style.loginForm}>
-            <input type='text' name='email' value={credentials.email} placeholder='Email' />
-            <input type='password' name='password' value={credentials.password} placeholder='Password' />
-            {
-              error ? <p class={style.error}>Invalid email and/or password!</p> :
-                <button type='submit'>Log in</button>
-            }
-          </form>
-          <center>
-            <h3>— OR —</h3>
-            <NavButton text={'Register'} to={'/register'} class={style.register} />
-          </center>
-        </div>
-      </Content >
-    </div>
+    <FormCard>
+      <h1>SLOPEER</h1>
+      <center>
+        <img src='assets/icons/android-chrome-192x192.png' alt='slopeer icon' class={style.icon} />
+      </center>
+      <form onChange={handleForm} onSubmit={loginWithCredentials}>
+        <input type='text' name='email' value={credentials.email} placeholder='Email' />
+        <input type='password' name='password' value={credentials.password} placeholder='Password' />
+        {
+          error ? <p>Invalid email and/or password!</p> :
+            <button type='submit'>Log in</button>
+        }
+      </form>
+      <center>
+        <h3>— OR —</h3>
+        <NavButton text={'Register'} to={'/register'} class={style.register} />
+      </center>
+    </FormCard>
   )
 }
 export default Login;

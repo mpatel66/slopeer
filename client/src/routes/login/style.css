@@ -1,73 +1,5 @@
-.main {
-  height: 100%;
-  width: 100%;
-  background-image: url(/assets/images/cover.jpg);
-  color: #333;
-}
-
-.main h1 {
-  margin: 0;
-  padding: 1rem 0;
-  text-align: center;
-  color: #a4161a;
-}
-
-.login {
-  background-color: #fafafa8a;
-  position: relative;
-  width: 80%;
-  top: 15%;
-  margin-left: 10%;
-  border-radius: 0.5rem;
-}
-
 .icon {
   width: 100px;
-}
-
-.loginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.loginForm > * {
-  margin: 1rem 1rem 0 1rem;
-  width: 90%;
-  max-width: 35rem;
-}
-
-.loginForm input {
-  font-size: 1rem;
-  background-color: #333;
-  color: #fafafa;
-  border: 0;
-  padding:0.4rem
-}
-
-.loginForm button {
-  background-color: #a4161b;
-  padding: 0.5rem;
-  color: #fff;
-  border: none;
-  font-size: 1.2rem;
-  transition: all 0.2s;
-  cursor: pointer;
-  font-weight: bold;
-}
-.loginForm button:hover, .register:hover {
-  filter: brightness(90%);
-  transform: translateY(-2px);
-}
-
-.error {
-  background-color: #a4161b6e;
-  color: #fafafa;
-  font-size: 1rem;
-  font-weight: bold;
-  border: 1px solid #a4161b;
-  text-align: center;
-  padding: 0.5rem;
 }
 
 .register {
@@ -82,4 +14,9 @@
   width: 90%;
   max-width: 35rem;
   margin-bottom: 1rem;
+}
+
+.register:hover {
+  filter: brightness(90%);
+  transform: translateY(-2px);
 }

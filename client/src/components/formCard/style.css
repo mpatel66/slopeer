@@ -1,0 +1,75 @@
+.bcg {
+  color: #333;
+  position: relative;
+}
+
+.bcg::before {
+  content: "";
+  position: fixed;
+  background-image: url(/assets/images/cover.jpg);
+  height: 120%;
+  width: 100%;
+  top: -20%;
+}
+
+.card {
+  background-color: #fafafa8a;
+  position: relative;
+  width: 80%;
+  margin: 4rem auto 6rem auto;
+  max-width: 50rem;
+  border-radius: 0.5rem;
+}
+
+.card h1 {
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+  color: #a4161a;
+}
+
+.card form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card form > * {
+  margin: 1rem 1rem 0 1rem;
+  width: 90%;
+  max-width: 35rem;
+}
+
+
+.card form input {
+  font-size: 1rem;
+  background-color: #333;
+  color: #fafafa;
+  border: 0;
+  padding:0.4rem
+}
+
+.card form button {
+  background-color: #a4161b;
+  padding: 0.5rem;
+  color: #fff;
+  border: none;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.card form p {
+  background-color: #a4161b6e;
+  color: #fafafa;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #a4161b;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.helper {
+  height: 1px;
+}

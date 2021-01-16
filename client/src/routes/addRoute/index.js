@@ -8,6 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 import { grades } from '../../utils/routes';
 import style from './style.css';
 import { mutations } from '../../services/graphqlService';
+import FormCard from '../../components/formCard';
 
 const getPosition = () =>
   new Promise((resolve, reject) => {
@@ -91,64 +92,60 @@ const AddRoute = () => {
   }
 
   return (
-    <Content>
-      {
-        creatingRoute ? <Spinner /> :
-          <>
-            <center>
-              <h1>Add a new route</h1>
-            </center>
-            <form onChange={handleChange} class={style.addForm} onSubmit={handleSubmit}>
-              <h3> Route name</h3>
-              <input type='text' name='name' value={routeData.name} />
-              <h3>Public</h3>
-              <input type='checkbox' id='public' name='public' checked={routeData.public}>
-                <label for='public'>Public</label>
-              </input>
-              <h3>Coordinates</h3>
-              <div>
-                <input type='text' name='lat' value={routeData.lat} readonly />
-                <input type='text' name='lng' value={routeData.lng} readonly />
-              </div>
-              <div class={style.buttonWrap}>
-                <button
-                  onClick={setCurrentLoc}
-                  class={coords === 'current' ? style.activeButton : style.ghostButton}
-                >
-                  Use current coords
+    <FormCard showSpinner={creatingRoute}>
+      <center>
+        <h1>Add a new route</h1>
+      </center>
+      <form onChange={handleChange} class={style.addForm} onSubmit={handleSubmit}>
+        <h3> Route name</h3>
+        <input type='text' name='name' value={routeData.name} />
+        <h3>Public</h3>
+        <input type='checkbox' id='public' name='public' checked={routeData.public}>
+          <label for='public'>Public</label>
+        </input>
+        <h3>Coordinates</h3>
+        <div>
+          <input type='text' name='lat' value={routeData.lat} readonly />
+          <input type='text' name='lng' value={routeData.lng} readonly />
+        </div>
+        <div class={style.buttonWrap}>
+          <button
+            onClick={setCurrentLoc}
+            class={coords === 'current' ? style.activeButton : style.ghostButton}
+          >
+            Use current coords
           </button>
-                <button
-                  onClick={setMapLoc}
-                  class={coords === 'map' ? style.activeButton : style.ghostButton}
-                >
-                  Use map coords
+          <button
+            onClick={setMapLoc}
+            class={coords === 'map' ? style.activeButton : style.ghostButton}
+          >
+            Use map coords
           </button>
-              </div>
-              <h3>Type</h3>
-              <select name='type' value={routeData.type}>
-                <option value='sport'>Sport</option>
-                <option value='boulder'>Boulder</option>
-                <option value='multi-pitch'>Multi-Pitch</option>
-                <option value='psicobloc'>Psicobloc</option>
-              </select>
-              <h3>Grade</h3>
-              <select name='grade' value={routeData.grade}>
-                {grades.map(grade => <option value={grade}>{grade}</option>)}
-              </select>
-              <h3>Description</h3>
-              <textarea name='description' value={routeData.description} />
-              <h3>Picture</h3>
-              <input
-                type='file'
-                name='filename'
-                accept='.png, .jpg'
-                ref={file}
-              />
-              <button type='submit' class={style.activeButton}>Submit</button>
-            </form>
-          </>
-      }
-    </Content>
+        </div>
+        <h3>Type</h3>
+        <select name='type' value={routeData.type}>
+          <option value='sport'>Sport</option>
+          <option value='boulder'>Boulder</option>
+          <option value='multi-pitch'>Multi-Pitch</option>
+          <option value='psicobloc'>Psicobloc</option>
+        </select>
+        <h3>Grade</h3>
+        <select name='grade' value={routeData.grade}>
+          {grades.map(grade => <option value={grade}>{grade}</option>)}
+        </select>
+        <h3>Description</h3>
+        <textarea name='description' value={routeData.description} />
+        <h3>Picture</h3>
+        <input
+          type='file'
+          name='filename'
+          accept='.png, .jpg'
+          ref={file}
+        />
+        <button type='submit' class={style.activeButton}>Submit</button>
+      </form>
+    </FormCard>
+
   )
 }
 

@@ -1,0 +1,17 @@
+const { default: Spinner } = require("../spinner");
+import style from './style'
+
+const FormCard = ({ children, showSpinner }) =>
+  <div class={style.bcg}>
+    {
+      showSpinner ? <Spinner /> :
+        <>
+          <div class={style.card}>
+            {children}
+          </div>
+          <div class={style.helper} />
+        </>
+    }
+  </div>
+
+export default FormCard

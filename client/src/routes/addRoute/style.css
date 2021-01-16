@@ -1,11 +1,35 @@
-.addForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.main {
+  color: #333;
+  position: relative;
 }
 
-.addForm h3 {
-  margin-bottom: 0;
+.main::before {
+  content: "";
+  position: fixed;
+  background-image: url(/assets/images/cover.jpg);
+  height: 120%;
+  width: 100%;
+  top: -20%;
+}
+
+.formCard {
+  background-color: #fafafa8a;
+  position: relative;
+  width: 80%;
+  margin: 4rem auto 6rem auto;
+  max-width: 50rem;
+  border-radius: 0.5rem;
+}
+
+.helper {
+  height: 1px;
+}
+
+.formCard h1{
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+  color: #a4161a;
 }
 
 .activeButton, .submitReady {
