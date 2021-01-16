@@ -1,8 +1,10 @@
 const query = require('./query.resolver');
 const mutation = require('./mutation.resolver');
 const types = require('./types.resolver');
+const { GraphQLUpload } = require('graphql-upload');
 
 module.exports = {
+  FileUpload: GraphQLUpload,
   Query: {
     routes: query.routes,
     route: query.route,

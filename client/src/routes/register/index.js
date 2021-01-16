@@ -1,10 +1,8 @@
 import { useState } from 'preact/hooks';
 
 import { useAuth } from '../../context/AuthContext';
-import NavButton from '../../components/navButton';
-import Content from '../../components/content';
+import { NavButton, FormCard } from '../../components';
 import style from './style.css';
-import FormCard from '../../components/formCard';
 
 const initialUserData = {
   email: '',

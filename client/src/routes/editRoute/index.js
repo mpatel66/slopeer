@@ -4,8 +4,7 @@ import { useMutation } from '@urql/preact';
 
 import { client, queries, mutations } from "../../services/graphqlService";
 import { routePicture, grades } from '../../utils/routes';
-import Content from '../../components/content';
-import Spinner from '../../components/spinner';
+import { Spinner, Content } from '../../components';
 import style from './style.css';
 
 const EditRoute = ({ matches: { id } }) => {

@@ -2,9 +2,8 @@ import { useQuery } from "@urql/preact";
 import { useState } from "preact/hooks"
 
 import style from './style.css'
-import LargeRouteCard from "../../components/largeRouteCard";
+import { LargeRouteCard, Spinner } from '../../components';
 import { queries } from "../../services/graphqlService";
-import Spinner from "../../components/spinner";
 import { useAuth } from "../../context/AuthContext";
 
 

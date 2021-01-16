@@ -2,14 +2,12 @@ import { useRef, useState, useEffect } from 'preact/hooks';
 import { useQuery } from '@urql/preact';
 import mapboxgl from 'mapbox-gl';
 
-import RouteMarker from '../../components/routeMarker';
-import RoutePreview from '../../components/routePreview'
+import { mapboxToken, mapboxStyle } from '../../../config';
+import { RouteMarker, RoutePreview, Content } from '../../components';
 import { queries } from '../../services/graphqlService';
 import style from './style.css';
-import Content from '../../components/content';
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoiZG9uZ3VpbGxhdW1lIiwiYSI6ImNram9saHN0bDBhb2Yyc281ZWk0Nmo3ajgifQ.q67m_193eBeK-Jti0fQ0TQ';
+mapboxgl.accessToken = mapboxToken;
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const Map = () => {
@@ -28,7 +26,7 @@ const Map = () => {
   useEffect(() => {
     const newMap = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/donguillaume/ckjond67s028k19pjfaaxwrkw',
+      style: mapboxStyle,
       center: [mapState.lng, mapState.lat],
       zoom: mapState.zoom
     })

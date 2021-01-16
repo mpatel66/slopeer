@@ -1,4 +1,4 @@
-const { default: Spinner } = require("../spinner");
+import { Spinner } from '../';
 import style from './style'
 
 const FormCard = ({ children, showSpinner }) =>

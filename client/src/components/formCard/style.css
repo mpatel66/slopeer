@@ -41,7 +41,8 @@
 }
 
 
-.card form input {
+.card form input,
+.card form select {
   font-size: 1rem;
   background-color: #333;
   color: #fafafa;

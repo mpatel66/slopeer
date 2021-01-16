@@ -8,7 +8,7 @@ module.exports = `
     lat: String!
     lng: String!
     type: String!
-    picture: String
+    picture: FileUpload
     description: String
   }
 
@@ -16,7 +16,7 @@ module.exports = `
     name: String
     grade: String
     public: Boolean
-    picture: String
+    picture: FileUpload
     type: String
     description: String
     lat: String
@@ -32,7 +32,7 @@ module.exports = `
 
    input UpdateUserInput {
     username: String
-    profile_picture: String
+    profile_picture: FileUpload
   }
 
   input LoginInput {

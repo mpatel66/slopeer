@@ -1,8 +1,7 @@
 import { Link } from 'preact-router/match';
 import style from './style.css';
 
-import NavButton from '../navButton';
-import Content from '../content';
+import { NavButton, Content } from '../'
 import { useAuth } from '../../context/AuthContext';
 
 const Footer = () => {

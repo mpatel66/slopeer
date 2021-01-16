@@ -2,7 +2,7 @@ import { Router } from 'preact-router';
 
 import Login from '../../routes/login';
 import Register from '../../routes/register';
-import Redirect from '../redirect';
+import { Redirect } from '../';
 
 const UnauthenticatedApp = () =>
   <Router>

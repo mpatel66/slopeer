@@ -1,10 +1,17 @@
-import { createClient } from '@urql/preact';
+import { createClient, dedupExchange, cacheExchange } from '@urql/preact';
+import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
+
+import { serverUrl } from '../../../config';
 import queries from './queries';
 import mutations from './mutations';
 
 const client = createClient({
-  url: 'http://localhost:4000/graphql',
-  // url: 'https://lazy-bullfrog-85.loca.lt/graphql',
+  url: `${serverUrl}/graphql`,
+  exchanges: [
+    dedupExchange,
+    cacheExchange,
+    multipartFetchExchange,
+  ],
 });
 
 const toggleSaveRoute = async (saved, userId, routeId) => {

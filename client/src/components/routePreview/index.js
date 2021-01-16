@@ -3,7 +3,7 @@ import { route } from 'preact-router'
 
 import { queries } from '../../services/graphqlService';
 import { routePicture } from '../../utils/routes';
-import Spinner from '../spinner';
+import { Spinner } from '../';
 import style from './style.css'
 
 const RoutePreview = ({ _id }) => {

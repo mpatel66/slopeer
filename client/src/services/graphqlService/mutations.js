@@ -30,7 +30,7 @@ const mutations = {
     }`
   ,
   createRoute: gql`
-    mutation($name: String!, $grade: String!, $public:Boolean!, $author: ID!, $lat: String!, $lng: String!, $type: String!, $picture: String, $description: String) {
+    mutation($name: String!, $grade: String!, $public:Boolean!, $author: ID!, $lat: String!, $lng: String!, $type: String!, $picture: FileUpload, $description: String) {
       createRoute(input: {
         name: $name,
         grade: $grade,
@@ -47,7 +47,7 @@ const mutations = {
     }`
   ,
   updateRoute: gql`
-  mutation($_id: ID!, $name: String!, $grade: String!, $public:Boolean!, $type: String!, $picture: String, $description: String) {
+  mutation($_id: ID!, $name: String!, $grade: String!, $public:Boolean!, $type: String!, $picture: FileUpload, $description: String) {
     updateRoute(
       _id: $_id,
       input: {
@@ -63,7 +63,7 @@ const mutations = {
   }`
   ,
   updateUser: gql`
-  mutation($_id:ID! ,$username: String!, $profile_picture: String){
+  mutation($_id:ID! ,$username: String!, $profile_picture: FileUpload){
     updateUser(_id:$_id, input: {username: $username, profile_picture:$profile_picture}){
       _id
     }

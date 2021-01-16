@@ -1,6 +1,4 @@
-import { h } from 'preact';
-import AuthenticatedApp from './authenticatedApp';
-import UnauthenticatedApp from './unauthenticadedApp';
+import { AuthenticatedApp, UnauthenticatedApp } from './'
 import { useAuth } from '../context/AuthContext';
 
 const App = () => {

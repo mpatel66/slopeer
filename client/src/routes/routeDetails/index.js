@@ -6,8 +6,8 @@ import { useAuth } from '../../context/AuthContext';
 import { gradeBckgColor, gradeColor, routePicture } from '../../utils/routes'
 
 import style from './style.css'
-import Spinner from '../../components/spinner';
-import Content from '../../components/content';
+import { Spinner, Content } from '../../components';
+
 
 const saveIcon = '/assets/images/save.svg';
 const savedIcon = '/assets/images/saved.svg';

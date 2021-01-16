@@ -2,13 +2,12 @@ import { useState, useRef, useEffect } from 'preact/hooks';
 import { route } from 'preact-router'
 import { useMutation } from '@urql/preact';
 
-import Content from '../../components/content';
-import Spinner from '../../components/spinner';
+
 import { useAuth } from '../../context/AuthContext';
 import { grades } from '../../utils/routes';
 import style from './style.css';
 import { mutations } from '../../services/graphqlService';
-import FormCard from '../../components/formCard';
+import { FormCard } from '../../components/';
 
 const getPosition = () =>
   new Promise((resolve, reject) => {

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { User, Route } = require('../../models');
+const { uploadProfilePicture } = require('../../utils/uploads');
 
 exports.createRoute = async (_, { input }) => {
   const route = await Route.create(input);
@@ -33,8 +34,11 @@ exports.createUser = async (_, { input: { email, username, password, profile_pic
   return user.generateAuthToken();
 };
 
-exports.updateUser = async (_, { _id, input }) =>
-  await User.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
+exports.updateUser = async (_, { _id, input }) => {
+  const picturePath = await uploadProfilePicture(input.profile_picture, _id);
+  input.profile_picture = picturePath;
+  return await User.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
+};
 
 exports.saveRoute = async (_, { userId, routeId }) =>
   await User.findByIdAndUpdate(userId, { $push: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });

@@ -2,7 +2,7 @@
 import { h } from 'preact';
 import { Router } from 'preact-router';
 
-import Footer from '../footer';
+import { Footer } from '../';
 
 // Code-splitting is automated for `routes` directory
 import Map from '../../routes/map';
