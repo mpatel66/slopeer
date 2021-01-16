@@ -27,7 +27,6 @@ module.exports = `
     email: String!
     username: String!
     password: String!
-    profile_picture: String
   }
 
    input UpdateUserInput {

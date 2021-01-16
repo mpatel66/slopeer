@@ -17,7 +17,6 @@ const getPosition = () =>
 const AddRoute = () => {
 
   const { user } = useAuth();
-  const file = useRef();
   const [{ fetching: creatingRoute }, createRoute] = useMutation(mutations.createRoute);
 
   const initialData = {
@@ -28,7 +27,6 @@ const AddRoute = () => {
     description: '',
     lat: '',
     lng: '',
-    picture: file,
     author: user
   }
 
@@ -70,19 +68,27 @@ const AddRoute = () => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    if (name !== 'filename') {
+    if (name === 'picture') {
+      if (target.validity.valid && target.files) {
+        setRouteData(prevData => ({
+          ...prevData,
+          picture: target.files[0]
+        }));
+      }
+    } else {
       setRouteData(prevData => ({
         ...prevData,
         [name]: value
       }));
     }
+
     setReady(routeData.name.length > 0)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (ready) {
-      const variables = { ...routeData, picture: null }
+      const variables = { ...routeData }
       const response = await createRoute(variables)
       if (!response.error) {
         route(`route/${response.data.createRoute._id}`);
@@ -137,9 +143,8 @@ const AddRoute = () => {
         <h3>Picture</h3>
         <input
           type='file'
-          name='filename'
+          name='picture'
           accept='.png, .jpg'
-          ref={file}
         />
         <button type='submit' class={style.activeButton}>Submit</button>
       </form>

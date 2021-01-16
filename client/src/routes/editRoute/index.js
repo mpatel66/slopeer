@@ -20,7 +20,6 @@ const EditRoute = ({ matches: { id } }) => {
       public: isPublic,
       type,
       description,
-      picture
     } = currentData.data.route
 
     setRouteData({
@@ -29,7 +28,6 @@ const EditRoute = ({ matches: { id } }) => {
       public: isPublic,
       type,
       description,
-      picture
     })
   }, []);
 
@@ -38,7 +36,14 @@ const EditRoute = ({ matches: { id } }) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    if (name !== 'file') {
+    if (name === 'picture') {
+      if (target.validity.valid && target.files) {
+        setRouteData(prevData => ({
+          ...prevData,
+          picture: target.files[0]
+        }));
+      }
+    } else {
       setRouteData(prevData => ({
         ...prevData,
         [name]: value
@@ -48,6 +53,7 @@ const EditRoute = ({ matches: { id } }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('routeData', routeData);
     await updateRoute({ _id: id, ...routeData });
     route(`/route/${id}`);
   }
@@ -81,10 +87,9 @@ const EditRoute = ({ matches: { id } }) => {
               <h3>Description</h3>
               <textarea name='description' value={routeData.description} />
               <h3>Picture</h3>
-              <img src={routePicture(routeData.picture)} alt={`${routeData.name} picture`} />
               <input
                 type='file'
-                name='file'
+                name='picture'
                 accept='.png, .jpg'
               />
               <button type='submit' class={style.activeButton}>Submit</button>

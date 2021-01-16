@@ -18,4 +18,4 @@ const uploadPicture = async (picture, id, folder) => {
 };
 
 module.exports.uploadProfilePicture = async (picture, id) => await uploadPicture(picture, id, '../public/profile_pictures');
-module.exports.uploadRoutePicture = async (picture, id) => await uploadPicture(picture, id, '../public/profile_pictures');
+module.exports.uploadRoutePicture = async (picture, id) => await uploadPicture(picture, id, '../public/route_pictures');

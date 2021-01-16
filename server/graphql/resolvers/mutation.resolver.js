@@ -1,16 +1,28 @@
 const bcrypt = require('bcrypt');
 const { User, Route } = require('../../models');
-const { uploadProfilePicture } = require('../../utils/uploads');
+const { uploadProfilePicture, uploadRoutePicture } = require('../../utils/uploads');
 
 exports.createRoute = async (_, { input }) => {
-  const route = await Route.create(input);
+  const route = new Route({ ...input, picture: null });
+
+  if (input.picture) {
+    const picturePath = await uploadRoutePicture(input.picture, route._id);
+    route.picture = picturePath;
+
+  }
+  await route.save();
   await User.findByIdAndUpdate(input.author, { $push: { 'owned_routes': String(route._id) } },
     { useFindAndModify: false });
   return route;
 };
 
-exports.updateRoute = async (_, { _id, input }) =>
-  await Route.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
+exports.updateRoute = async (_, { _id, input }) => {
+  if (input.picture) {
+    const picturePath = await uploadRoutePicture(input.picture, _id);
+    input.picture = picturePath;
+  }
+  return await Route.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
+};
 
 exports.removeRoute = async (_, { _id }) => {
   const route = await Route.findByIdAndDelete(_id);
@@ -19,14 +31,14 @@ exports.removeRoute = async (_, { _id }) => {
   return route;
 };
 
-exports.createUser = async (_, { input: { email, username, password, profile_picture } }, { res }) => {
+exports.createUser = async (_, { input: { email, username, password } }, { res }) => {
   let user = await User.findOne({ email });
   if (user) {
     res.status(409);
     return;
   }
 
-  user = new User({ email, username, password, profile_picture, owned_routes: [], saved_routes: [] });
+  user = new User({ email, username, password, owned_routes: [], saved_routes: [] });
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
@@ -35,8 +47,10 @@ exports.createUser = async (_, { input: { email, username, password, profile_pic
 };
 
 exports.updateUser = async (_, { _id, input }) => {
-  const picturePath = await uploadProfilePicture(input.profile_picture, _id);
-  input.profile_picture = picturePath;
+  if (input.profile_picture) {
+    const picturePath = await uploadProfilePicture(input.profile_picture, _id);
+    input.profile_picture = picturePath;
+  }
   return await User.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
 };
 
