@@ -28,6 +28,7 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
+    "@urql/exchange-graphcache": "^3.4.0",
     "@urql/exchange-multipart-fetch": "^0.1.11",
     "@urql/preact": "^1.4.4",
     "graphql": "^15.4.0",
