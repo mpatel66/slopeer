@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from 'preact/hooks';
 import { route } from 'preact-router';
 
 import { mutations, client, queries } from '../../services/graphqlService';
-import { Spinner, Content } from '../../components';
+import { Spinner, Content, FormCard, Upload } from '../../components';
 import { useAuth } from "../../context/AuthContext";
 import style from './style.css'
 
@@ -45,25 +45,15 @@ const EditProfile = () => {
     route(`/profile/${user}`, true)
   }
 
-  if (updatingProfile) return <Spinner />;
-
-  return (
-    <Content>
-      <form onSubmit={updateUser} onChange={handleChange}>
-        <h2>Username</h2>
-        <input type='text' name='username' value={userData.username} />
-        <h3>Profile picture</h3>
-        <input
-          type='file'
-          name='profile_picture'
-          accept='.png, .jpg'
-          ref={file}
-        />
-        <button type='submit'>Submit</button>
-      </form>
-    </Content>
-  )
-
+  return <FormCard>
+    <form onSubmit={updateUser} onChange={handleChange}>
+      <h1>EDIT PROFILE</h1>
+      <h2>Username</h2>
+      <input type='text' name='username' value={userData.username} />
+      <Upload name={'profile_picture'} />
+      <button type='submit'>Submit</button>
+    </form>
+  </FormCard>
 
 }
 

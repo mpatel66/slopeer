@@ -1,3 +1,15 @@
+.upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+}
+
+
 .select input[type='file'],
 .selected input[type='file']  {
   display: none;
@@ -16,8 +28,6 @@
   padding: 0.5rem;
   margin-left: 1rem;
 }
-
-
 
 .select > *,
 .selected > *{
@@ -39,4 +49,10 @@
 .selected {
   background-color: #a4161a;
   color: #fafafa;
+}
+
+.filename {
+  margin: 0 1rem 1rem 1rem;
+  color: #a4161a;
+  text-align: center;
 }

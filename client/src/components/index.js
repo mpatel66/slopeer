@@ -7,6 +7,7 @@ import NavButton from './navButton';
 import Redirect from './redirect';
 import RouteMarker from './routeMarker';
 import RoutePreview from './routePreview';
+import RouteForm from './routeForm';
 import SmallRouteCard from './smallRouteCard';
 import Spinner from './spinner';
 import UnauthenticatedApp from './unauthenticadedApp';
@@ -26,4 +27,5 @@ export {
   Spinner,
   UnauthenticatedApp,
   Upload,
+  RouteForm,
 }

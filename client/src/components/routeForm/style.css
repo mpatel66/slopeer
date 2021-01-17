@@ -1,0 +1,76 @@
+.public,
+.coord,
+.type,
+.grade,
+.picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.public input {
+  height: 1.5rem;
+  width: 1.5rem !important;
+  margin-bottom: 0 !important;
+}
+
+.coords {
+  box-shadow: 0 0 10px -1px rgba(51, 51, 51, 0.692);
+}
+
+.coord input {
+  width: 40% !important;
+  margin-bottom: 0 !important;
+}
+
+.coordsTitle {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.type select,
+.grade select {
+  width: 60% !important;
+  margin-bottom: 0 !important;
+}
+
+.description {
+  width: 90%;
+  height: 9rem;
+  max-width: 35rem;
+  font-size: 1rem;
+}
+
+.picture {
+  margin: 2rem 0;
+}
+
+.activeButton {
+  background-color: #a4161b;
+  color: #fff;
+  border: none;
+  width: 40%;
+  height: 3rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.ghostButton {
+  background-color: #fff;
+  border: 2px solid #a4161b;
+  color: #a4161b;
+  width: 40%;
+  height: 3rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.buttonWrap{
+  width: 100%;
+  max-width: 30rem;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}

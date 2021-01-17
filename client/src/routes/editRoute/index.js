@@ -4,7 +4,7 @@ import { useMutation } from '@urql/preact';
 
 import { client, queries, mutations } from "../../services/graphqlService";
 import { routePicture, grades } from '../../utils/routes';
-import { Spinner, Content } from '../../components';
+import { Spinner, Content, RouteForm } from '../../components';
 import style from './style.css';
 
 const EditRoute = ({ matches: { id } }) => {
@@ -31,26 +31,6 @@ const EditRoute = ({ matches: { id } }) => {
     })
   }, []);
 
-  const handleChange = (e) => {
-    const { target } = e;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    if (name === 'picture') {
-      if (target.validity.valid && target.files) {
-        setRouteData(prevData => ({
-          ...prevData,
-          picture: target.files[0]
-        }));
-      }
-    } else {
-      setRouteData(prevData => ({
-        ...prevData,
-        [name]: value
-      }));
-    }
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log('routeData', routeData);
@@ -58,46 +38,53 @@ const EditRoute = ({ matches: { id } }) => {
     route(`/route/${id}`);
   }
 
-  return (
-    <Content>
-      {
-        updatingRoute ? <Spinner /> :
-          <>
-            <center>
-              <h1>Edit Route</h1>
-            </center>
-            <form onChange={handleChange} class={style.addForm} onSubmit={handleSubmit}>
-              <h3> Route name</h3>
-              <input type='text' name='name' value={routeData.name} />
-              <h3>Public</h3>
-              <input type='checkbox' id='public' name='public' checked={routeData.public}>
-                <label for='public'>Public</label>
-              </input>
-              <h3>Type</h3>
-              <select name='type' value={routeData.type}>
-                <option value='sport'>Sport</option>
-                <option value='boulder'>Boulder</option>
-                <option value='multi-pitch'>Multi-Pitch</option>
-                <option value='psicobloc'>Psicobloc</option>
-              </select>
-              <h3>Grade</h3>
-              <select name='grade' value={routeData.grade}>
-                {grades.map(grade => <option value={grade}>{grade}</option>)}
-              </select>
-              <h3>Description</h3>
-              <textarea name='description' value={routeData.description} />
-              <h3>Picture</h3>
-              <input
-                type='file'
-                name='picture'
-                accept='.png, .jpg'
-              />
-              <button type='submit' class={style.activeButton}>Submit</button>
-            </form>
-          </>
-      }
-    </Content>
-  )
+  return <RouteForm
+    title={'EDIT ROUTE'}
+    showSpinner={updatingRoute}
+    routeData={routeData}
+    setRouteData={setRouteData}
+    onSubmit={handleSubmit}
+    hasCoords={false}
+  />
+
+  // <Content>
+  //   {
+  //     updatingRoute ? <Spinner /> :
+  //       <>
+  //         <center>
+  //           <h1>Edit Route</h1>
+  //         </center>
+  //         <form onChange={handleChange} class={style.addForm} onSubmit={handleSubmit}>
+  //           <h3> Route name</h3>
+  //           <input type='text' name='name' value={routeData.name} />
+  //           <h3>Public</h3>
+  //           <input type='checkbox' id='public' name='public' checked={routeData.public}>
+  //             <label for='public'>Public</label>
+  //           </input>
+  //           <h3>Type</h3>
+  //           <select name='type' value={routeData.type}>
+  //             <option value='sport'>Sport</option>
+  //             <option value='boulder'>Boulder</option>
+  //             <option value='multi-pitch'>Multi-Pitch</option>
+  //             <option value='psicobloc'>Psicobloc</option>
+  //           </select>
+  //           <h3>Grade</h3>
+  //           <select name='grade' value={routeData.grade}>
+  //             {grades.map(grade => <option value={grade}>{grade}</option>)}
+  //           </select>
+  //           <h3>Description</h3>
+  //           <textarea name='description' value={routeData.description} />
+  //           <h3>Picture</h3>
+  //           <input
+  //             type='file'
+  //             name='picture'
+  //             accept='.png, .jpg'
+  //           />
+  //           <button type='submit' class={style.activeButton}>Submit</button>
+  //         </form>
+  //       </>
+  //   }
+  // </Content>
 }
 
 export default EditRoute;

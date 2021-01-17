@@ -1,4 +1,4 @@
-import { routePicturesUrl } from "../../config";
+import { profilePicturesUrl, routePicturesUrl } from "../../config";
 
 const gradeColors = {
   "1": ["#e6e6e6", "black"],
@@ -86,6 +86,6 @@ const selectPlaceholder = (type) => {
   }
 }
 
-const routePicture = (picture, type) => picture ? picture : selectPlaceholder(type);
+const routePicture = (picture, type) => picture ? routePicturesUrl + picture : selectPlaceholder(type);
 
 export { gradeBckgColor, gradeColor, routePicture, grades }

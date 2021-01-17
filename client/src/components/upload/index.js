@@ -6,22 +6,34 @@ const selected = '/assets/images/done.svg'
 
 const Upload = ({ name }) => {
 
-  const [fileSelected, setFileSelected] = useState(false);
+  const [fileSelected, setFileSelected] = useState(null);
 
   const handleChange = (e) => {
-    setFileSelected(e.target.validity.valid)
+    if (e.target.validity.valid && e.target.files.length) {
+      setFileSelected(e.target.files[0].name);
+      return;
+    }
+    setFileSelected(null);
   }
 
   return (
-    <label onChange={handleChange} class={fileSelected ? style.selected : style.select}>
-      <input
-        type='file'
-        name={name}
-        accept='.png, .jpg'
-      />
-      <img src={fileSelected ? selected : upload} alt='upload' />
-      {fileSelected ? 'Selected' : 'Select a file'}
-    </label>
+    <div class={style.upload}>
+      <div class={style.main}>
+        <h2>Picture</h2>
+        <label onChange={handleChange} class={fileSelected ? style.selected : style.select}>
+          <input
+            type='file'
+            name={name}
+            accept='.png, .jpg'
+          />
+          <img src={fileSelected ? selected : upload} alt='upload' />
+          {fileSelected ? 'Selected' : 'Select a file'}
+        </label>
+      </div>
+      {fileSelected ?
+        <span class={style.filename}>{fileSelected}</span>
+        : null}
+    </div >
   )
 }
 
