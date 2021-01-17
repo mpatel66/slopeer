@@ -3,24 +3,32 @@ import { route } from 'preact-router'
 import { useMutation } from '@urql/preact';
 
 import { client, queries, mutations } from "../../services/graphqlService";
-import { routePicture, grades } from '../../utils/routes';
-import { Spinner, Content, RouteForm } from '../../components';
-import style from './style.css';
+import { RouteForm } from '../../components';
+import { useAuth } from '../../context/AuthContext';
 
 const EditRoute = ({ matches: { id } }) => {
-
+  const { user } = useAuth()
   const [routeData, setRouteData] = useState({})
   const [{ fetching: updatingRoute }, updateRoute] = useMutation(mutations.updateRoute);
 
   useEffect(async () => {
-    const currentData = await client.query(queries.routeDetailsQuery, { _id: id }).toPromise();
+
+    const { data, error } = await client.query(queries.routeDetailsQuery, { _id: id }).toPromise();
+
+    // If there was an error (i.e. invalid url -> /editRoute/invalidRouteId)
+    // Or if the current user is not the owner of the route, redirect to '/'
+    if (error || data.route.author._id !== user) {
+      route('/');
+      return;
+    }
+
     const {
       name,
       grade,
       public: isPublic,
       type,
       description,
-    } = currentData.data.route
+    } = data.route
 
     setRouteData({
       name,
@@ -46,45 +54,6 @@ const EditRoute = ({ matches: { id } }) => {
     onSubmit={handleSubmit}
     hasCoords={false}
   />
-
-  // <Content>
-  //   {
-  //     updatingRoute ? <Spinner /> :
-  //       <>
-  //         <center>
-  //           <h1>Edit Route</h1>
-  //         </center>
-  //         <form onChange={handleChange} class={style.addForm} onSubmit={handleSubmit}>
-  //           <h3> Route name</h3>
-  //           <input type='text' name='name' value={routeData.name} />
-  //           <h3>Public</h3>
-  //           <input type='checkbox' id='public' name='public' checked={routeData.public}>
-  //             <label for='public'>Public</label>
-  //           </input>
-  //           <h3>Type</h3>
-  //           <select name='type' value={routeData.type}>
-  //             <option value='sport'>Sport</option>
-  //             <option value='boulder'>Boulder</option>
-  //             <option value='multi-pitch'>Multi-Pitch</option>
-  //             <option value='psicobloc'>Psicobloc</option>
-  //           </select>
-  //           <h3>Grade</h3>
-  //           <select name='grade' value={routeData.grade}>
-  //             {grades.map(grade => <option value={grade}>{grade}</option>)}
-  //           </select>
-  //           <h3>Description</h3>
-  //           <textarea name='description' value={routeData.description} />
-  //           <h3>Picture</h3>
-  //           <input
-  //             type='file'
-  //             name='picture'
-  //             accept='.png, .jpg'
-  //           />
-  //           <button type='submit' class={style.activeButton}>Submit</button>
-  //         </form>
-  //       </>
-  //   }
-  // </Content>
 }
 
 export default EditRoute;

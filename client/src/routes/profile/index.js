@@ -41,11 +41,10 @@ const Profile = ({ matches: { id } }) => {
     )
   }
 
-
   return (
     <Content>
       {fetching ? <Spinner /> : null}
-      {error || (data && !data.user) ? <h1>We are sorry. An error ocurred.</h1> : null}
+      {error || (data && !data.user) ? logout() : null}
       {data && data.user ? renderUserData(data.user) : null}
     </Content>
   )

@@ -1,15 +1,13 @@
 import { useMutation } from '@urql/preact';
-import { useRef, useState, useEffect } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import { route } from 'preact-router';
 
 import { mutations, client, queries } from '../../services/graphqlService';
-import { Spinner, Content, FormCard, Upload } from '../../components';
+import { FormCard, Upload } from '../../components';
 import { useAuth } from "../../context/AuthContext";
-import style from './style.css'
 
 const EditProfile = () => {
 
-  const file = useRef();
   const { user } = useAuth();
   const [userData, setUserData] = useState({})
 
@@ -45,12 +43,12 @@ const EditProfile = () => {
     route(`/profile/${user}`, true)
   }
 
-  return <FormCard>
+  return <FormCard showSpinner={updatingProfile}>
     <form onSubmit={updateUser} onChange={handleChange}>
       <h1>EDIT PROFILE</h1>
       <h2>Username</h2>
       <input type='text' name='username' value={userData.username} />
-      <Upload name={'profile_picture'} />
+      <Upload name='profile_picture' />
       <button type='submit'>Submit</button>
     </form>
   </FormCard>

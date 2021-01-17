@@ -18,12 +18,12 @@ const RouteDetails = ({ matches: { id: _id } }) => {
   const { user } = useAuth()
   const [saved, setSaved] = useState(false);
 
-  const [{ data, fetching }, _] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: queries.routeDetailsQuery,
     variables: { _id },
   });
 
-  const [{ data: userRoutes, fetching: fetchingUser }, __] = useQuery({
+  const [{ data: userRoutes, fetching: fetchingUser, error: userError }] = useQuery({
     query: queries.userRoutesQuery,
     variables: { _id: user },
   });
@@ -38,6 +38,11 @@ const RouteDetails = ({ matches: { id: _id } }) => {
   }
 
   const renderRouteDetails = () => {
+
+    if (error || userError || !userRoutes.user) {
+      route('/');
+      return;
+    }
 
     const { name, grade, picture, author: { username, _id: userId }, type, description, lat, lng, _id } = data.route
 
@@ -66,14 +71,16 @@ const RouteDetails = ({ matches: { id: _id } }) => {
         </div>
         <center>
           <img src={routePicture(picture, type)} alt={name} class={style.picture} />
-          <h3
-            class={style.grade}
-            style={{
+          <h3>
+            Grade:{' '}
+            <span style={{
               backgroundColor: gradeBckgColor(grade),
               color: gradeColor(grade)
             }}
-          >
-            Grade: {grade}
+              class={style.grade}
+            >
+              {grade}
+            </span>
           </h3>
         </center>
         <div class={style.routeInfo}>
@@ -96,10 +103,11 @@ const RouteDetails = ({ matches: { id: _id } }) => {
   }
 
   return (
-    <Content addStyle={{ height: '100%' }}>
+    <Content addStyle={{ height: '100%', maxWidth: '60rem' }}>
       {
         fetching || fetchingUser ? <Spinner /> : renderRouteDetails()
       }
+      <div class={style.helper}></div>
     </Content>
   );
 }

@@ -1,8 +1,14 @@
 .routeDetails {
   background-color: #fafafa;
   color: #333;
-  height: 100%;
-  max-width: 60rem;
+  min-height: 100%;
+  /* max-width: 60rem; */
+  margin: 4rem 0.5rem;
+  border-radius: 1rem;
+}
+
+.helper{
+  height: 1px;
 }
 
 .title {
@@ -39,9 +45,8 @@
 }
 
 .grade {
-  text-align: center;
-  padding: 0.6rem 0;
-  max-width: 20rem;
+  border-radius: 1rem;
+  padding: 0.5rem 2rem;
 }
 
 .author {

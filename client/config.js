@@ -1,4 +1,4 @@
-// const url = 'https://nice-mouse-45.loca.lt';
+// const url = 'https://terrible-hound-28.loca.lt';
 const url = 'http://localhost:4000';
 
 module.exports = {

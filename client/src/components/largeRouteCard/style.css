@@ -6,7 +6,8 @@
   width: 90%;
   margin-top: 0.6rem;
   margin-bottom: 0.6rem;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0,0,0,.12);
+  /* box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0,0,0,.12); */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
   max-width: 800px;
   background-color: #fff;
   color: #000;
@@ -14,9 +15,14 @@
   transition: all 0.2s;
 }
 
+
 .split:hover, .split:active {
   filter: brightness(90%);
   transform: translateY(2px);
+}
+
+.split h1 {
+font-size: 20px;
 }
 
 .routeData {
@@ -33,11 +39,24 @@
   margin-bottom: 0;
 }
 
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 0.5rem;
+  overflow: hidden;
+}
+
 .routeType {
   color: #7d7a7a;
+  margin: 0.5rem;
+  width: 8rem;
 }
 
 .routeGrade  {
+  border-radius: 1rem;
+  width: 6rem;
   padding: 0.5rem;
   margin-top: 0;
 }
