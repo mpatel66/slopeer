@@ -24,7 +24,7 @@ const Upload = ({ name }) => {
           <input
             type='file'
             name={name}
-            accept='.png, .jpg'
+            accept='.png, .jpg, .jpeg'
           />
           <img src={fileSelected ? selected : upload} alt='upload' />
           {fileSelected ? 'Selected' : 'Select a file'}

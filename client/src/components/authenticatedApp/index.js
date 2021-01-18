@@ -17,9 +17,9 @@ import EditRoute from '../../routes/editRoute';
 const AuthenticatedApp = () => (
   <>
     <Router>
-      <Map path='/' />
+      <Map path='/map' />
       <Profile path='/profile/:id' />
-      <MyRoutes path='/myRoutes' />
+      <MyRoutes path='/' />
       <RouteDetails path='/route/:id' />
       <AddRoute path='/addRoute' />
       <EditProfile path='/editProfile' />

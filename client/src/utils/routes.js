@@ -88,4 +88,4 @@ const selectPlaceholder = (type) => {
 
 const routePicture = (picture, type) => picture ? routePicturesUrl + picture : selectPlaceholder(type);
 
-export { gradeBckgColor, gradeColor, routePicture, grades }
+export { gradeBckgColor, gradeColor, routePicture, grades, selectPlaceholder }

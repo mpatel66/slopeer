@@ -69,3 +69,8 @@ font-size: 20px;
   background-size: cover;
   background-position: center;
 }
+
+.image{
+  height:100%;
+  width: 100%;
+}

@@ -3,7 +3,7 @@ import { route } from 'preact-router';
 
 import { profilePicturesUrl } from '../../../config'
 import { queries } from '../../services/graphqlService';
-import { Spinner, Content, SmallRouteCard } from '../../components';
+import { Spinner, Content, SmallRouteCard, Picture } from '../../components';
 import { useAuth } from "../../context/AuthContext";
 import style from './style.css';
 
@@ -22,6 +22,13 @@ const Profile = ({ matches: { id } }) => {
     return (
       <div class={style.userData}>
         <h1>{username}</h1>
+        <Picture
+          profile={true}
+          picture={profile_picture}
+          username={username}
+          pictureStyle={style.avatar}
+          imgStyle={{ height: '100%', width: '100%' }}
+        />
         <img src={profile_picture} alt={`${username} profile picture`} class={style.avatar} />
         {user === id ?
           <div class={style.personal}>

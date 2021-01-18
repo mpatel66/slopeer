@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { gradeBckgColor, gradeColor, routePicture } from '../../utils/routes'
 
 import style from './style.css'
+import './style.css'
 import { Spinner, Content } from '../../components';
 
 

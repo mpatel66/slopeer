@@ -17,6 +17,7 @@
     "graphql": "^15.4.0",
     "graphql-upload": "^11.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.11"
+    "mongoose": "^5.11.11",
+    "webp-converter": "^2.3.1"
   }
 }
