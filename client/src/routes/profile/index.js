@@ -1,7 +1,6 @@
 import { useQuery } from '@urql/preact';
 import { route } from 'preact-router';
 
-import { profilePicturesUrl } from '../../../config'
 import { queries } from '../../services/graphqlService';
 import { Spinner, Content, SmallRouteCard, Picture } from '../../components';
 import { useAuth } from "../../context/AuthContext";
@@ -17,7 +16,6 @@ const Profile = ({ matches: { id } }) => {
   });
 
   const renderUserData = ({ username, profile_picture, owned_routes }) => {
-    profile_picture = profile_picture ? profilePicturesUrl + profile_picture : defaultPicture;
     const routes = owned_routes.filter(route => route.public);
     return (
       <div class={style.userData}>
@@ -27,9 +25,8 @@ const Profile = ({ matches: { id } }) => {
           picture={profile_picture}
           username={username}
           pictureStyle={style.avatar}
-          imgStyle={{ height: '100%', width: '100%' }}
+          imgStyle={style.image}
         />
-        <img src={profile_picture} alt={`${username} profile picture`} class={style.avatar} />
         {user === id ?
           <div class={style.personal}>
             <button onClick={logout} class={style.logout}>LOGOUT</button>

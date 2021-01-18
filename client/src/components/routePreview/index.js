@@ -5,6 +5,7 @@ import { queries } from '../../services/graphqlService';
 import { routePicture } from '../../utils/routes';
 import { Spinner } from '../';
 import style from './style.css'
+import { Picture } from '../';
 
 const RoutePreview = ({ _id }) => {
   const [{ data, fetching }, _] = useQuery({
@@ -18,7 +19,14 @@ const RoutePreview = ({ _id }) => {
 
   return (
     <div class={style.preview} onClick={() => route(`route/${_id}`)}>
-      <div class={style.picture} style={{ backgroundImage: `url(${routePicture(picture, type)}` }}></div>
+      <Picture
+        profile={false}
+        picture={picture}
+        type={type}
+        routename={name}
+        pictureStyle={style.picture}
+        imgStyle={style.image}
+      />
       <div class={style.details}>
         <h3>{name}</h3>
         <h4 class={style.type}>{type[0].toUpperCase() + type.slice(1)}</h4>

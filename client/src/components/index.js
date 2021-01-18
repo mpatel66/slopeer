@@ -13,6 +13,7 @@ import Spinner from './spinner';
 import UnauthenticatedApp from './unauthenticadedApp';
 import Upload from './upload';
 import Picture from './picture';
+import OfflineWarning from './offlineWarning';
 
 export {
   AuthenticatedApp,
@@ -29,5 +30,6 @@ export {
   UnauthenticatedApp,
   Upload,
   RouteForm,
-  Picture
+  Picture,
+  OfflineWarning
 }

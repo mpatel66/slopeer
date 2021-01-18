@@ -1,7 +1,7 @@
 import { profilePicturesUrl, routePicturesUrl } from '../../../config';
 import { selectPlaceholder } from '../../utils/routes';
 
-const Picture = ({ profile, picture, username, type, routename, pictureStyle, imgStyle }) => {
+const Picture = ({ profile, picture, username, type, routename, pictureStyle }) => {
   const baseUrl = profile ? profilePicturesUrl : routePicturesUrl;
   let defaultUrl;
   let webpUrl;
@@ -21,8 +21,8 @@ const Picture = ({ profile, picture, username, type, routename, pictureStyle, im
       }
       <source srcset={defaultUrl} />
       {
-        profile ? <img src={defaultUrl} alt={`${username} profile_picture`} class={imgStyle} /> :
-          <img src={defaultUrl} alt={`${routename} picture`} class={imgStyle} />
+        profile ? <img src={defaultUrl} alt={`${username} profile_picture`} style={{ height: '100%', width: '100%' }} /> :
+          <img src={defaultUrl} alt={`${routename} picture`} style={{ height: '100%', width: '100%' }} />
       }
     </picture>
   )

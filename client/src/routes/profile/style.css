@@ -10,11 +10,17 @@
   margin-bottom: 2rem;
 }
 
+.image{
+  height: 100%;
+  width: 100%;
+}
+
 .personal {
   display: flex;
   width: 100%;
   justify-content: center;
 }
+
 
 .logout {
   background-color: #a4161b;

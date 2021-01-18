@@ -1,0 +1,13 @@
+.warning {
+  position: fixed;
+    height: 2.5rem;
+    width: 2.5rem;
+    top: 1rem;
+    z-index: 51;
+    right: 1rem;
+    background-color: #fafafa;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid #a4161a;
+    padding: 0.5rem;
+}
