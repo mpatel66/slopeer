@@ -7,7 +7,6 @@
     "build": "preact build",
     "serve": "sirv build --port 8080 --cors --single",
     "dev": "preact watch",
-    "dev2": "preact build --prerender --prerenderUrls src/prerender-urls.json --template src/template.html",
     "lint": "eslint src",
     "test": "jest"
   },

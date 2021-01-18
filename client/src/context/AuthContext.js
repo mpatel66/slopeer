@@ -5,17 +5,16 @@ import JwtDecode from 'jwt-decode';
 import * as authService from '../services/authService';
 
 const AuthContext = createContext()
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmZmMDFjNDUyZDA2M2QwM2RiN2Y1MmUiLCJpYXQiOjE2MTA1NTc5NTV9.Dh5RgFLDaAtEtwfcYXp0SSaP3j8zUV599fDw2Lu7ZTM';
-
 
 function AuthProvider (props) {
   const [user, setUser] = useState(null)
 
   const loginWithToken = (token) => {
     try {
-      const payload = JwtDecode(token);
-      setUser(payload._id ? payload._id : null);
+      const { _id, exp } = JwtDecode(token);
+      if (Date.now() > exp * 1000) throw new Error()
       localStorage.setItem('accessToken', token);
+      setUser(_id);
     } catch {
       setUser(null);
     }
@@ -27,7 +26,6 @@ function AuthProvider (props) {
   }
 
   checkUser();
-
 
   const login = async (credentials) => {
     const { data: { login: token } } = await authService.login(credentials)

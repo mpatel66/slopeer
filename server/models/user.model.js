@@ -15,7 +15,8 @@ userSchema.methods.generateAuthToken = function () {
     {
       _id: this._id,
     },
-    process.env.JWTPrivateKey
+    process.env.JWTPrivateKey,
+    { expiresIn: '3d' }
   );
   return token;
 };
