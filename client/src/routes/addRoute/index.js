@@ -14,22 +14,22 @@ const getPosition = () =>
 
 
 const parseCoords = (lat, lng) => ({
-  lat: Number(latitude).toFixed(4),
-  lng: Number(longitude).toFixed(4)
+  lat: Number(lat).toFixed(4),
+  lng: Number(lng).toFixed(4)
 });
 
-const initialData = {
-  name: '',
-  public: true,
-  type: 'sport',
-  grade: '1',
-  description: '',
-  lat: '',
-  lng: '',
-  author: useAuth().user
-}
 
 const AddRoute = () => {
+  const initialData = {
+    name: '',
+    public: true,
+    type: 'sport',
+    grade: '1',
+    description: '',
+    lat: '',
+    lng: '',
+    author: useAuth().user
+  }
   const [{ fetching: creatingRoute }, createRoute] = useMutation(mutations.createRoute);
   const [routeData, setRouteData] = useState(initialData);
   const [coords, setCoords] = useState('current');

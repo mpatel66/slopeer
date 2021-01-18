@@ -14,6 +14,7 @@ const queries = {
   userRoutesQuery: gql`
   query ($_id: ID!) {
     user(_id: $_id) {
+      _id
       owned_routes {
         _id
         name
@@ -53,6 +54,7 @@ const queries = {
   userDataQuery: gql`
   query($_id: ID!) {
     user(_id: $_id) {
+      _id
     	username
       profile_picture
     	owned_routes {

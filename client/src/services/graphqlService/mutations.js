@@ -14,6 +14,7 @@ const mutations = {
   saveRoute: gql`
     mutation($userId: ID!, $routeId: ID!) {
       saveRoute(userId: $userId, routeId: $routeId) {
+        _id
         saved_routes {
           _id
         }
@@ -23,6 +24,7 @@ const mutations = {
   unsaveRoute: gql`
     mutation($userId: ID!, $routeId: ID!) {
       unsaveRoute(userId: $userId, routeId: $routeId) {
+        _id
         saved_routes {
           _id
         }

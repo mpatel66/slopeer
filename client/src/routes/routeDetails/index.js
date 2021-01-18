@@ -24,13 +24,18 @@ const RouteDetails = ({ matches: { id: _id } }) => {
     variables: { _id },
   });
 
-  const [{ data: userRoutes, fetching: fetchingUser, error: userError }] = useQuery({
+  const [{ data: userRoutes, fetching: fetchingUser, error: userError }, refreshUser] = useQuery({
     query: queries.userRoutesQuery,
     variables: { _id: user },
   });
 
+
+
   const handleToggleSave = async () => {
-    await toggleSaveRoute(saved, user, _id);
+    const { error, data } = await toggleSaveRoute(saved, user, _id);
+    if (!error) {
+      refreshUser({ requestPolicy: 'network-only' });
+    }
   }
 
   const showRouteInMap = (lat, lng) => {
