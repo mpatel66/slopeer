@@ -6,13 +6,15 @@
 }
 
 .avatar {
-  width: 320px;
+  width: 90%;
+  max-width:25rem;
   margin-bottom: 2rem;
 }
 
 .image{
   height: 100%;
   width: 100%;
+  box-shadow: 0 0 10px -1px rgba(0,0,0,0.5);
 }
 
 .personal {

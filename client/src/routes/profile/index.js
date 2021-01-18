@@ -6,8 +6,6 @@ import { Spinner, Content, SmallRouteCard, Picture } from '../../components';
 import { useAuth } from "../../context/AuthContext";
 import style from './style.css';
 
-const defaultPicture = '/assets/images/avatar.svg'
-
 const Profile = ({ matches: { id } }) => {
   const { user, logout } = useAuth();
   const [{ data, fetching, error }, _] = useQuery({
@@ -25,7 +23,7 @@ const Profile = ({ matches: { id } }) => {
           picture={profile_picture}
           username={username}
           pictureStyle={style.avatar}
-          imgStyle={style.image}
+          imageStyle={style.image}
         />
         {user === id ?
           <div class={style.personal}>

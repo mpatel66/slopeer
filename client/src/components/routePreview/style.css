@@ -22,13 +22,15 @@
   height: 100%;
   width: 10rem;
   max-width: 50%;
-  background-size: cover;
-  background-position: center;
+  overflow: hidden;
 }
 
 .image{
-  height: 100%;
+  height: 6rem;
   width: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .details {

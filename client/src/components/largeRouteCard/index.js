@@ -12,7 +12,7 @@ const LargeRouteCard = ({ data: { picture, name, grade, _id, type } }) =>
       type={type}
       routename={name}
       pictureStyle={style.picture}
-      imgStyle={style.image}
+      imageStyle={style.image}
     />
     <div class={style.routeData}>
       <h2 class={style.routeName}>{name}</h2>

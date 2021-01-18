@@ -29,11 +29,10 @@
   filter: brightness(90%);
 }
 
-.picture {
-  max-width: 93%;
-  margin: 0.8rem;
-  box-shadow: 0 0 15px -1px #928888ad;
-  box-sizing: border-box;
+.image {
+  width: 90%;
+  max-width:30rem;
+  box-shadow: 0 0 10px -1px rgba(40,40,40,0.5);
 }
 
 .routeInfo {

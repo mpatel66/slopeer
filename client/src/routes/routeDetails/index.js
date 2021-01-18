@@ -7,7 +7,7 @@ import { gradeBckgColor, gradeColor, routePicture } from '../../utils/routes'
 
 import style from './style.css'
 import './style.css'
-import { Spinner, Content } from '../../components';
+import { Spinner, Content, Picture } from '../../components';
 
 
 const saveIcon = '/assets/images/save.svg';
@@ -71,7 +71,13 @@ const RouteDetails = ({ matches: { id: _id } }) => {
           }
         </div>
         <center>
-          <img src={routePicture(picture, type)} alt={name} class={style.picture} />
+          <Picture
+            profile={false}
+            picture={picture}
+            type={type}
+            routename={name}
+            imageStyle={style.image}
+          />
           <h3>
             Grade:{' '}
             <span style={{

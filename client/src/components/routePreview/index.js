@@ -25,7 +25,7 @@ const RoutePreview = ({ _id }) => {
         type={type}
         routename={name}
         pictureStyle={style.picture}
-        imgStyle={style.image}
+        imageStyle={style.image}
       />
       <div class={style.details}>
         <h3>{name}</h3>
