@@ -2,7 +2,7 @@ import { FormCard, Upload } from '../';
 import { grades } from '../../utils/routes';
 import style from './style.css'
 
-const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, hasCoords, coords, setCurrentLoc, setMapLoc }) => {
+const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, validate, hasCoords, coords, setCurrentLoc, setMapLoc }) => {
 
   const handleChange = (e) => {
     const { target } = e;
@@ -31,7 +31,7 @@ const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, hasC
       </center>
       <form onChange={handleChange} class={style.addForm} onSubmit={onSubmit}>
         <h2> Name </h2>
-        <input type='text' name='name' value={routeData.name} placeholder='Name' />
+        <input type='text' name='name' value={routeData.name} placeholder='Name' onInput={() => console.log('hello')} />
         <div>
 
         </div>

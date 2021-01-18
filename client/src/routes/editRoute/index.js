@@ -13,37 +13,29 @@ const EditRoute = ({ matches: { id } }) => {
 
   useEffect(async () => {
 
-    const { data, error } = await client.query(queries.routeDetailsQuery, { _id: id }).toPromise();
-
+    const { data: { route }, error } = await client.query(queries.routeDetailsQuery, { _id: id }).toPromise();
     // If there was an error (i.e. invalid url -> /editRoute/invalidRouteId)
     // Or if the current user is not the owner of the route, redirect to '/'
-    if (error || data.route.author._id !== user) {
+    if (error || route.author._id !== user) {
       route('/');
       return;
     }
 
-    const {
-      name,
-      grade,
-      public: isPublic,
-      type,
-      description,
-    } = data.route
-
     setRouteData({
-      name,
-      grade,
-      public: isPublic,
-      type,
-      description,
-    })
+      name: route.name,
+      grade: route.grade,
+      public: route.public,
+      type: route.type,
+      description: route.description
+    });
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('routeData', routeData);
-    await updateRoute({ _id: id, ...routeData });
-    route(`/route/${id}`);
+    if (routeData.name) {
+      await updateRoute({ _id: id, ...routeData });
+      route(`/route/${id}`);
+    }
   }
 
   return <RouteForm

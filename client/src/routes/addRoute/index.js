@@ -12,33 +12,37 @@ const getPosition = () =>
     navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true });
   });
 
+
+const parseCoords = (lat, lng) => ({
+  lat: Number(latitude).toFixed(4),
+  lng: Number(longitude).toFixed(4)
+});
+
+const initialData = {
+  name: '',
+  public: true,
+  type: 'sport',
+  grade: '1',
+  description: '',
+  lat: '',
+  lng: '',
+  author: useAuth().user
+}
+
 const AddRoute = () => {
-
-  const { user } = useAuth();
   const [{ fetching: creatingRoute }, createRoute] = useMutation(mutations.createRoute);
-
-  const initialData = {
-    name: '',
-    public: true,
-    type: 'sport',
-    grade: '1',
-    description: '',
-    lat: '',
-    lng: '',
-    author: user
-  }
-
   const [routeData, setRouteData] = useState(initialData);
   const [coords, setCoords] = useState('current');
 
   const setCurrentLoc = async (e) => {
     if (e) e.preventDefault();
-    const { coords: { latitude, longitude } } = await getPosition();
-    setRouteData(prevData => ({
-      ...prevData,
-      lat: Number(latitude).toFixed(4),
-      lng: Number(longitude).toFixed(4)
-    }));
+    if ('navigator' in window) {
+      const { coords: { latitude, longitude } } = await getPosition();
+      setRouteData(prevData => ({
+        ...prevData,
+        ...parseCoords(latitude, longitude)
+      }));
+    }
     setCoords('current')
   }
 
@@ -49,22 +53,21 @@ const AddRoute = () => {
       const { lat, lng } = JSON.parse(mapLoc);
       setRouteData(prevData => ({
         ...prevData,
-        lat: Number(lat).toFixed(4),
-        lng: Number(lng).toFixed(4)
+        ...parseCoords(lat, lng)
       }));
       setCoords('map');
     }
   }
 
   useEffect(async () => {
-    if ('navigator' in window) await setCurrentLoc();
+    await setCurrentLoc();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const variables = { ...routeData }
-    const response = await createRoute(variables)
-    if (!response.error) {
+    if (routeData.name) {
+      const variables = { ...routeData }
+      await createRoute(variables)
       route(`route/${response.data.createRoute._id}`);
     }
   }
