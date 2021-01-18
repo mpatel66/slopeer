@@ -35,7 +35,7 @@ const RouteDetails = ({ matches: { id: _id } }) => {
 
   const showRouteInMap = (lat, lng) => {
     localStorage.setItem('mapLocation', JSON.stringify({ lng, lat, zoom: 20 }));
-    route('/');
+    route('/map');
   }
 
   const renderRouteDetails = () => {
