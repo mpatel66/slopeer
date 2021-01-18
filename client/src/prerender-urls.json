@@ -1,0 +1,11 @@
+[
+  { "url": "/", "title": "Slopeer - My Routes" },
+  { "url": "/login", "title": "Slopeer - Login" },
+  { "url": "/register", "title": "Slopeer - Register" },
+  { "url": "/map", "title": "Slopeer - Map" },
+  { "url": "/profile", "title": "Slopeer - Profile" },
+  { "url": "/editProfile", "title": "Slopeer - Edit profile" },
+  { "url": "/addRoute", "title": "Slopeer - Add Route" },
+  { "url": "/editRoute", "title": "Slopeer - Edit Route" },
+  { "url": "/routeDetails", "title": "Slopeer - Route Details" }
+]
