@@ -19,8 +19,6 @@ app.use(
   jwtCheck,
   graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 11 }));
 
-app.use('/static', express.static('public'));
-
 server.applyMiddleware({ app });
 
 module.exports = app;

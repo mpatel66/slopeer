@@ -42,16 +42,12 @@ const Map = () => {
         lat: newMap.getCenter().lat.toFixed(4),
         zoom: newMap.getZoom().toFixed(2)
       }
-      if (map) { // avoid setting state when map is unmounted
-        setMapState(currentCords);
-        setRoutePreview(null)
-        localStorage.setItem('mapLocation', JSON.stringify(currentCords));
-      }
+      setMapState(currentCords);
+      setRoutePreview(null)
+      localStorage.setItem('mapLocation', JSON.stringify(currentCords));
     });
 
     setMap(newMap)
-
-    return () => setMap(null);
   }, []);
 
   //Add Route Markers when loaded

@@ -4,11 +4,12 @@ import { createContext } from 'preact';
 const NetworkContext = createContext()
 
 function NetworkProvider (props) {
-  console.log('navigator.onLine', navigator.onLine);
   const [online, setOnline] = useState(true);
-
-  window.addEventListener('online', () => setOnline(true));
-  window.addEventListener('offline', () => setOnline(false));
+  if (typeof window !== "undefined") {
+    setOnline(navigator.onLine)
+    window.addEventListener('online', () => setOnline(true));
+    window.addEventListener('offline', () => setOnline(false));
+  }
 
   return <NetworkContext.Provider value={{ online }} {...props} />
 }
