@@ -1,6 +1,6 @@
 import { getFiles, setupPrecaching, setupRouting } from 'preact-cli/sw/';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 registerRoute(

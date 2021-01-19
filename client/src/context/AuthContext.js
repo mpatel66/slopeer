@@ -13,7 +13,7 @@ function AuthProvider (props) {
     try {
       const { _id, exp } = JwtDecode(token);
       if (Date.now() > exp * 1000) throw new Error()
-      localStorage.setItem('accessToken', token);
+      if (typeof window !== undefined) localStorage.setItem('accessToken', token);
       setUser(_id);
     } catch {
       setUser(null);
@@ -21,7 +21,8 @@ function AuthProvider (props) {
   }
 
   function checkUser () {
-    const token = localStorage.getItem('accessToken');
+    let token;
+    if (typeof window !== undefined) token = localStorage.getItem('accessToken');
     token ? loginWithToken(token) : setUser(null);
   }
 
@@ -41,7 +42,7 @@ function AuthProvider (props) {
   }
 
   const logout = () => {
-    localStorage.removeItem('accessToken');
+    if (typeof window !== undefined) localStorage.removeItem('accessToken');
     setUser(null);
   }
 

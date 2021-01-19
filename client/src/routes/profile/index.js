@@ -8,12 +8,14 @@ import style from './style.css';
 
 const Profile = ({ matches: { id } }) => {
   const { user, logout } = useAuth();
+
   const [{ data, fetching, error }, _] = useQuery({
     query: queries.userDataQuery,
     variables: { _id: id },
   });
 
   const renderUserData = ({ username, profile_picture, owned_routes }) => {
+    console.log('data', data);
     const routes = owned_routes.filter(route => route.public);
     return (
       <div class={style.userData}>
