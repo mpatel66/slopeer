@@ -4,10 +4,12 @@ import { route } from 'preact-router';
 import { queries } from '../../services/graphqlService';
 import { Spinner, Content, SmallRouteCard, Picture } from '../../components';
 import { useAuth } from "../../context/AuthContext";
+import { useNetwork } from '../../context/NetworkContext';
 import style from './style.css';
 
 const Profile = ({ matches: { id } }) => {
   const { user, logout } = useAuth();
+  const { online } = useNetwork();
 
   const [{ data, fetching, error }, _] = useQuery({
     query: queries.userDataQuery,
@@ -27,15 +29,18 @@ const Profile = ({ matches: { id } }) => {
           pictureStyle={style.avatar}
           imageStyle={style.image}
         />
-        {user === id ?
+        { user === id ?
           <div class={style.personal}>
             <button onClick={logout} class={style.logout}>LOGOUT</button>
-            <img
-              src='/assets/images/edit.svg'
-              alt='edit'
-              class={style.edit}
-              onClick={() => route('/editProfile')}
-            />
+            {
+              online &&
+              <img
+                src='/assets/images/edit.svg'
+                alt='edit'
+                class={style.edit}
+                onClick={() => route('/editProfile')}
+              />
+            }
           </div >
           : null
         }

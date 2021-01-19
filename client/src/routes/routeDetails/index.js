@@ -8,6 +8,7 @@ import { gradeBckgColor, gradeColor, routePicture } from '../../utils/routes'
 import style from './style.css'
 import './style.css'
 import { Spinner, Content, Picture } from '../../components';
+import { useNetwork } from '../../context/NetworkContext';
 
 
 const saveIcon = '/assets/images/save.svg';
@@ -16,7 +17,8 @@ const editIcon = '/assets/images/edit.svg';
 
 const RouteDetails = ({ matches: { id: _id } }) => {
 
-  const { user } = useAuth()
+  const { user } = useAuth();
+  const { online } = useNetwork();
   const [saved, setSaved] = useState(false);
 
   const [{ data, fetching, error }] = useQuery({
@@ -61,20 +63,26 @@ const RouteDetails = ({ matches: { id: _id } }) => {
       <div class={style.routeDetails}>
         <div class={style.title}>
           <h1>{name}</h1>
-          {
-            owned ?
-              <img
-                src={editIcon}
-                alt='edit Icon' class={style.icon}
-                onClick={() => route(`/editRoute/${_id}`)}
-              />
-              :
-              <img
-                src={saved ? savedIcon : saveIcon}
-                alt="saveIcon"
-                onClick={handleToggleSave}
-                class={style.icon}
-              />
+          {online &&
+            <>
+              {
+
+                owned ?
+                  <img
+                    src={editIcon}
+                    alt='edit Icon' class={style.icon}
+                    onClick={() => route(`/editRoute/${_id}`)}
+                  />
+                  :
+                  <img
+                    src={saved ? savedIcon : saveIcon}
+                    alt="saveIcon"
+                    onClick={handleToggleSave}
+                    class={style.icon}
+                  />
+
+              }
+            </>
           }
         </div>
         <center>
