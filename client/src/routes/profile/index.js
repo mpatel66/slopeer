@@ -17,7 +17,6 @@ const Profile = ({ matches: { id } }) => {
   });
 
   const renderUserData = ({ username, profile_picture, owned_routes }) => {
-    console.log('data', data);
     const routes = owned_routes.filter(route => route.public);
     return (
       <div class={style.userData}>

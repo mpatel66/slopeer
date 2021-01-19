@@ -9,7 +9,7 @@ import queries from './queries';
 import mutations from './mutations';
 
 let cache;
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   const storage = makeDefaultStorage({
     idbName: 'graphcache-v3', // The name of the IndexedDB database
     maxAge: 7, // The maximum age of the persisted data in days

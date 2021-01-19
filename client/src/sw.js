@@ -1,6 +1,6 @@
 import { getFiles, setupPrecaching, setupRouting } from 'preact-cli/sw/';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
+import { StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 registerRoute(
@@ -11,7 +11,7 @@ registerRoute(
 
 registerRoute(
   ({ request }) => request.destination === 'image',
-  new CacheFirst({
+  new NetworkFirst({
     cacheName: 'images',
     plugins: [
       new ExpirationPlugin({

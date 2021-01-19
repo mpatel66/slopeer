@@ -11,8 +11,10 @@ mapboxgl.accessToken = mapboxToken;
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const Map = () => {
-
-  const savedLocation = localStorage.getItem('mapLocation');
+  let savedLocation;
+  if (typeof window !== 'undefined') {
+    savedLocation = localStorage.getItem('mapLocation');
+  }
   let initialMapState = savedLocation ? JSON.parse(savedLocation) : { lng: 2, lat: 42, zoom: 8 };
 
   const mapContainerRef = useRef(null);
@@ -44,7 +46,9 @@ const Map = () => {
       }
       setMapState(currentCords);
       setRoutePreview(null)
-      localStorage.setItem('mapLocation', JSON.stringify(currentCords));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('mapLocation', JSON.stringify(currentCords));
+      }
     });
 
     setMap(newMap)

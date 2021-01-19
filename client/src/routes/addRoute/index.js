@@ -36,7 +36,7 @@ const AddRoute = () => {
 
   const setCurrentLoc = async (e) => {
     if (e) e.preventDefault();
-    if (typeof window !== undefined && 'navigator' in window) {
+    if (typeof window !== 'undefined' && 'navigator' in window) {
       const { coords: { latitude, longitude } } = await getPosition();
       setRouteData(prevData => ({
         ...prevData,
@@ -48,7 +48,10 @@ const AddRoute = () => {
 
   const setMapLoc = (e) => {
     e.preventDefault()
-    const mapLoc = localStorage.getItem('mapLocation');
+    let mapLoc
+    if (typeof window !== 'undefined') {
+      localStorage.getItem('mapLocation');
+    }
     if (mapLoc) {
       const { lat, lng } = JSON.parse(mapLoc);
       setRouteData(prevData => ({
