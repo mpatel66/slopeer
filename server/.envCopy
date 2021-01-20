@@ -1,0 +1,6 @@
+DB_HOST=
+DB=
+JWTPrivateKey=
+AWS_S3_ID=
+AWS_S3_SECRET=
+BUCKET=
