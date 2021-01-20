@@ -1,4 +1,4 @@
-const url = 'https://fast-shrimp-58.loca.lt';
+const url = 'https://little-shrimp-96.loca.lt';
 // const url = 'http://localhost:4000';
 
 module.exports = {
