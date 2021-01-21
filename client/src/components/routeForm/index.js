@@ -1,9 +1,8 @@
 import { FormCard, Upload } from '../';
 import { grades } from '../../utils/routes';
-import style from './style.css'
+import style from './style.css';
 
 const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, validate, hasCoords, coords, setCurrentLoc, setMapLoc }) => {
-
   const handleChange = (e) => {
     const { target } = e;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -22,7 +21,7 @@ const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, vali
         [name]: value
       }));
     }
-  }
+  };
 
   return (
     <FormCard showSpinner={showSpinner}>
@@ -40,8 +39,8 @@ const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, vali
           <input type='checkbox' id='public' name='public' checked={routeData.public} />
         </div>
         {
-          hasCoords ?
-            <div class={style.coords} >
+          hasCoords
+            ? <div class={style.coords} >
               <h2 class={style.coordsTitle}>Coordinates</h2>
               <div class={style.coord}>
                 <h3>Latitude</h3>
@@ -67,7 +66,8 @@ const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, vali
                   Map
                 </button>
               </div>
-            </div> : null
+            </div>
+            : null
         }
         <div class={style.type}>
           <h2>Type</h2>
@@ -94,8 +94,7 @@ const RouteForm = ({ title, showSpinner, routeData, setRouteData, onSubmit, vali
         <button type='submit' class={style.activeButton}>Submit</button>
       </form>
     </FormCard>
-  )
-}
+  );
+};
 
 export default RouteForm;
-

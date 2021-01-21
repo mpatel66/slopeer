@@ -28,7 +28,6 @@ const LargeRouteCard = ({ data: { picture, name, grade, _id, type } }) =>
           {grade}</h3>
       </div>
     </div>
-  </div>
+  </div>;
 
-
-export default LargeRouteCard
+export default LargeRouteCard;

@@ -32,4 +32,4 @@ export {
   RouteForm,
   Picture,
   OfflineWarning
-}
+};

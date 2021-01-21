@@ -7,11 +7,12 @@ const Picture = ({ profile, picture, username, type, routename, pictureStyle, im
   let webpUrl;
 
   if (picture) {
-    webpUrl = baseUrl + picture.split('.')[0] + '.webp'
+    webpUrl = baseUrl + picture.split('.')[0] + '.webp';
     defaultUrl = baseUrl + picture;
   } else {
-    defaultUrl = profile ? '/assets/images/avatar.svg' :
-      selectPlaceholder(type);
+    defaultUrl = profile
+      ? '/assets/images/avatar.svg'
+      : selectPlaceholder(type);
   }
 
   return (
@@ -21,11 +22,12 @@ const Picture = ({ profile, picture, username, type, routename, pictureStyle, im
       }
       <source srcset={defaultUrl} />
       {
-        profile ? <img src={defaultUrl} alt={`${username} profile_picture`} class={imageStyle} /> :
-          <img src={defaultUrl} alt={`${routename} picture`} class={imageStyle} />
+        profile
+          ? <img src={defaultUrl} alt={`${username} profile_picture`} class={imageStyle} />
+          : <img src={defaultUrl} alt={`${routename} picture`} class={imageStyle} />
       }
     </picture>
-  )
-}
+  );
+};
 
 export default Picture;

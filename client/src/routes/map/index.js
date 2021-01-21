@@ -15,7 +15,7 @@ const Map = () => {
   if (typeof window !== 'undefined') {
     savedLocation = localStorage.getItem('mapLocation');
   }
-  let initialMapState = savedLocation ? JSON.parse(savedLocation) : { lng: 2, lat: 42, zoom: 8 };
+  const initialMapState = savedLocation ? JSON.parse(savedLocation) : { lng: 2, lat: 42, zoom: 8 };
 
   const mapContainerRef = useRef(null);
   const [mapState, setMapState] = useState(initialMapState);
@@ -31,7 +31,7 @@ const Map = () => {
       style: mapboxStyle,
       center: [mapState.lng, mapState.lat],
       zoom: mapState.zoom
-    })
+    });
 
     newMap.addControl(new mapboxgl.GeolocateControl({
       positionOptions: { enableHighAccuracy: true },
@@ -43,18 +43,18 @@ const Map = () => {
         lng: newMap.getCenter().lng.toFixed(4),
         lat: newMap.getCenter().lat.toFixed(4),
         zoom: newMap.getZoom().toFixed(2)
-      }
+      };
       setMapState(currentCords);
-      setRoutePreview(null)
+      setRoutePreview(null);
       if (typeof window !== 'undefined') {
         localStorage.setItem('mapLocation', JSON.stringify(currentCords));
       }
     });
 
-    setMap(newMap)
+    setMap(newMap);
   }, []);
 
-  //Add Route Markers when loaded
+  // Add Route Markers when loaded
   useEffect(() => {
     if (map && data) {
       data.routes.forEach(route => {
@@ -64,15 +64,15 @@ const Map = () => {
         new mapboxgl.Marker(el)
           .setLngLat([route.lng, route.lat])
           .addTo(map);
-      })
+      });
     }
   }
-    , [data, map])
+  , [data, map]);
 
   return (
     <>
-      {routePreview ?
-        <Content>
+      {routePreview
+        ? <Content>
           <RoutePreview _id={routePreview} />
         </Content>
         : null}
@@ -83,6 +83,6 @@ const Map = () => {
       </div>
     </>
   );
-}
+};
 
 export default Map;

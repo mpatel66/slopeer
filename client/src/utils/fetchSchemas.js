@@ -1,5 +1,5 @@
 const { getIntrospectionQuery } = require('graphql');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 const fs = require('fs');
 
 fetch('http://localhost:4000/graphql', {
@@ -7,8 +7,8 @@ fetch('http://localhost:4000/graphql', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     variables: {},
-    query: getIntrospectionQuery({ descriptions: false }),
-  }),
+    query: getIntrospectionQuery({ descriptions: false })
+  })
 })
   .then(result => result.json())
   .then(({ data }) => {

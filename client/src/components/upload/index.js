@@ -1,11 +1,9 @@
 import { useState } from 'preact/hooks';
-
-import style from './style.css'
-const upload = '/assets/images/upload.svg'
-const selected = '/assets/images/done.svg'
+import style from './style.css';
+const upload = '/assets/images/upload.svg';
+const selected = '/assets/images/done.svg';
 
 const Upload = ({ name }) => {
-
   const [fileSelected, setFileSelected] = useState(null);
 
   const handleChange = (e) => {
@@ -14,7 +12,7 @@ const Upload = ({ name }) => {
       return;
     }
     setFileSelected(null);
-  }
+  };
 
   return (
     <div class={style.upload}>
@@ -30,11 +28,11 @@ const Upload = ({ name }) => {
           {fileSelected ? 'Selected' : 'Select a file'}
         </label>
       </div>
-      {fileSelected ?
-        <span class={style.filename}>{fileSelected}</span>
+      {fileSelected
+        ? <span class={style.filename}>{fileSelected}</span>
         : null}
     </div >
-  )
-}
+  );
+};
 
-export default Upload
+export default Upload;

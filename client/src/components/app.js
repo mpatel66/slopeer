@@ -11,7 +11,7 @@ const App = () => {
       {online ? <span /> : <OfflineWarning />}
       {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
     </div>
-  )
-}
+  );
+};
 
 export default App;

@@ -16,12 +16,11 @@ registerRoute(
     plugins: [
       new ExpirationPlugin({
         maxEntries: 60,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-      }),
-    ],
+        maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+      })
+    ]
   })
 );
 
 setupRouting();
 setupPrecaching(getFiles());
-

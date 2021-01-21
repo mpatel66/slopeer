@@ -6,6 +6,6 @@ const Redirect = ({ to }) => {
     route(to);
   }, []);
   return null;
-}
+};
 
 export default Redirect;

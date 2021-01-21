@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2018",
+    "jsx": "react-jsx",
+    // "lib": ["dom", "esnext"],
+    "jsxImportSource": "preact",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "allowJs": true,
+  },
+  // "include": ["src/**/*.tsx", "src/**/*.ts"]
+}

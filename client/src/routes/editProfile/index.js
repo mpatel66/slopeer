@@ -4,19 +4,17 @@ import { route } from 'preact-router';
 
 import { mutations, client, queries } from '../../services/graphqlService';
 import { FormCard, Upload } from '../../components';
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from '../../context/AuthContext';
 
 const EditProfile = () => {
-
   const { user } = useAuth();
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState({});
 
   useEffect(async () => {
     const currentData = await client.query(queries.userDataQuery, { _id: user }).toPromise();
-    const { username } = currentData.data.user
-    setUserData({ username })
+    const { username } = currentData.data.user;
+    setUserData({ username });
   }, []);
-
 
   const [{ fetching: updatingProfile }, updateProfile] = useMutation(mutations.updateUser);
 
@@ -34,14 +32,14 @@ const EditProfile = () => {
         [e.target.name]: e.target.value
       }));
     }
-  }
+  };
 
   const updateUser = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const { username, profile_picture } = userData;
     const res = await updateProfile({ _id: user, username, profile_picture });
-    route(`/profile/${user}`, true)
-  }
+    route(`/profile/${user}`, true);
+  };
 
   return <FormCard showSpinner={updatingProfile}>
     <form onSubmit={updateUser} onChange={handleChange}>
@@ -51,8 +49,7 @@ const EditProfile = () => {
       <Upload name='profile_picture' />
       <button type='submit'>Submit</button>
     </form>
-  </FormCard>
-
-}
+  </FormCard>;
+};
 
 export default EditProfile;

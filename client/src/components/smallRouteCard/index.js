@@ -1,6 +1,6 @@
-import { route } from 'preact-router'
+import { route } from 'preact-router';
 import { gradeBckgColor, gradeColor } from '../../utils/routes';
-import style from './style.css'
+import style from './style.css';
 
 const SmallRouteCard = ({ data: { name, grade, _id } }) =>
   <div class={style.smallCard} onClick={() => route(`/route/${_id}`)} >
@@ -15,6 +15,6 @@ const SmallRouteCard = ({ data: { name, grade, _id } }) =>
     >
       <h3>{grade}</h3>
     </div>
-  </div >
+  </div >;
 
 export default SmallRouteCard;

@@ -1,8 +1,8 @@
-import style from './style.css'
+import style from './style.css';
 
 const Spinner = () =>
   <div class={style.spinner_wrapper}>
     <div class={style.spinner} />
-  </div>
+  </div>;
 
-export default Spinner
+export default Spinner;

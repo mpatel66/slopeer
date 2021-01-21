@@ -20,12 +20,12 @@ const Login = () => {
         setCredentials(initialCredentials);
       }
     }
-  }
+  };
 
   const handleForm = (e) => {
     setError(false);
     setCredentials(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
-  }
+  };
 
   return (
     <FormCard>
@@ -37,8 +37,9 @@ const Login = () => {
         <input type='text' name='email' value={credentials.email} placeholder='Email' />
         <input type='password' name='password' value={credentials.password} placeholder='Password' />
         {
-          error ? <p>Invalid email and/or password!</p> :
-            <button type='submit'>Log in</button>
+          error
+            ? <p>Invalid email and/or password!</p>
+            : <button type='submit'>Log in</button>
         }
       </form>
       <center>
@@ -46,6 +47,6 @@ const Login = () => {
         <NavButton text={'Register'} to={'/register'} />
       </center>
     </FormCard>
-  )
-}
+  );
+};
 export default Login;

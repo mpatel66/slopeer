@@ -23,12 +23,12 @@ const Register = () => {
         setUserData(prevData => ({ ...prevData, email: '', password: '' }));
       }
     }
-  }
+  };
 
   const handleForm = (e) => {
     setError(false);
     setUserData(prevData => ({ ...prevData, [e.target.name]: e.target.value }));
-  }
+  };
 
   return (
     <FormCard>
@@ -38,8 +38,9 @@ const Register = () => {
         <input type='text' name='email' value={userData.email} placeholder='Email' />
         <input type='text' name='username' value={userData.username} placeholder='Username' />
         <input type='password' name='password' value={userData.password} placeholder='Password' />
-        {error ? <p>Email already registered!</p> :
-          <button type='submit'>Register</button>
+        {error
+          ? <p>Email already registered!</p>
+          : <button type='submit'>Register</button>
         }
       </form>
       <center>
@@ -47,8 +48,7 @@ const Register = () => {
         <NavButton text={'Log in'} to={'/login'} />
       </center>
     </FormCard>
-  )
-}
-
+  );
+};
 
 export default Register;

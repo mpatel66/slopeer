@@ -4,15 +4,15 @@ import JwtDecode from 'jwt-decode';
 
 import * as authService from '../services/authService';
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 function AuthProvider (props) {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   const loginWithToken = (token) => {
     try {
       const { _id, exp } = JwtDecode(token);
-      if (Date.now() > exp * 1000) throw new Error()
+      if (Date.now() > exp * 1000) throw new Error();
       if (typeof window !== 'undefined') {
         localStorage.setItem('accessToken', token);
       }
@@ -20,7 +20,7 @@ function AuthProvider (props) {
     } catch {
       setUser(null);
     }
-  }
+  };
 
   function checkUser () {
     let token;
@@ -33,30 +33,29 @@ function AuthProvider (props) {
   checkUser();
 
   const login = async (credentials) => {
-    const { data: { login: token } } = await authService.login(credentials)
+    const { data: { login: token } } = await authService.login(credentials);
     if (token) loginWithToken(token);
-    return token ? true : false;
-
-  }
+    return !!token;
+  };
 
   const register = async (data) => {
-    const { data: { createUser: token } } = await authService.register(data)
+    const { data: { createUser: token } } = await authService.register(data);
     if (token) loginWithToken(token);
-    return token ? true : false;
-  }
+    return !!token;
+  };
 
   const logout = () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('accessToken');
     }
     setUser(null);
-  }
+  };
 
   return (
     <AuthContext.Provider value={{ user, register, login, logout }} {...props} />
-  )
+  );
 }
 
-const useAuth = () => useContext(AuthContext)
+const useAuth = () => useContext(AuthContext);
 
-export { AuthProvider, useAuth }
+export { AuthProvider, useAuth };
