@@ -10,6 +10,6 @@ const routeSchema = new Schema({
   type: { type: String, default: null },
   lat: { type: String, required: true },
   lng: { type: String, required: true }
-});
+}, {autoCreate: true});
 
 module.exports = model('Route', routeSchema);

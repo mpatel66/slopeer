@@ -38,6 +38,7 @@ const AddRoute = () => {
     if (e) e.preventDefault();
     if (typeof window !== 'undefined' && 'navigator' in window) {
       const { coords: { latitude, longitude } } = await getPosition();
+      
       setRouteData(prevData => ({
         ...prevData,
         ...parseCoords(latitude, longitude)

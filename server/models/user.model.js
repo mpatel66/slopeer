@@ -8,7 +8,7 @@ const userSchema = new Schema({
   profile_picture: { type: String, default: null },
   owned_routes: { type: [{ type: String, ref: 'Route' }], default: [] },
   saved_routes: { type: [{ type: String, ref: 'Route' }], default: [] }
-});
+}, {autoCreate: true});
 
 userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
