@@ -8,22 +8,22 @@ import { serverUrl } from '../../../config';
 import queries from './queries';
 import mutations from './mutations';
 
-let cache;
-if (typeof window !== 'undefined') {
-  const storage = makeDefaultStorage({
-    idbName: 'graphcache-v3', // The name of the IndexedDB database
-    maxAge: 7 // The maximum age of the persisted data in days
-  });
-  cache = offlineExchange({ schema, storage });
-} else {
-  cache = cacheExchange;
-}
+// let cache;
+// if (typeof window !== 'undefined') {
+//   const storage = makeDefaultStorage({
+//     idbName: 'graphcache-v3', // The name of the IndexedDB database
+//     maxAge: 7 // The maximum age of the persisted data in days
+//   });
+//   cache = offlineExchange({ schema, storage });
+// } else {
+//   cache = cacheExchange;
+// }
 
 const client = createClient({
   url: `${serverUrl}/graphql`,
   exchanges: [
     dedupExchange,
-    cache,
+    // cache,
     multipartFetchExchange
   ]
 });

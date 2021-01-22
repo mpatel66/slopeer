@@ -1,7 +1,9 @@
 const { User } = require('../../models');
 
 const getRoutes = async (_id, routes) => {
-  const user = await User.findById(_id).populate(routes);
+  const user = await (await User.findById(_id)).execPopulate(routes);
+  console.log(user); 
+
   return user[routes];
 };
 
