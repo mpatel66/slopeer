@@ -1,5 +1,4 @@
-
-import {Document, ObjectId} from 'mongoose';
+import { Document } from 'mongoose';
 
 interface IRoute extends Document {
   name: string;

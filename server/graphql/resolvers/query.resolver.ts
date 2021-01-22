@@ -1,5 +1,7 @@
 import User from '../../models/user.model';
 import Route from '../../models/route.model';
+import IUser from '../../types/user';
+import IRoute, { routeType } from '../../types/route';
 
 // exports.routes = async (_, args) =>
 //   await Route.find({ ...args })
@@ -12,16 +14,23 @@ import Route from '../../models/route.model';
 //     .populate('saved_routes')
 //     .populate('owned_routes');
 
+
+
+// routes will take an authorID and a boolean according to the querySchema file.
+interface IArgs {
+  author: IUser['id'];
+  public: boolean;
+}
+
 const query = {
-  routes: async (_, args) => await Route.find({ ...args }).populate('author'),
+  routes: async (_: any, args: IArgs): Promise<IRoute[]> => await Route.find({ ...args }).populate('author'),
 
-  route: async (_, { _id }) => await Route.findById(_id).populate('author'),
+  route: async (_: any, { _id }: IRoute['_id']): Promise<IRoute> => await Route.findById(_id).populate('author'),
   
-  user: async (_, { _id }) =>
+  user: async (_: any, { _id }: IUser['_id']): Promise<IUser> =>
   await User.findById(_id)
-    .populate('saved_routes')
-    .populate('owned_routes'),
-
+    .populate(routeType.SAVED)
+    .populate(routeType.OWNED),
 }
 
 export default query;

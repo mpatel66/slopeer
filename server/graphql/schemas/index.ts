@@ -3,8 +3,10 @@ import mutationSchema from './mutation';
 import querySchema from './query';
 import typesSchema from './types';
 
-export const schema = gql`
+const schema = gql`
   ${querySchema}
   ${mutationSchema}
   ${typesSchema}
 `;
+
+export default schema;
