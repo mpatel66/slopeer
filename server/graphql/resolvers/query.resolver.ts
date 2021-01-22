@@ -1,7 +1,7 @@
 import User from '../../models/user.model';
 import Route from '../../models/route.model';
 import IUser from '../../types/user';
-import IRoute, { routeType } from '../../types/route';
+import IRoutes, { routeType } from '../../types/route';
 
 // exports.routes = async (_, args) =>
 //   await Route.find({ ...args })
@@ -23,9 +23,9 @@ interface IArgs {
 }
 
 const query = {
-  routes: async (_: any, args: IArgs): Promise<IRoute[]> => await Route.find({ ...args }).populate('author'),
+  routes: async (_: any, args: IArgs): Promise<IRoutes[]> => await Route.find({ ...args }).populate('author'),
 
-  route: async (_: any, { _id }: IRoute['_id']): Promise<IRoute> => await Route.findById(_id).populate('author'),
+  route: async (_: any, { _id }: IRoutes['_id']): Promise<IRoutes> => await Route.findById(_id).populate('author'),
   
   user: async (_: any, { _id }: IUser['_id']): Promise<IUser> =>
   await User.findById(_id)

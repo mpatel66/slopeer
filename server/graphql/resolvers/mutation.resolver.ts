@@ -1,23 +1,34 @@
 import bcrypt from 'bcrypt';
+import IRoutes from '../../types/route';
 import Route from '../../models/route.model';
 import User from '../../models/user.model';
-// import { User, Route } from '../../models';
+import { Response } from 'express';
 import { uploadProfilePicture, uploadRoutePicture } from '../../utils/uploads';
+import IUser from '../../types/user';
 
-export const createRoute = async (_, { input }) => {
+interface ICreateRoute {
+  input: IRoutes
+}
+
+export const createRoute = async (_: any, { input }: ICreateRoute) => {
   const route = new Route({ ...input, picture: null });
   if (input.picture) {
     const picturePath = await uploadRoutePicture(input.picture, route._id);
     route.picture = picturePath;
-
   }
-  await route.save();
+  await route.save(); 
   await User.findByIdAndUpdate(input.author, { $push: { 'owned_routes': String(route._id) } },
     { useFindAndModify: false });
   return route;
 };
 
-export const updateRoute = async (_, { _id, input }) => {
+
+interface IUpdateRoute {
+  _id: IRoutes['_id'];
+  input: IRoutes;
+}
+
+export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<IRoutes> => {
   if (input.picture) {
     const picturePath = await uploadRoutePicture(input.picture, _id);
     input.picture = picturePath;
@@ -25,14 +36,19 @@ export const updateRoute = async (_, { _id, input }) => {
   return await Route.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
 };
 
-export const removeRoute = async (_, { _id }) => {
-  const route = await Route.findByIdAndDelete(_id);
+interface IRemoveRoute {
+  _id: IRoutes['_id'];
+}
+
+export const removeRoute = async (_:any, { _id }: IRemoveRoute) => {
+  const route: IRoutes = await Route.findByIdAndDelete(_id);
   await User.findByIdAndUpdate(route.author, { $pull: { 'owned_routes': _id } }, { useFindAndModify: false });
   await User.updateMany({}, { $pull: { 'saved_routes': _id } });
   return route;
 };
 
-export const createUser = async (_, { input: { email, username, password } }, { res }) => {
+
+export const createUser = async (_: any, { input: { email, username, password }}: {input:IUser}, { res }: {res:Response}): Promise<string|undefined> => {
   let user = await User.findOne({ email });
   if (user) {
     res.status(409);

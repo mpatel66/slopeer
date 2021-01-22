@@ -1,13 +1,13 @@
 import { Document } from 'mongoose';
 
-interface IRoute extends Document {
+interface IRoutes extends Document {
   name: string;
   grade: string;
   author: string; // or objectId?
   public?: boolean;
   picture?: string;
   description?: string;
-  type?:string;
+  type?: routeType;
   lat?: string;
   lng?: string;
 }
@@ -17,4 +17,4 @@ export enum routeType {
   SAVED = 'saved_routes'
 }
 
-export default IRoute;
+export default IRoutes;

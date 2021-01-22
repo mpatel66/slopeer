@@ -11,7 +11,7 @@ const userSchema: Schema = new Schema({
   saved_routes: { type: [{ type: String, ref: 'Route' }], default: [] }
 }, {autoCreate: true});
 
-userSchema.methods.generateAuthToken = function () {
+userSchema.methods.generateAuthToken = function (): string {
   const token = jwt.sign(
     {
       _id: this._id,
