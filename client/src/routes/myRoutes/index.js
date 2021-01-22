@@ -17,8 +17,7 @@ const MyRoutes = () => {
   const [shownRoutes, setShownRoutes] = useState("owned_routes");
 
   const showRoutes = () => {
-    console.log("data", data);
-    data.user[shownRoutes].map((route) => (
+    return data.user[shownRoutes].map((route) => (
       <LargeRouteCard data={route} key={route._id} />
     ));
   };
