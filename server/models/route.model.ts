@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
+import IRoute from '../types/route';
 
 const routeSchema = new Schema({
   name: { type: String, required: true },
@@ -12,6 +13,6 @@ const routeSchema = new Schema({
   lng: { type: String, required: true }
 }, {autoCreate: true});
 
-const Route = model('Route', routeSchema);
+const Route: Model<IRoute> = model('Route', routeSchema);
 
 export default Route;

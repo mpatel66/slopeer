@@ -1,5 +1,6 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Model } from 'mongoose';
 import jwt from 'jsonwebtoken';
+import IUser from '../types/user';
 
 const userSchema: Schema = new Schema({
   email: { type: String, required: true },
@@ -21,6 +22,6 @@ userSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-const User = model('User', userSchema);
+const User: Model<IUser> = model('User', userSchema);
 
 export default User;
