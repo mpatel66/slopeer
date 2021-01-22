@@ -1,4 +1,4 @@
-module.exports = `
+ const mutationSchema = `
 
   input NewRouteInput {
     name: String!
@@ -50,3 +50,5 @@ module.exports = `
     login(email: String!, password: String!): String
   }
   `;
+
+export default mutationSchema;

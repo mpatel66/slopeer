@@ -1,19 +1,18 @@
-const mongoose = require('mongoose');
-
-const Route = require('./route.model');
-const User = require('./user.model');
+import mongoose from 'mongoose';
+import Route from './route.model';
+import User from './user.model';
 
 const { DB_HOST, DB } = process.env;
 
-async function connection () {
+export async function connection () {
   return await mongoose.connect(`${DB_HOST}/${DB}`,
     { useUnifiedTopology: true, useNewUrlParser: true },
     () => console.log(`Connected database ${DB} 🗄`)); //eslint-disable-line no-console
 }
 
 
-module.exports = {
-  connection,
-  Route,
-  User
-};
+// module.exports = {
+//   connection,
+//   Route,
+//   User
+// };

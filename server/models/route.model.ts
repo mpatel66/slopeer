@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const routeSchema = new Schema({
   name: { type: String, required: true },
@@ -12,4 +12,6 @@ const routeSchema = new Schema({
   lng: { type: String, required: true }
 }, {autoCreate: true});
 
-module.exports = model('Route', routeSchema);
+const Route = model('Route', routeSchema);
+
+export default Route;

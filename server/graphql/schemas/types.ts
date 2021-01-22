@@ -1,4 +1,4 @@
-module.exports = `
+const typesSchema = `
 scalar FileUpload
 
 type User {
@@ -24,3 +24,4 @@ type Route {
   description: String
 }
 `
+export default typesSchema;

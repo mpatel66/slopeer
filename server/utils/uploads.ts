@@ -1,7 +1,7 @@
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
 
-const s3 = require('./uploader');
+import s3 from './uploader';
 const webp = require('webp-converter');
 webp.grant_permission();
 
@@ -34,5 +34,7 @@ const uploadPicture = async (picture, id, folder) => {
   return pictureName;
 };
 
-module.exports.uploadProfilePicture = async (picture, id) => await uploadPicture(picture, id, 'profile_pictures/');
-module.exports.uploadRoutePicture = async (picture, id) => await uploadPicture(picture, id, 'route_pictures/');
+export const uploadProfilePicture = async (picture, id) => await uploadPicture(picture, id, 'profile_pictures/');
+
+export const uploadRoutePicture = async (picture, id) => await uploadPicture(picture, id, 'route_pictures/');
+

@@ -1,7 +1,9 @@
-require('dotenv').config();
-const app = require('./graphql');
-const { connection } = require('./models');
+// import 'dotenv'.config()
+import * as dotenv from 'dotenv';
+import app from './graphql'
+import { connection  } from './models'
 
+dotenv.config({ path: __dirname+'/.env' });
 connection() //Connect to MongoDB, then fire up the server
   .then(() => {
     app
