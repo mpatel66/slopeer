@@ -2,7 +2,6 @@
 import {Document, ObjectId} from 'mongoose';
 
 interface IRoute extends Document {
-  _id?: ObjectId;
   name: string;
   grade: string;
   author: string; // or objectId?
@@ -13,4 +12,10 @@ interface IRoute extends Document {
   lat?: string;
   lng?: string;
 }
+
+export enum routeType {
+  OWNED = 'owned_routes',
+  SAVED = 'saved_routes'
+}
+
 export default IRoute;
