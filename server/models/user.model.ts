@@ -1,9 +1,11 @@
 import { Schema, model, Model } from 'mongoose';
 import jwt from 'jsonwebtoken';
-import IUser from '../types/user';
+import { OutcomingUser } from '../types/user';
 const JWTPrivateKey = process.env.JWTPrivateKey as string;
 
-const userSchema: Schema = new Schema({
+// interface IUserModel extends IUser, Document { }
+// : Schema<IUser, Model<IUser>>
+const userSchema: Schema<OutcomingUser, Model<OutcomingUser>> = new Schema({
   email: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
@@ -13,7 +15,6 @@ const userSchema: Schema = new Schema({
 }, {autoCreate: true});
 
 userSchema.methods.generateAuthToken = function (): string {
-  // console.log('private key!',JWTPrivateKey);
 
   const token = jwt.sign(
     {
@@ -25,6 +26,6 @@ userSchema.methods.generateAuthToken = function (): string {
   return token;
 };
 
-const User: Model<IUser> = model('User', userSchema);
+const User = model<OutcomingUser>('User', userSchema);
 
 export default User;

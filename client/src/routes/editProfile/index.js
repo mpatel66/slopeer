@@ -20,6 +20,9 @@ const EditProfile = () => {
 
   const handleChange = (e) => {
     if (e.target.name === 'profile_picture') {
+      console.log('files', e.target.files);
+      console.log('files[0]', e.target.files[0]);
+      console.log('files type', typeof e.target.files[0]);
       if (e.target.validity.valid && e.target.files) {
         setUserData(prevData => ({
           ...prevData,
@@ -37,6 +40,7 @@ const EditProfile = () => {
   const updateUser = async (e) => {
     e.preventDefault();
     const { username, profile_picture } = userData;
+    console.log('profile', profile_picture);
     const res = await updateProfile({ _id: user, username, profile_picture });
     route(`/profile/${user}`, true);
   };

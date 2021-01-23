@@ -1,20 +1,22 @@
 import User from '../../models/user.model';
-import { routeType } from '../../types/route';
-import IUser from '../../types/user';
+import { OutcomingUser } from '../../types/user';
 
-const getRoutes = async (_id: IUser['_id'], routes: routeType): Promise<IUser[routeType]> => {
-  const user: IUser = await (await User.findById(_id)).execPopulate(routes);
-  console.log(user); 
 
-  return user[routes];
+const getRoutes = async (_id: OutcomingUser['_id'], routes: string): Promise<string[]> => {
+  const user: OutcomingUser = await (await User.findById(_id)).execPopulate(routes);
+  return user[routes as keyof typeof user];
+  // return user[routes];x
 };
 
 const types = {
-  get_owned_routes: async ({ _id }: IUser['_id']):Promise<IUser[routeType.OWNED]> => await getRoutes(_id, routeType.OWNED),
+  get_owned_routes: async ({ _id }: OutcomingUser['_id']):Promise<OutcomingUser['owned_routes']> => await getRoutes(_id, 'owned_routes'),
 
-  get_saved_routes: async ({ _id }: IUser['_id']):Promise<IUser[routeType.SAVED]> => await getRoutes(_id, routeType.SAVED),
+  get_saved_routes: async ({ _id }: OutcomingUser['_id']):Promise<OutcomingUser['saved_routes']> => await getRoutes(_id, 'saved_routes'),
 
-  get_author: async ({ author: id }: IUser['_id']): Promise<IUser> => await User.findById(id),
+  get_author: async ({ author: id }: OutcomingUser['_id']): Promise<OutcomingUser> => {
+    const user = await User.findById(id);
+    return user;
+  }
 };
 
 export default types;

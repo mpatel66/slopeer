@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
-import IRoutes from '../../types/route';
+import IRoutes, { IncomingRoute, OutcomingRoute } from '../../types/route';
 import Route from '../../models/route.model';
 import User from '../../models/user.model';
 import { Response } from 'express';
 import { uploadProfilePicture, uploadRoutePicture } from '../../utils/uploads';
-import IUser from '../../types/user';
+import { IncomingUser, OutcomingUser } from '../../types/user';
 
 
 interface IResponse {
@@ -12,40 +12,48 @@ interface IResponse {
 }
 
 interface ICreateRoute {
-  input: IRoutes
+  input: IncomingRoute;
 }
 
-export const createRoute = async (_: any, { input }: ICreateRoute): Promise<IRoutes> => {
+export const createRoute = async (_: any, { input }: ICreateRoute): Promise<OutcomingRoute> => {
   const route = new Route({ ...input, picture: null });
   if (input.picture) {
     const picturePath = await uploadRoutePicture(input.picture, route._id);
     route.picture = picturePath;
   }
   await route.save(); 
+  console.log('route', route);
   await User.findByIdAndUpdate(input.author, { $push: { 'owned_routes': String(route._id) } },
     { useFindAndModify: false });
-  return route;
+  return route as OutcomingRoute;
 };
 
 
 interface IUpdateRoute {
-  _id: IRoutes['_id'];
-  input: IRoutes;
+  _id: IncomingRoute['_id'];
+  input: IncomingRoute;
 }
 
-export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<IRoutes> => {
-  if (input.picture) {
+export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute> => {
+  if (!input.picture) {
+    const updated = {...input} as unknown as OutcomingRoute;
+    return await Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
+  } else {
     const picturePath = await uploadRoutePicture(input.picture, _id);
-    input.picture = picturePath;
+    const updated = {...input, picture: picturePath} as OutcomingRoute;
+    console.log('updated', updated);
+    const route = await Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
+    console.log('route', route);
+    return route;
   }
-  return await Route.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
+
 };
 
 interface IRemoveRoute {
-  _id: IRoutes['_id'];
+  _id: OutcomingRoute['_id'];
 }
 
-export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<IRoutes> => {
+export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute> => {
   const route: IRoutes = await Route.findByIdAndDelete(_id);
   await User.findByIdAndUpdate(route.author, { $pull: { 'owned_routes': _id } }, { useFindAndModify: false });
   await User.updateMany({}, { $pull: { 'saved_routes': _id } });
@@ -53,7 +61,7 @@ export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<IRoutes
 };
 
 
-export const createUser = async (_: any, { input: { email, username, password }}: {input:IUser}, { res }: IResponse): Promise<string|undefined> => {
+export const createUser = async (_: any, { input: { email, username, password }}: {input:IncomingUser}, { res }: IResponse): Promise<string|undefined> => {
   let user = await User.findOne({ email });
   if (user) {
     res.status(409);
@@ -69,37 +77,45 @@ export const createUser = async (_: any, { input: { email, username, password }}
 };
 
 interface IUpdateUser {
-  _id: IUser['_id'];
+  _id: IncomingUser['_id'];
   input: { 
-    userName?: IUser['username']; 
-    profile_picture: IUser['profile_picture'];
+    userName?: IncomingUser['username']; 
+    profile_picture?: IncomingUser['profileFile']
   }
 }
 
-export const updateUser = async (_:any, { _id, input }: IUpdateUser): Promise<IUser> => {
-  if (input.profile_picture) {
-    const picturePath = await uploadProfilePicture(input.profile_picture, _id);
-    input.profile_picture = picturePath;
+// picture only, username only, both change
+export const updateUser = async (_:any, { _id, input }: IUpdateUser): Promise<OutcomingUser> => {
+  if (!input.profile_picture) {
+    return await User.findByIdAndUpdate(_id, {userName: input.userName}, { new: true, useFindAndModify: false });
+  } else {
+    const picturePath: string = await uploadProfilePicture(input.profile_picture, _id);
+    const updated = input.userName 
+      ? {
+        userName: input.userName, profile_picture: picturePath
+      } 
+      : {profile_picture: picturePath};
+    return await User.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
   }
-  return await User.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
+ 
 };
 
 
 interface ISaveRoute {
-  userId: IUser['_id'];
-  routeId: IRoutes['_id'];
+  userId: IncomingUser['_id'];
+  routeId: IncomingRoute['_id'];
 }
 
-export const saveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<IUser> =>
+export const saveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<OutcomingUser> =>
   await User.findByIdAndUpdate(userId, { $push: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
 
 
-export const unsaveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<IUser> =>
+export const unsaveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<OutcomingUser> =>
   await User.findByIdAndUpdate(userId, { $pull: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
 
 interface ILogin {
-  email: IUser['email'];
-  password: IUser['password'];
+  email: IncomingUser['email'];
+  password: IncomingUser['password'];
 }
 
 export const login = async (_:any, { email, password }:ILogin, { res }:IResponse): Promise<string|Response|undefined> => {
