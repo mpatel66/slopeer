@@ -74,8 +74,8 @@ const AddRoute = () => {
     e.preventDefault();
     if (routeData.name) {
       const variables = { ...routeData };
-     const response = await createRoute(variables)
-     console.log(response)
+      const response = await createRoute(variables);
+      console.log(response);
       route(`route/${response.data.createRoute._id}`);
     }
   };

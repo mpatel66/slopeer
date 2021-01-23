@@ -1,3 +1,4 @@
+import { Fragment, h, FunctionComponent} from 'preact'
 import { useState, useEffect } from 'preact/hooks';
 import { route } from 'preact-router';
 import { useMutation } from '@urql/preact';

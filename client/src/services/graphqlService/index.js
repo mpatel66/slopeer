@@ -1,12 +1,12 @@
-import { createClient, dedupExchange, cacheExchange } from "@urql/preact";
-import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
-import { offlineExchange } from "@urql/exchange-graphcache";
-import { makeDefaultStorage } from "@urql/exchange-graphcache/default-storage";
+import { createClient, dedupExchange, cacheExchange } from '@urql/preact';
+import { multipartFetchExchange } from '@urql/exchange-multipart-fetch';
+import { offlineExchange } from '@urql/exchange-graphcache';
+import { makeDefaultStorage } from '@urql/exchange-graphcache/default-storage';
 
-import schema from "../../schema.json";
-import { serverUrl } from "../../../config";
-import queries from "./queries";
-import mutations from "./mutations";
+import schema from '../../schema.json';
+import { serverUrl } from '../../../config';
+import queries from './queries';
+import mutations from './mutations';
 
 // let cache;
 // if (typeof window !== 'undefined') {
@@ -24,8 +24,8 @@ const client = createClient({
   exchanges: [
     dedupExchange,
     // cache,
-    multipartFetchExchange,
-  ],
+    multipartFetchExchange
+  ]
 });
 
 const toggleSaveRoute = async (saved, userId, routeId) => {

@@ -5,9 +5,10 @@
   /* max-width: 60rem; */
   margin: 4rem 0.5rem;
   border-radius: 1rem;
+  text-align: center;
 }
 
-.helper{
+.helper {
   height: 1px;
 }
 
@@ -31,8 +32,8 @@
 
 .image {
   width: 90%;
-  max-width:30rem;
-  box-shadow: 0 0 10px -1px rgba(40,40,40,0.5);
+  max-width: 30rem;
+  box-shadow: 0 0 10px -1px rgba(40, 40, 40, 0.5);
 }
 
 .routeInfo {
@@ -54,11 +55,12 @@
   cursor: pointer;
 }
 
-.author:hover{
+.author:hover {
   filter: brightness(90%);
 }
 
-.light, .description {
+.light,
+.description {
   color: #888;
 }
 
@@ -81,7 +83,8 @@
   font-weight: bold;
 }
 
-.show:hover , .show:active{
+.show:hover,
+.show:active {
   filter: brightness(90%);
   transform: translateY(-2px);
 }
