@@ -2,8 +2,8 @@ import path from 'path';
 import fs from 'fs';
 import s3 from './uploader';
 import { Document } from 'mongoose';
-import webp from 'webp-converter';
-// const webp = require('webp-converter');
+// import webp from 'webp-converter';
+const webp = require('webp-converter');
 import { S3 } from 'aws-sdk';
 webp.grant_permission();
 
