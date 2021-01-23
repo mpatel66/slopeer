@@ -1,4 +1,4 @@
- const mutationSchema = `
+const mutationSchema = `
 
   input NewRouteInput {
     name: String!

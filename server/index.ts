@@ -1,9 +1,12 @@
 // import 'dotenv'.config()
 import * as dotenv from 'dotenv';
-import app from './graphql'
-import { connection  } from './models'
-
 dotenv.config({ path: __dirname+'/.env' });
+// console.log('PROCESS name', process.env);
+import app from './graphql';
+import { connection  } from './models';
+
+
+
 connection() //Connect to MongoDB, then fire up the server
   .then(() => {
     app

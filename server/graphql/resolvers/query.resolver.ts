@@ -28,9 +28,9 @@ const query = {
   route: async (_: any, { _id }: IRoutes['_id']): Promise<IRoutes> => await Route.findById(_id).populate('author'),
   
   user: async (_: any, { _id }: IUser['_id']): Promise<IUser> =>
-  await User.findById(_id)
-    .populate(routeType.SAVED)
-    .populate(routeType.OWNED),
-}
+    await User.findById(_id)
+      .populate(routeType.SAVED)
+      .populate(routeType.OWNED),
+};
 
 export default query;

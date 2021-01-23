@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import Route from './route.model';
-import User from './user.model';
+// import Route from './route.model';
+// import User from './user.model';
 
 const { DB_HOST, DB } = process.env;
 
-export async function connection () {
+export async function connection (): Promise<typeof mongoose> {
   return await mongoose.connect(`${DB_HOST}/${DB}`,
     { useUnifiedTopology: true, useNewUrlParser: true },
     () => console.log(`Connected database ${DB} 🗄`)); //eslint-disable-line no-console

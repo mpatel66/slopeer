@@ -1,6 +1,7 @@
 import { Schema, model, Model } from 'mongoose';
 import jwt from 'jsonwebtoken';
 import IUser from '../types/user';
+const JWTPrivateKey = process.env.JWTPrivateKey as string;
 
 const userSchema: Schema = new Schema({
   email: { type: String, required: true },
@@ -12,11 +13,13 @@ const userSchema: Schema = new Schema({
 }, {autoCreate: true});
 
 userSchema.methods.generateAuthToken = function (): string {
+  // console.log('private key!',JWTPrivateKey);
+
   const token = jwt.sign(
     {
       _id: this._id,
     },
-    process.env.JWTPrivateKey,
+    JWTPrivateKey,
     { expiresIn: '3d' }
   );
   return token;

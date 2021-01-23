@@ -1,5 +1,4 @@
 import {Document} from 'mongoose';
-// import IRoute from './route';
 
 interface IUser extends Document {
   email: string;

@@ -6,11 +6,16 @@ import { Response } from 'express';
 import { uploadProfilePicture, uploadRoutePicture } from '../../utils/uploads';
 import IUser from '../../types/user';
 
+
+interface IResponse {
+  res: Response;
+}
+
 interface ICreateRoute {
   input: IRoutes
 }
 
-export const createRoute = async (_: any, { input }: ICreateRoute) => {
+export const createRoute = async (_: any, { input }: ICreateRoute): Promise<IRoutes> => {
   const route = new Route({ ...input, picture: null });
   if (input.picture) {
     const picturePath = await uploadRoutePicture(input.picture, route._id);
@@ -40,7 +45,7 @@ interface IRemoveRoute {
   _id: IRoutes['_id'];
 }
 
-export const removeRoute = async (_:any, { _id }: IRemoveRoute) => {
+export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<IRoutes> => {
   const route: IRoutes = await Route.findByIdAndDelete(_id);
   await User.findByIdAndUpdate(route.author, { $pull: { 'owned_routes': _id } }, { useFindAndModify: false });
   await User.updateMany({}, { $pull: { 'saved_routes': _id } });
@@ -48,7 +53,7 @@ export const removeRoute = async (_:any, { _id }: IRemoveRoute) => {
 };
 
 
-export const createUser = async (_: any, { input: { email, username, password }}: {input:IUser}, { res }: {res:Response}): Promise<string|undefined> => {
+export const createUser = async (_: any, { input: { email, username, password }}: {input:IUser}, { res }: IResponse): Promise<string|undefined> => {
   let user = await User.findOne({ email });
   if (user) {
     res.status(409);
@@ -63,7 +68,15 @@ export const createUser = async (_: any, { input: { email, username, password }}
   return user.generateAuthToken();
 };
 
-export const updateUser = async (_, { _id, input }) => {
+interface IUpdateUser {
+  _id: IUser['_id'];
+  input: { 
+    userName?: IUser['username']; 
+    profile_picture: IUser['profile_picture'];
+  }
+}
+
+export const updateUser = async (_:any, { _id, input }: IUpdateUser): Promise<IUser> => {
   if (input.profile_picture) {
     const picturePath = await uploadProfilePicture(input.profile_picture, _id);
     input.profile_picture = picturePath;
@@ -71,14 +84,25 @@ export const updateUser = async (_, { _id, input }) => {
   return await User.findByIdAndUpdate(_id, input, { new: true, useFindAndModify: false });
 };
 
-export const saveRoute = async (_, { userId, routeId }) =>
+
+interface ISaveRoute {
+  userId: IUser['_id'];
+  routeId: IRoutes['_id'];
+}
+
+export const saveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<IUser> =>
   await User.findByIdAndUpdate(userId, { $push: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
 
 
-export const unsaveRoute = async (_, { userId, routeId }) =>
+export const unsaveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<IUser> =>
   await User.findByIdAndUpdate(userId, { $pull: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
 
-export const login = async (_, { email, password }, { res }) => {
+interface ILogin {
+  email: IUser['email'];
+  password: IUser['password'];
+}
+
+export const login = async (_:any, { email, password }:ILogin, { res }:IResponse): Promise<string|Response|undefined> => {
   const user = await User.findOne({ email });
   if (!user) {
     res.status(400);
@@ -86,6 +110,5 @@ export const login = async (_, { email, password }, { res }) => {
   }
   const validPassword = await bcrypt.compare(password, user.password);
   if (!validPassword) return res.status(400);
-
   return user.generateAuthToken();
 };

@@ -23,5 +23,5 @@ type Route {
   picture: String
   description: String
 }
-`
+`;
 export default typesSchema;
