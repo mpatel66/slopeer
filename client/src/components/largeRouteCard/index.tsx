@@ -4,7 +4,7 @@ import IRoute from '../../../types/Route'
 import {FunctionComponent, JSX,  } from "preact"
 import { Picture } from '..';
 import { gradeColor, gradeBckgColor } from '../../utils/routes';
-const style = require('/style.css');
+const style = require('./style.css');
 declare function require(name: string): any;
 
 
