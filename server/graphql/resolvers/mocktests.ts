@@ -10,9 +10,8 @@ beforeAll( async () => {
 }); 
 
 afterAll(async ()=> {
-  // Closing the DB connection allows Jest to exit successfully.
-  await User.deleteMany();
-  await mongoose.connection.close();
+  await User.deleteMany(); // drop all the data from users.
+  await mongoose.connection.close(); // close the db after the test finishes, otherwise jest will complain.
   console.log('clean up complete');
 });
 
