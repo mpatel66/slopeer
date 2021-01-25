@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom';
-
 import { render } from '@testing-library/preact';
 import { AuthProvider } from '../../context/AuthContext';
 
@@ -30,5 +29,4 @@ describe('myroutes', () => {
     );
     expect(container.textContent).toMatch('1');
   });
-
 });
