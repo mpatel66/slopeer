@@ -42,7 +42,6 @@ const EditProfile = () => {
   const updateUser = async (e) => {
     e.preventDefault();
     const { username, profile_picture } = userData;
-    console.log('profile', profile_picture);
     const res = await updateProfile({ _id: user, username, profile_picture });
     route(`/profile/${user}`, true);
   };
