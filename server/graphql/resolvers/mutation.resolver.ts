@@ -22,7 +22,6 @@ export const createRoute = async (_: any, { input }: ICreateRoute): Promise<Outc
     route.picture = picturePath;
   }
   await route.save(); 
-  console.log('route', route);
   await User.findByIdAndUpdate(input.author, { $push: { 'owned_routes': String(route._id) } },
     { useFindAndModify: false });
   return route as OutcomingRoute;
@@ -95,7 +94,7 @@ export const createUser = async (_: any, { input: { email, username, password }}
 interface IUpdateUser {
   _id: IncomingUser['_id'];
   input: { 
-    userName?: IncomingUser['username']; 
+    username?: IncomingUser['username']; 
     profile_picture?: IncomingUser['profileFile']
   }
 }
@@ -104,15 +103,15 @@ interface IUpdateUser {
 export const updateUser = async (_:any, { _id, input }: IUpdateUser): Promise<OutcomingUser|undefined> => {
   try {
     if (!input.profile_picture) {
-      const user = await User.findByIdAndUpdate(_id, {userName: input.userName}, { new: true, useFindAndModify: false });
+      const user = await User.findByIdAndUpdate(_id, {username: input.username}, { new: true, useFindAndModify: false });
       if (user) return user;
       else throw new Error('No user found');
   
     } else {
       const picturePath: string = await uploadProfilePicture(input.profile_picture, _id);
-      const updated = input.userName 
+      const updated = input.username 
         ? {
-          userName: input.userName, profile_picture: picturePath
+          username: input.username, profile_picture: picturePath
         } 
         : {profile_picture: picturePath};
       const user = await User.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
