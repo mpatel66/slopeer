@@ -5,7 +5,7 @@ import { queries } from '../../services/graphqlService';
 import { Spinner, Content, SmallRouteCard, Picture } from '../../components';
 import { useAuth } from '../../context/AuthContext';
 import { useNetwork } from '../../context/NetworkContext';
-const style = require('/style.css');
+const style = require('./style.css');
 declare function require(name: string): any;
 
 import IRoute, { IData, IMatches } from '../../../types/Route';
