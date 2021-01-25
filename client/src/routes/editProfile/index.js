@@ -11,12 +11,17 @@ const EditProfile = () => {
   const [userData, setUserData] = useState({});
 
   useEffect(async () => {
-    const currentData = await client.query(queries.userDataQuery, { _id: user }).toPromise();
+    const currentData = await client
+      .query(queries.userDataQuery, { _id: user })
+      .toPromise();
+    console.log(currentData);
     const { username } = currentData.data.user;
     setUserData({ username });
   }, []);
 
-  const [{ fetching: updatingProfile }, updateProfile] = useMutation(mutations.updateUser);
+  const [{ fetching: updatingProfile }, updateProfile] = useMutation(
+    mutations.updateUser
+  );
 
   const handleChange = (e) => {
     if (e.target.name === 'profile_picture') {
@@ -24,13 +29,14 @@ const EditProfile = () => {
       console.log('files[0]', e.target.files[0]);
       console.log('files type', typeof e.target.files[0]);
       if (e.target.validity.valid && e.target.files) {
-        setUserData(prevData => ({
+        console.log(e.target.files, 'targetfile');
+        setUserData((prevData) => ({
           ...prevData,
           profile_picture: e.target.files[0]
         }));
       }
     } else {
-      setUserData(prevData => ({
+      setUserData((prevData) => ({
         ...prevData,
         [e.target.name]: e.target.value
       }));
@@ -45,15 +51,17 @@ const EditProfile = () => {
     route(`/profile/${user}`, true);
   };
 
-  return <FormCard showSpinner={updatingProfile}>
-    <form onSubmit={updateUser} onChange={handleChange}>
-      <h1>EDIT PROFILE</h1>
-      <h2>Username</h2>
-      <input type='text' name='username' value={userData.username} />
-      <Upload name='profile_picture' />
-      <button type='submit'>Submit</button>
-    </form>
-  </FormCard>;
+  return (
+    <FormCard showSpinner={updatingProfile}>
+      <form onSubmit={updateUser} onChange={handleChange}>
+        <h1>EDIT PROFILE</h1>
+        <h2>Username</h2>
+        <input type="text" name="username" value={userData.username} />
+        <Upload name="profile_picture" />
+        <button type="submit">Submit</button>
+      </form>
+    </FormCard>
+  );
 };
 
 export default EditProfile;

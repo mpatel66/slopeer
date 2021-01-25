@@ -1,25 +1,33 @@
+import { Fragment, h, FunctionComponent} from 'preact'
 import { useQuery } from "@urql/preact";
 import { useState } from "preact/hooks";
-
-import style from "./style.css";
+const style = require('./style');
 import { LargeRouteCard, Spinner } from "../../components";
 import { queries } from "../../services/graphqlService";
 import { useAuth } from "../../context/AuthContext";
+import { JSX } from "preact/jsx-runtime";
+import IRoute, {IData} from '../../../types/Route'
+import { route } from "preact-router";
 
-const MyRoutes = () => {
+type RouteType = "owned_routes" | "saved_routes";
+
+const MyRoutes:FunctionComponent = ():JSX.Element=> {
   const { user } = useAuth();
 
-  const [{ data, fetching, error }, _] = useQuery({
+  
+  const [{ data, fetching, error }, _] = useQuery<IData>({
     query: queries.userRoutesQuery,
     variables: { _id: user },
   });
 
-  const [shownRoutes, setShownRoutes] = useState("owned_routes");
+  const [shownRoutes, setShownRoutes] = useState <RouteType>("owned_routes");
 
   const showRoutes = () => {
-    return data.user[shownRoutes].map((route) => (
-      <LargeRouteCard data={route} key={route._id} />
-    ));
+    if(data) {
+      return data.user[shownRoutes].map((route) => (
+        <LargeRouteCard {...route} key={route._id} />
+      ));
+    }
   };
 
   return (

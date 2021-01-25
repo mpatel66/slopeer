@@ -1,32 +1,40 @@
+import { Fragment, h, FunctionComponent} from 'preact'
 import { route, Link } from 'preact-router';
 import { useQuery } from '@urql/preact';
 import { useState } from 'preact/hooks';
 import { queries, toggleSaveRoute } from '../../services/graphqlService';
 import { useAuth } from '../../context/AuthContext';
 import { gradeBckgColor, gradeColor } from '../../utils/routes';
-import style from './style.css';
+const style = require('./style');
 import { Spinner, Content, Picture } from '../../components';
 import { useNetwork } from '../../context/NetworkContext';
-
+import IUser from '../../../types/User'
+import IRoute, {IData, IMatches} from '../../../types/Route'
 const saveIcon = '/assets/images/save.svg';
 const savedIcon = '/assets/images/saved.svg';
 const editIcon = '/assets/images/edit.svg';
 
-const RouteDetails = ({ matches: { id: _id } }) => {
+
+
+const RouteDetails:FunctionComponent <IMatches>= ({ matches: { id: _id } }) => {
   const { user } = useAuth();
   const { online } = useNetwork();
   const [saved, setSaved] = useState(false);
 
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error }] = useQuery<IData> ({
     query: queries.routeDetailsQuery,
     variables: { _id }
   });
 
-  const [{ data: userRoutes, fetching: fetchingUser, error: userError }, refreshUser] = useQuery({
+  const [{ data: userRoutes, fetching: fetchingUser, error: userError }, refreshUser] = useQuery<IData>({
     query: queries.userRoutesQuery,
     variables: { _id: user }
   });
 
+  if( !userRoutes || !data) {
+    console.log('No data here!');
+     return null
+  }
   const handleToggleSave = async () => {
     const { error } = await toggleSaveRoute(saved, user, _id);
     if (!error) {
@@ -34,7 +42,7 @@ const RouteDetails = ({ matches: { id: _id } }) => {
     }
   };
 
-  const showRouteInMap = (lat, lng) => {
+  const showRouteInMap = (lat:IRoute['lat'], lng:IRoute['lng']) => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('mapLocation', JSON.stringify({ lng, lat, zoom: 20 }));
     }
@@ -44,7 +52,7 @@ const RouteDetails = ({ matches: { id: _id } }) => {
   const renderRouteDetails = () => {
     if (error || userError || !userRoutes.user) {
       route('/');
-      return;
+      return <h1>error</h1>;
     }
 
     const { name, grade, picture, author: { username, _id: userId }, type, description, lat, lng, _id } = data.route;
@@ -77,7 +85,6 @@ const RouteDetails = ({ matches: { id: _id } }) => {
             </>
           }
         </div>
-        <center>
           <Picture
             profile={false}
             picture={picture}
@@ -96,7 +103,6 @@ const RouteDetails = ({ matches: { id: _id } }) => {
               {grade}
             </span>
           </h3>
-        </center>
         <div class={style.routeInfo}>
           <h2>AUTHOR <Link href={`/profile/${userId}`} class={style.author}>{username}</Link> </h2>
           <h3>TYPE <span class={style.light}>{type[0].toUpperCase() + type.slice(1)}</span></h3>
@@ -109,17 +115,16 @@ const RouteDetails = ({ matches: { id: _id } }) => {
               : null
           }
         </div>
-        <center>
           <button class={style.show} onClick={() => showRouteInMap(lat, lng)}>Show in Map</button>
-        </center>
       </div>
     );
   };
 
   return (
     <Content addStyle={{ height: '100%', maxWidth: '60rem' }}>
-      {
-        fetching || fetchingUser ? <Spinner /> : renderRouteDetails()
+      { 
+        (fetching || fetchingUser) ?  <Spinner /> : renderRouteDetails()
+      
       }
       <div class={style.helper}></div>
     </Content>

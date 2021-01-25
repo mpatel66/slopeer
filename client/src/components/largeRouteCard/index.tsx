@@ -1,13 +1,18 @@
+import { Fragment, h } from 'preact'
 import { route } from 'preact-router';
-
-import { Picture } from '../';
+import IRoute from '../../../types/Route'
+import {FunctionComponent, JSX,  } from "preact"
+import { Picture } from '..';
 import { gradeColor, gradeBckgColor } from '../../utils/routes';
-import style from './style';
+const style = require('./style');
 
-const LargeRouteCard = ({ data: { picture, name, grade, _id, type } }) =>
 
-  <div class={style.split} onClick={() => route(`route/${_id}`)}>
-    <Picture
+
+const LargeRouteCard:FunctionComponent <IRoute> = ({ picture, name, grade, _id, type }) => {
+
+  return (
+    <div class={style.split} onClick={() => route(`route/${_id}`)}>
+    <Picture 
       profile={false}
       picture={picture}
       type={type}
@@ -29,6 +34,8 @@ const LargeRouteCard = ({ data: { picture, name, grade, _id, type } }) =>
           {grade}</h3>
       </div>
     </div>
-  </div>;
-
+  </div> 
+  )
+  
+}
 export default LargeRouteCard;
