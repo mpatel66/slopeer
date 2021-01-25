@@ -27,6 +27,6 @@ describe('myroutes', () => {
         <MyRoutes />
       </AuthProvider>
     );
-    expect(container.textContent).toMatch('1');
+    expect(container.textContent).toMatch('OWNED ROUTESSAVED ROUTES');
   });
 });
