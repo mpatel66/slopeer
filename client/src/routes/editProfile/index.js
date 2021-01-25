@@ -26,7 +26,6 @@ const EditProfile = () => {
   const handleChange = (e) => {
     if (e.target.name === 'profile_picture') {
       if (e.target.validity.valid && e.target.files) {
-        console.log(e.target.files, 'targetfile');
         setUserData((prevData) => ({
           ...prevData,
           profile_picture: e.target.files[0]

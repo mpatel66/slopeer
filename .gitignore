@@ -99,7 +99,7 @@ dist
 
 # DynamoDB Local files
 .dynamodb/
-
+.vscode/
 # TernJS port file
 .tern-port
 .DS_Store
