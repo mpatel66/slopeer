@@ -1,5 +1,5 @@
 import { Spinner } from '../';
-import style from '/style.css';
+import style from './style.css';
 
 const FormCard = ({ children, showSpinner }) => (
   <div class={style.bcg}>

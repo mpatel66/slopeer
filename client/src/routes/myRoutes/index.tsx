@@ -7,7 +7,7 @@ import { JSX } from 'preact/jsx-runtime';
 import { IData } from '../../../types/Route';
 import { h, FunctionComponent } from 'preact';
 
-const style = require('/style.css');
+const style = require('./style.css');
 
 declare function require(name: string): any;
 

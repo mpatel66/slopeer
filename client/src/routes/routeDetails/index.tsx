@@ -10,7 +10,7 @@ import { useNetwork } from '../../context/NetworkContext';
 import IUser from '../../../types/User';
 import IRoute, { IData, IMatches } from '../../../types/Route';
 
-const style = require('/style.css');
+const style = require('./style.css');
 declare function require(name: string): any;
 
 const saveIcon = '/assets/images/save.svg';

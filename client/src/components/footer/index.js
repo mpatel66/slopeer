@@ -3,7 +3,7 @@ import { Link } from 'preact-router/match';
 import { NavButton, Content } from '..';
 import { useAuth } from '../../context/AuthContext';
 import { useNetwork } from '../../context/NetworkContext';
-const style = require('/style.css');
+const style = require('./style.css');
 
 const Footer = () => {
   const { user } = useAuth();
