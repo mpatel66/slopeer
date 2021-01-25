@@ -1,22 +1,32 @@
+import { Fragment, h, FunctionComponent} from 'preact'
 import { useQuery } from '@urql/preact';
 import { route } from 'preact-router';
 import { queries } from '../../services/graphqlService';
 import { Spinner, Content, SmallRouteCard, Picture } from '../../components';
 import { useAuth } from '../../context/AuthContext';
 import { useNetwork } from '../../context/NetworkContext';
-import style from './style.css';
+const style = require('./style');
+import IRoute, {IData, IMatches} from '../../../types/Route';
+import IUser from  '../../../types/User'
 
-const Profile = ({ matches: { id } }) => {
+
+// interface Props {
+//   searchTextChange(userInput: string): void;
+//   updateQueryType(index: IndexPath | IndexPath[]): void;
+//   search: SearchInterface;
+// }
+
+const Profile: FunctionComponent<IMatches> = ({ matches: { id } }) => {
   const { user, logout } = useAuth();
   const { online } = useNetwork();
 
-  const [{ data, fetching, error }, _] = useQuery({
+  const [{ data, fetching, error }, _] = useQuery<IData> ({
     query: queries.userDataQuery,
     variables: { _id: id }
   });
 
-  const renderUserData = ({ username, profile_picture, owned_routes }) => {
-    const routes = owned_routes.filter(route => route.public);
+  const renderUserData = ({ username, profile_picture, owned_routes }:IUser) => {
+    const routes:IRoute[] = owned_routes.filter(route => route.public);
     return (
       <div class={style.userData}>
         <h1>{username}</h1>

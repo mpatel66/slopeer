@@ -4,7 +4,7 @@ import { StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 registerRoute(
-  ({ request }) => 
+  ({ request }) =>
   // request.destination === 'script' ||
     request.destination === 'style',
   new StaleWhileRevalidate()

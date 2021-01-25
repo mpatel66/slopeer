@@ -1,7 +1,12 @@
 import { profilePicturesUrl, routePicturesUrl } from '../../../config';
 import { selectPlaceholder } from '../../utils/routes';
+import IRoute, {IPicture} from '../../../types/Route'
+// import User from '../../../types/User'
+import { h, FunctionComponent } from "preact";
 
-const Picture = ({ profile, picture, username, type, routename, pictureStyle, imageStyle }) => {
+
+const Picture:FunctionComponent<IPicture> = ({ profile, picture, username, type, routename, pictureStyle, imageStyle }) => {
+
   const baseUrl = profile ? profilePicturesUrl : routePicturesUrl;
   let defaultUrl;
   let webpUrl;
@@ -22,7 +27,7 @@ const Picture = ({ profile, picture, username, type, routename, pictureStyle, im
       }
       <source srcset={defaultUrl} />
       {
-        profile
+        profile && username
           ? <img src={defaultUrl} alt={`${username} profile_picture`} class={imageStyle} />
           : <img src={defaultUrl} alt={`${routename} picture`} class={imageStyle} />
       }

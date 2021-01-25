@@ -1,5 +1,5 @@
 import { Router } from 'preact-router';
-import { Footer } from '../';
+import { Footer } from '..';
 // Code-splitting is automated for `routes` directory
 import Map from '../../routes/map';
 import Profile from '../../routes/profile';
