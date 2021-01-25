@@ -8,7 +8,7 @@ import { queries } from '../../services/graphqlService';
 import style from './style.css';
 
 mapboxgl.accessToken = mapboxToken;
-mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+// mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const Map = () => {
   let savedLocation;

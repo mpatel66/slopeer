@@ -1,6 +1,6 @@
 import { FormCard, Upload } from '..';
 import { grades } from '../../utils/routes';
-const style = require('./style');
+const style = require('/style.css');
 
 const RouteForm = ({
   title,

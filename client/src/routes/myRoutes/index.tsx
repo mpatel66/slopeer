@@ -1,29 +1,30 @@
-import { Fragment, h, FunctionComponent} from 'preact'
-import { useQuery } from "@urql/preact";
-import { useState } from "preact/hooks";
-const style = require('./style');
-import { LargeRouteCard, Spinner } from "../../components";
-import { queries } from "../../services/graphqlService";
-import { useAuth } from "../../context/AuthContext";
-import { JSX } from "preact/jsx-runtime";
-import IRoute, {IData} from '../../../types/Route'
-import { route } from "preact-router";
+import { useQuery } from '@urql/preact';
+import { useState } from 'preact/hooks';
+import { LargeRouteCard, Spinner } from '../../components';
+import { queries } from '../../services/graphqlService';
+import { useAuth } from '../../context/AuthContext';
+import { JSX } from 'preact/jsx-runtime';
+import { IData } from '../../../types/Route';
+import { h, FunctionComponent } from 'preact';
 
-type RouteType = "owned_routes" | "saved_routes";
+const style = require('/style.css');
 
-const MyRoutes:FunctionComponent = ():JSX.Element=> {
+declare function require(name: string): any;
+
+type RouteType = 'owned_routes' | 'saved_routes';
+
+const MyRoutes: FunctionComponent = (): JSX.Element => {
   const { user } = useAuth();
 
-  
   const [{ data, fetching, error }, _] = useQuery<IData>({
     query: queries.userRoutesQuery,
     variables: { _id: user },
   });
 
-  const [shownRoutes, setShownRoutes] = useState <RouteType>("owned_routes");
+  const [shownRoutes, setShownRoutes] = useState<RouteType>('owned_routes');
 
   const showRoutes = () => {
-    if(data) {
+    if (data) {
       return data.user[shownRoutes].map((route) => (
         <LargeRouteCard {...route} key={route._id} />
       ));
@@ -35,14 +36,14 @@ const MyRoutes:FunctionComponent = ():JSX.Element=> {
       <header class={style.header}>
         <nav>
           <button
-            onClick={() => setShownRoutes("owned_routes")}
-            class={shownRoutes === "owned_routes" ? style.selected : ""}
+            onClick={() => setShownRoutes('owned_routes')}
+            class={shownRoutes === 'owned_routes' ? style.selected : ''}
           >
             OWNED ROUTES
           </button>
           <button
-            onClick={() => setShownRoutes("saved_routes")}
-            class={shownRoutes === "saved_routes" ? style.selected : ""}
+            onClick={() => setShownRoutes('saved_routes')}
+            class={shownRoutes === 'saved_routes' ? style.selected : ''}
           >
             SAVED ROUTES
           </button>

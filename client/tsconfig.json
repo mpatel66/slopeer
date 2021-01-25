@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2018",
     // "jsx": "react-jsx",
-    "jsx": "preserve",
+    "jsx": "react",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
     // "lib": ["dom", "esnext"],
@@ -15,7 +15,8 @@
     "resolveJsonModule": true,
     "strict": true,
     "allowJs": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "module": "esnext"
   }
   // "include": ["src/**/*.tsx", "src/**/*.ts"]
 }
