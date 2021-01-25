@@ -88,7 +88,9 @@ export const createUser = async (_: any, { input: { email, username, password }}
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
 
-  return user.generateAuthToken();
+  const token = await user.generateAuthToken();
+  console.log(token);
+  return token;
 };
 
 interface IUpdateUser {
