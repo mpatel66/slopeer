@@ -42,12 +42,12 @@ export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise
       else throw new Error('No such route found');
      
     } else {
+      
       const picturePath = await uploadRoutePicture(input.picture, _id);
       const updated = {...input, picture: picturePath} as OutcomingRoute;
       const route = await Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
       if (!route) throw 'No such route found';
       else return route; 
-
     } 
   } catch (e) {
     console.log(e);
