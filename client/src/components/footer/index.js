@@ -3,7 +3,7 @@ import { Link } from 'preact-router/match';
 import { NavButton, Content } from '..';
 import { useAuth } from '../../context/AuthContext';
 import { useNetwork } from '../../context/NetworkContext';
-const style = require('./style');
+const style = require('/style.css');
 
 const Footer = () => {
   const { user } = useAuth();
@@ -12,13 +12,13 @@ const Footer = () => {
     <footer class={style.footer}>
       <Content>
         <nav>
-          <Link activeClassName={style.active} href="/map">
+          <Link activeClassName={style.active} href='/map'>
             Map3
           </Link>
           {online && (
-            <NavButton text={'+'} to="/addRoute" class={style.addRoute} />
+            <NavButton text={'+'} to='/addRoute' class={style.addRoute} />
           )}
-          <Link activeClassName={style.active} href="/">
+          <Link activeClassName={style.active} href='/'>
             My Routes
           </Link>
           <Link activeClassName={style.active} href={`/profile/${user}`}>
