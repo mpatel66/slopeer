@@ -34,5 +34,7 @@
       "pre-commit": "gulp lint"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "@urql/core": "^1.16.1"
+  }
 }

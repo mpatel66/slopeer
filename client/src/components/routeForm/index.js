@@ -1,6 +1,6 @@
-import { FormCard, Upload } from "..";
-import { grades } from "../../utils/routes";
-const style = require("./style");
+import { FormCard, Upload } from '..';
+import { grades } from '../../utils/routes';
+const style = require('./style');
 
 const RouteForm = ({
   title,
@@ -12,24 +12,24 @@ const RouteForm = ({
   hasCoords,
   coords,
   setCurrentLoc,
-  setMapLoc,
+  setMapLoc
 }) => {
   const handleChange = (e) => {
     const { target } = e;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
 
-    if (name === "picture") {
+    if (name === 'picture') {
       if (target.validity.valid && target.files) {
         setRouteData((prevData) => ({
           ...prevData,
-          picture: target.files[0],
+          picture: target.files[0]
         }));
       }
     } else {
       setRouteData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: value
       }));
     }
   };
@@ -46,7 +46,7 @@ const RouteForm = ({
           name="name"
           value={routeData.name}
           placeholder="Name"
-          onInput={() => console.log("hello")}
+          onInput={() => console.log('hello')}
         />
         <div></div>
         <div class={style.public}>
@@ -58,38 +58,40 @@ const RouteForm = ({
             checked={routeData.public}
           />
         </div>
-        {hasCoords ? (
-          <div class={style.coords}>
-            <h2 class={style.coordsTitle}>Coordinates</h2>
-            <div class={style.coord}>
-              <h3>Latitude</h3>
-              <input type="text" name="lat" value={routeData.lat} readonly />
-            </div>
-            <div class={style.coord}>
-              <h3>Longitude</h3>
-              <input type="text" name="lng" value={routeData.lng} readonly />
-            </div>
-            <div class={style.buttonWrap}>
-              <button
-                onClick={setCurrentLoc}
-                class={
-                  coords === "current" ? style.activeButton : style.ghostButton
-                }
-              >
+        {hasCoords
+          ? (
+            <div class={style.coords}>
+              <h2 class={style.coordsTitle}>Coordinates</h2>
+              <div class={style.coord}>
+                <h3>Latitude</h3>
+                <input type="text" name="lat" value={routeData.lat} readonly />
+              </div>
+              <div class={style.coord}>
+                <h3>Longitude</h3>
+                <input type="text" name="lng" value={routeData.lng} readonly />
+              </div>
+              <div class={style.buttonWrap}>
+                <button
+                  onClick={setCurrentLoc}
+                  class={
+                    coords === 'current' ? style.activeButton : style.ghostButton
+                  }
+                >
                 Current
-              </button>
+                </button>
 
-              <button
-                onClick={setMapLoc}
-                class={
-                  coords === "map" ? style.activeButton : style.ghostButton
-                }
-              >
+                <button
+                  onClick={setMapLoc}
+                  class={
+                    coords === 'map' ? style.activeButton : style.ghostButton
+                  }
+                >
                 Map
-              </button>
+                </button>
+              </div>
             </div>
-          </div>
-        ) : null}
+          )
+          : null}
         <div class={style.type}>
           <h2>Type</h2>
           <select name="type" value={routeData.type}>
@@ -113,7 +115,7 @@ const RouteForm = ({
           value={routeData.description}
           class={style.description}
         />
-        <Upload name={"picture"} />
+        <Upload name={'picture'} />
         <button type="submit" class={style.activeButton}>
           Submit
         </button>
