@@ -1,11 +1,10 @@
 import bcrypt from 'bcrypt';
-import IRoutes, { IncomingRoute, OutcomingRoute } from '../../types/route';
+import { IncomingRoute, OutcomingRoute } from '../../types/route';
 import Route from '../../models/route.model';
 import User from '../../models/user.model';
 import { Response } from 'express';
 import { uploadProfilePicture, uploadRoutePicture } from '../../utils/uploads';
 import { IncomingUser, OutcomingUser } from '../../types/user';
-
 
 interface IResponse {
   res: Response;
@@ -14,6 +13,7 @@ interface IResponse {
 interface ICreateRoute {
   input: IncomingRoute;
 }
+
 
 export const createRoute = async (_: any, { input }: ICreateRoute): Promise<OutcomingRoute> => {
   const route = new Route({ ...input, picture: null });
@@ -34,30 +34,46 @@ interface IUpdateRoute {
   input: IncomingRoute;
 }
 
-export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute> => {
-  if (!input.picture) {
-    const updated = {...input} as unknown as OutcomingRoute;
-    return await Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
-  } else {
-    const picturePath = await uploadRoutePicture(input.picture, _id);
-    const updated = {...input, picture: picturePath} as OutcomingRoute;
-    console.log('updated', updated);
-    const route = await Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
-    console.log('route', route);
-    return route;
-  }
+export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute|null|undefined> => {
+  try {
+    if (!input.picture) {
+      const updated = {...input} as unknown as OutcomingRoute;
+      const routeToUpdate = Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
+      if (routeToUpdate) return routeToUpdate;
+      else throw new Error('No such route found');
+     
+    } else {
+      const picturePath = await uploadRoutePicture(input.picture, _id);
+      const updated = {...input, picture: picturePath} as OutcomingRoute;
+      const route = await Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
+      if (!route) throw 'No such route found';
+      else return route; 
 
+    } 
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 interface IRemoveRoute {
   _id: OutcomingRoute['_id'];
 }
 
-export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute> => {
-  const route: IRoutes = await Route.findByIdAndDelete(_id);
-  await User.findByIdAndUpdate(route.author, { $pull: { 'owned_routes': _id } }, { useFindAndModify: false });
-  await User.updateMany({}, { $pull: { 'saved_routes': _id } });
-  return route;
+
+export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute|null|undefined> => {
+  try {
+    const route = await Route.findByIdAndDelete(_id);
+    if (!route) throw new Error('No Route found');
+    else {
+      const updateOwned = await User.findByIdAndUpdate(route.author, { $pull: { 'owned_routes': _id } }, { useFindAndModify: false });
+      const updateSaved = await User.updateMany({}, { $pull: { 'saved_routes': _id } });
+      if (!updateOwned) throw new Error('Could not remove from owned routes');
+      if (!updateSaved) throw new Error('Could not remove from saved routes');
+      else return route;
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 
@@ -85,17 +101,26 @@ interface IUpdateUser {
 }
 
 // picture only, username only, both change
-export const updateUser = async (_:any, { _id, input }: IUpdateUser): Promise<OutcomingUser> => {
-  if (!input.profile_picture) {
-    return await User.findByIdAndUpdate(_id, {userName: input.userName}, { new: true, useFindAndModify: false });
-  } else {
-    const picturePath: string = await uploadProfilePicture(input.profile_picture, _id);
-    const updated = input.userName 
-      ? {
-        userName: input.userName, profile_picture: picturePath
-      } 
-      : {profile_picture: picturePath};
-    return await User.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
+export const updateUser = async (_:any, { _id, input }: IUpdateUser): Promise<OutcomingUser|undefined> => {
+  try {
+    if (!input.profile_picture) {
+      const user = await User.findByIdAndUpdate(_id, {userName: input.userName}, { new: true, useFindAndModify: false });
+      if (user) return user;
+      else throw new Error('No user found');
+  
+    } else {
+      const picturePath: string = await uploadProfilePicture(input.profile_picture, _id);
+      const updated = input.userName 
+        ? {
+          userName: input.userName, profile_picture: picturePath
+        } 
+        : {profile_picture: picturePath};
+      const user = await User.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
+      if (user) return user;
+      else throw new Error('No user found');
+    }
+  } catch (e) {
+    console.log(e);
   }
  
 };
@@ -106,12 +131,25 @@ interface ISaveRoute {
   routeId: IncomingRoute['_id'];
 }
 
-export const saveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<OutcomingUser> =>
-  await User.findByIdAndUpdate(userId, { $push: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
+export const saveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<OutcomingUser|undefined> => {
+  try {
+    const user = await User.findByIdAndUpdate(userId, { $push: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
+    if (user) return user;
+    else throw new Error('No user found');
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-
-export const unsaveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<OutcomingUser> =>
-  await User.findByIdAndUpdate(userId, { $pull: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
+export const unsaveRoute = async (_:any, { userId, routeId }: ISaveRoute): Promise<OutcomingUser|undefined> => {
+  try {
+    const user = await User.findByIdAndUpdate(userId, { $pull: { 'saved_routes': routeId } }, { new: true, useFindAndModify: false });
+    if (user) return user;
+    else throw new Error('No user found');
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 interface ILogin {
   email: IncomingUser['email'];
