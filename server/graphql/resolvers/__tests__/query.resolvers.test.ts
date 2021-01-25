@@ -1,11 +1,7 @@
 import  mongoose from 'mongoose';
 import app from '../../index';
-// import * as request from "supertest";
 import {default as request} from 'supertest';
-import * as dotenv from 'dotenv';
-dotenv.config({ path: __dirname+'/.env' });
-// const request = supertest(app);
-// import { gql } from 'apollo-server-express';
+import User  from '../../../models/user.model';
 
 const dbName = 'testslopeer';
 beforeAll( async () => {
@@ -13,10 +9,11 @@ beforeAll( async () => {
   await mongoose.connect(url, { useNewUrlParser: true });
 }); 
 
-afterAll(done => {
+afterAll(async ()=> {
   // Closing the DB connection allows Jest to exit successfully.
-  mongoose.connection.close();
-  done();
+  await User.deleteMany();
+  await mongoose.connection.close();
+  console.log('clean up complete');
 });
 
 
@@ -57,7 +54,7 @@ describe ('my first test', () => {
         } 
       }
     ).set('Accept', 'application/json');
-    console.log(response.status);
+    console.log('user created', response.status);
     expect(response.status).toBe(200);
   });
 
