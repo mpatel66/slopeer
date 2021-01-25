@@ -1,6 +1,7 @@
 import { Fragment, h, FunctionComponent, JSX } from "preact";
 
 const style = require('/style.css');
+
 declare function require(name: string): any;
 
 
