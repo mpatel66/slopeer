@@ -1,0 +1,5 @@
+// JWTPrivateKey='notarealkey'
+// AWS_S3_ID='notarealkey'
+// AWS_S3_SECRET='notarealkey'
+// BUCKET='notarealbucket'
+process.env.JWTPrivateKey = 'jestTestKey345678'
