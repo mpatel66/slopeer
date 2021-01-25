@@ -4,7 +4,7 @@
   "description": "App for browsing, saving and creating rock climbing routes.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

@@ -32,9 +32,3 @@ const types = {
 };
 
 export default types;
-
-
-
-// const user: OutcomingUser = await (await User.findById(_id)).execPopulate(routes);
-// return user[routes as keyof typeof user];
-// // return user[routes];
