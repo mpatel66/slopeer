@@ -1,6 +1,4 @@
 import '@testing-library/jest-dom';
-// const { expect } = require('expect');
-// import { waitFor } from 'preact';
 import { render } from '@testing-library/preact';
 import { AuthProvider } from '../../context/AuthContext';
 
@@ -31,13 +29,4 @@ describe('myroutes', () => {
     );
     expect(container.textContent).toMatch('1');
   });
-
-  // test('should increment after "Increment" button is clicked', async () => {
-  //   render(<MyRoutes initialCount={5} />);
-
-  //   fireEvent.click(screen.getByText('Increment'));
-  //   await waitFor(() => {
-  //     expect(screen.textContent).toMatch('Current value: 6');
-  //   });
-  // });
 });
