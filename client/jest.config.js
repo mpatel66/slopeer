@@ -18,6 +18,12 @@ module.exports = async () => {
   };
 };
 
+
+module.exports = {
+    "jest": {
+      "setupFilesAfterEnv": ["<rootDir>src/setupTests.js"]
+    }
+}
 module.exports = {
   transform: { '^.+\\.(ts|tsx|js|jsx)?$': 'ts-jest' },
   transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
