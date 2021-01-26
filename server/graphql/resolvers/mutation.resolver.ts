@@ -58,7 +58,7 @@ interface IRemoveRoute {
   _id: OutcomingRoute['_id'];
 }
 
-
+//not being used on the client end.
 export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute|null|undefined> => {
   try {
     const route = await Route.findByIdAndDelete(_id);

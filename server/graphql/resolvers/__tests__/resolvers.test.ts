@@ -151,6 +151,27 @@ describe('User Saved Routes', () => {
     const removeThird = await toggleRoute(existingRoutes[2]._id, false);
     expect(removeThird.body.data.unsaveRoute.saved_routes.length).toBe(0);
   });
+});
 
-  
+describe('User Owned Routes', () => {
+  it('Should create new routes', async () => {
+    const routePayload = {
+      'query': `${mutations.createRoute}`,
+      'variables': {
+        'name': 'Narnia',
+        'grade': '9a',
+        'public': true,
+        'author': `${user._id}`,
+        'lat': '123',
+        'lng': '64',
+        'type':'sport'
+      }
+    };
+
+    const addRoute = await gqlRequest(routePayload);
+    expect(addRoute.status).toBe(200);
+    const userOwnedRoutes = await User.findById(user._id, 'owned_routes');
+    expect(userOwnedRoutes.owned_routes.length).toBe(1);
+
+  });
 });
