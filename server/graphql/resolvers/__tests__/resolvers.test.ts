@@ -4,8 +4,10 @@ import {default as request} from 'supertest';
 import User  from '../../../models/user.model';
 import mutations from './test_client/clientMutations';
 
-const dbName = 'testslopeer';
+const dbName = process.env.DB_NAME;
+const DB = process.env.DB;
 
+console.log('dbname', dbName);
 const user = {
   email: 'test@test.com',
   username: 'testymctestface',
@@ -21,7 +23,7 @@ async function gqlRequest (payload:any) {
 }
 
 beforeAll( async () => {
-  const url = `mongodb://localhost:27017/${dbName}`;
+  const url = `${DB}${dbName}`;
   await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 }); 
 
