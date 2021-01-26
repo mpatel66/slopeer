@@ -5,10 +5,6 @@ import User  from '../../../models/user.model';
 import mutations from './test_client/clientMutations';
 
 const dbName = 'testslopeer';
-beforeAll( async () => {
-  const url = `mongodb://localhost:27017/${dbName}`;
-  await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-}); 
 
 const user = {
   email: 'test@test.com',
@@ -24,6 +20,10 @@ async function gqlRequest (payload:any) {
     .set('Accept', 'application/json');
 }
 
+beforeAll( async () => {
+  const url = `mongodb://localhost:27017/${dbName}`;
+  await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+}); 
 
 afterAll(async ()=> {
   await User.deleteMany(); // drop all the data from users.
