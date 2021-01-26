@@ -6,7 +6,7 @@ import User  from '../../../models/user.model';
 const dbName = 'testslopeer';
 beforeAll( async () => {
   const url = `mongodb://localhost:27017/${dbName}`;
-  await mongoose.connect(url, { useNewUrlParser: true });
+  await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 }); 
 
 const user = {
@@ -22,8 +22,19 @@ async function gqlRequest (payload:any) {
     .set('Accept', 'application/json');
 }
 
+
+// async function gqlAuthRequest (payload:any, userId?: string) {
+//   return await request(app)
+//     .post('/graphql')
+//     .send(payload)
+//     .set({ 'Authorization': `${userId}`, Accept: 'application/json' });
+//   // .set('Accept', 'application/json')
+//   // .set('Authorization',`${userId}`);
+// }
+
+
 afterAll(async ()=> {
-  await User.deleteMany(); // drop all the data from users.
+  // await User.deleteMany(); // drop all the data from users.
   await mongoose.connection.close(); // close the db after the test finishes, otherwise jest will complain.
   console.log('clean up complete');
 });
@@ -32,6 +43,7 @@ describe ('Register New User', () => {
   const mutation = `mutation($email: String!, $username:String!, $password:String!){
     createUser(input: {email: $email, username: $username, password: $password})
   }`;
+
   const payload = {
     'query': `${mutation}`, 
     'variables': { 
@@ -62,7 +74,7 @@ describe ('Register New User', () => {
 });
 
 describe ('User Actions', () => {
-  let userId = '';
+  // let userId = '';
   const loginMut =  `mutation($email: String!, $password:String!){
     login(email: $email, password: $password)
   }`;
@@ -75,18 +87,8 @@ describe ('User Actions', () => {
     } 
   };
 
-  it('Should log the user in', async () => {
-    const response = await gqlRequest(LoginPayload);
-    expect(response.status).toBe(200);
-    // receive a JWT token. On client side, the token is used in the middleware to check for a valid user.
-    userId = response.body.data.login;
-  });
-
-  //logs out correctly here.
-  // console.log('userId outside', userId);
-
-  const userMut = `mutation($_id:ID!, $username: String!, $profile_picture:FileUpload){
-    updateUser(_id:$_id, input: {username: $username, profile_picture:$profile_picture}){
+  const userMut = `mutation($_id:ID!, $username: String!){
+    updateUser(_id:$_id, input: {username: $username}){
       _id
       username
     }
@@ -95,19 +97,36 @@ describe ('User Actions', () => {
   const userPayload = {
     'query': `${userMut}`,
     'variables': {
-      '_id': `${userId}`,
+      '_id': '5fff037ddb8f2fd31c7f2168',
       'username': 'BoatMcBoatFace'
     }
   };
+
+  it('Should log the user in', async () => {
+    const response = await gqlRequest(LoginPayload);
+    expect(response.status).toBe(200);
+    // receive a JWT token. On client side, the token is used in the middleware to check for a valid user.
+    // userId = response.body.data.login; // token
+
+    // const response2 = await gqlRequest(userPayload.query);
+    // console.log(response2.body);
+    // expect(response2.body.data.username).toBe('BoatMcBoatFace');
+
+  });
+
+  //logs out correctly here.
+  // console.log('userId outside', userId);
+
+
 
 
   // get a cast error. Although below userId is defined, when the test runs, it uses an empty string.
 
   it('Should allow user to update profile', async () => {
-    console.log('userid', userId);
+    // console.log('userid', userId);
     const response = await gqlRequest(userPayload);
-    // console.log(response.body);
-    expect(response.body.data.username).toBe('BoatMcBoatFace');
+    console.log(response.body);
+    expect(response.body.data.updateUser.username).toBe('BoatMcBoatFace');
     // expect(response.status).toBe(200);
   });
 

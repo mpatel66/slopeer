@@ -103,6 +103,8 @@ interface IUpdateUser {
 
 // picture only, username only, both change
 export const updateUser = async (_:any, { _id, input }: IUpdateUser): Promise<OutcomingUser|undefined> => {
+  console.log('inside update user', _id);
+  console.log('input', input);
   try {
     if (!input.profile_picture) {
       const user = await User.findByIdAndUpdate(_id, {username: input.username}, { new: true, useFindAndModify: false });
