@@ -1,7 +1,7 @@
 import  mongoose from 'mongoose';
-import app from '../../index';
+import app from '../index';
 import {default as request} from 'supertest';
-import User  from '../../../models/user.model';
+import User  from '../../models/user.model';
 
 const dbName = 'testslopeer';
 beforeAll( async () => {

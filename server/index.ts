@@ -1,7 +1,5 @@
-// import 'dotenv'.config()
 import * as dotenv from 'dotenv';
 dotenv.config({ path: __dirname+'/.env' });
-// console.log('PROCESS name', process.env);
 import app from './graphql';
 import { connection  } from './models';
 

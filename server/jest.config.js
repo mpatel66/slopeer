@@ -12,4 +12,8 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
   setupFiles: ['<rootDir>/.jest/setEnvVars.js'],
+  testPathIgnorePatterns: [
+    '<rootDir>/graphql/resolvers/__tests__/test_client'
+  ],
+
 };

@@ -89,7 +89,6 @@ export const createUser = async (_: any, { input: { email, username, password }}
   await user.save();
 
   const token = await user.generateAuthToken();
-  console.log(token);
   return token;
 };
 
