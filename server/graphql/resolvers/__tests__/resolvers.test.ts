@@ -2,14 +2,7 @@ import  mongoose from 'mongoose';
 import app from '../../index';
 import {default as request} from 'supertest';
 import User  from '../../../models/user.model';
-import jwt from 'jsonwebtoken';
 import mutations from './test_client/clientMutations';
-
-interface IVerify {
-  _id: string;
-  iat: number;
-  exp: number;
-}
 
 const dbName = 'testslopeer';
 beforeAll( async () => {
@@ -54,6 +47,12 @@ describe ('Register New User', () => {
     // New user should be in the database.
     const findUser = await User.findOne({email:user.email});
     expect(findUser.username).toBe(user.username);
+    user._id = findUser._id;
+  });
+
+  it ('Should encrypt the password', async () => {
+    const getUser = await User.findById(user._id);
+    expect(getUser.password).not.toBe(user.password);
   });
 
   it('Should not create two users of the same email', async () => {
@@ -64,7 +63,7 @@ describe ('Register New User', () => {
 
 });
 
-describe ('User Actions', () => {
+describe ('User Login & Update Profile', () => {
 
   it('Should log the user in', async () => {
     const LoginPayload = {
@@ -76,10 +75,6 @@ describe ('User Actions', () => {
     };
     const response = await gqlRequest(LoginPayload);
     expect(response.status).toBe(200);
-    // receive a JWT token. On client side, the token is used in the middleware to check for a valid user.
-    const token = response.body.data.login; // token
-
-    user._id = (jwt.verify(token, process.env.JWTPrivateKey) as IVerify)._id;
   });
 
   it('Should allow user to update profile', async () => {
