@@ -4,11 +4,10 @@ import {default as request} from 'supertest';
 import User  from '../../../models/user.model';
 import mutations from './test_client/clientMutations';
 import Route from '../../../models/route.model';
+import testRoutes from './test_client/routes';
 
 const dbName = process.env.DB_NAME;
 const DB = process.env.DB;
-
-console.log('dbname', dbName);
 const user = {
   email: 'test@test.com',
   username: 'testymctestface',
@@ -34,16 +33,14 @@ beforeAll( async () => {
   await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
   const testUser = await User.create(fakeDetails);
-  // console.log('test',testUser);
-  const newRoute = await Route.create({
-    name: 'JEST',
-    grade: '6a',
-    author: testUser._id,
-    public:false,
-    lat: '42',
-    lng: '2.6'
+  const id: string = testUser._id;
+  const newRoutes = testRoutes.map(route => {
+    return {
+      ...route,
+      author: id
+    };
   });
-  console.log('route', newRoute);
+  await Route.insertMany(newRoutes);
 
 }); 
 
@@ -113,4 +110,47 @@ describe ('User Login & Update Profile', () => {
     expect(response.status).toBe(200);
   });
 
+});
+
+describe('User Saved Routes', () => {
+  
+  async function toggleRoute (route:string, save:boolean) {
+    const savePayload = {
+      'query': `${save ? mutations.saveRoute : mutations.unsaveRoute}`,
+      'variables': {
+        'userId': `${user._id}`,
+        'routeId': `${route}`
+      }
+    };
+    return await gqlRequest(savePayload);
+  }
+  
+  it('Should allow users to save routes', async () => {
+    const existingRoutes = await Route.find();
+
+    const firstRoute = await toggleRoute(existingRoutes[0]._id, true);
+    expect(firstRoute.status).toBe(200);
+    expect(firstRoute.body.data.saveRoute.saved_routes.length).toBe(1);
+
+    const secondRoute = await toggleRoute(existingRoutes[1]._id,true);
+    expect(secondRoute.body.data.saveRoute.saved_routes.length).toBe(2);
+
+    const thirdRoute = await toggleRoute(existingRoutes[2]._id,true);
+    expect(thirdRoute.body.data.saveRoute.saved_routes.length).toBe(3);
+  });
+
+  it('Should allow users to remove saved routes', async () => {
+    const existingRoutes = await Route.find();
+
+    const removeFirst = await toggleRoute(existingRoutes[0]._id, false);
+    expect(removeFirst.body.data.unsaveRoute.saved_routes.length).toBe(2);
+
+    const removeSecond = await toggleRoute(existingRoutes[1]._id, false);
+    expect(removeSecond.body.data.unsaveRoute.saved_routes.length).toBe(1);
+
+    const removeThird = await toggleRoute(existingRoutes[2]._id, false);
+    expect(removeThird.body.data.unsaveRoute.saved_routes.length).toBe(0);
+  });
+
+  
 });
