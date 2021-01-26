@@ -2,6 +2,14 @@ import  mongoose from 'mongoose';
 import app from '../../index';
 import {default as request} from 'supertest';
 import User  from '../../../models/user.model';
+import jwt from 'jsonwebtoken';
+import mutations from './test_client/clientMutations';
+
+interface IVerify {
+  _id: string;
+  iat: number;
+  exp: number;
+}
 
 const dbName = 'testslopeer';
 beforeAll( async () => {
@@ -12,7 +20,8 @@ beforeAll( async () => {
 const user = {
   email: 'test@test.com',
   username: 'testymctestface',
-  password: 'superstrongpassword123'
+  password: 'superstrongpassword123',
+  _id: ''
 };
 
 async function gqlRequest (payload:any) {
@@ -23,43 +32,25 @@ async function gqlRequest (payload:any) {
 }
 
 
-// async function gqlAuthRequest (payload:any, userId?: string) {
-//   return await request(app)
-//     .post('/graphql')
-//     .send(payload)
-//     .set({ 'Authorization': `${userId}`, Accept: 'application/json' });
-//   // .set('Accept', 'application/json')
-//   // .set('Authorization',`${userId}`);
-// }
-
-
 afterAll(async ()=> {
-  // await User.deleteMany(); // drop all the data from users.
+  await User.deleteMany(); // drop all the data from users.
   await mongoose.connection.close(); // close the db after the test finishes, otherwise jest will complain.
   console.log('clean up complete');
 });
 
 describe ('Register New User', () => {
-  const mutation = `mutation($email: String!, $username:String!, $password:String!){
-    createUser(input: {email: $email, username: $username, password: $password})
-  }`;
-
   const payload = {
-    'query': `${mutation}`, 
+    'query': `${mutations.register}`, 
     'variables': { 
       'email': `${user.email}`,
       'username': `${user.username}`,
       'password': `${user.password}`,
     } 
   };
-
   // Create a new user
   it('Ceates a new user', async () => {
-    // create a new user
-    const response = await gqlRequest(payload);
-    // expect http status to be 200 if successfully created.
+    const response = await gqlRequest(payload); // expect http status to be 200 if successfully created.
     expect(response.status).toBe(200);
-
     // New user should be in the database.
     const findUser = await User.findOne({email:user.email});
     expect(findUser.username).toBe(user.username);
@@ -74,60 +65,34 @@ describe ('Register New User', () => {
 });
 
 describe ('User Actions', () => {
-  // let userId = '';
-  const loginMut =  `mutation($email: String!, $password:String!){
-    login(email: $email, password: $password)
-  }`;
-
-  const LoginPayload = {
-    'query': `${loginMut}`, 
-    'variables': { 
-      'email': `${user.email}`,
-      'password': `${user.password}`,
-    } 
-  };
-
-  const userMut = `mutation($_id:ID!, $username: String!){
-    updateUser(_id:$_id, input: {username: $username}){
-      _id
-      username
-    }
-  }`;
-
-  const userPayload = {
-    'query': `${userMut}`,
-    'variables': {
-      '_id': '5fff037ddb8f2fd31c7f2168',
-      'username': 'BoatMcBoatFace'
-    }
-  };
 
   it('Should log the user in', async () => {
+    const LoginPayload = {
+      'query': `${mutations.login}`, 
+      'variables': { 
+        'email': `${user.email}`,
+        'password': `${user.password}`,
+      } 
+    };
     const response = await gqlRequest(LoginPayload);
     expect(response.status).toBe(200);
     // receive a JWT token. On client side, the token is used in the middleware to check for a valid user.
-    // userId = response.body.data.login; // token
+    const token = response.body.data.login; // token
 
-    // const response2 = await gqlRequest(userPayload.query);
-    // console.log(response2.body);
-    // expect(response2.body.data.username).toBe('BoatMcBoatFace');
-
+    user._id = (jwt.verify(token, process.env.JWTPrivateKey) as IVerify)._id;
   });
 
-  //logs out correctly here.
-  // console.log('userId outside', userId);
-
-
-
-
-  // get a cast error. Although below userId is defined, when the test runs, it uses an empty string.
-
   it('Should allow user to update profile', async () => {
-    // console.log('userid', userId);
+    const userPayload = {
+      'query': `${mutations.updateUser}`,
+      'variables': {
+        '_id': `${user._id}`,
+        'username': 'BoatMcBoatFace'
+      }
+    };
     const response = await gqlRequest(userPayload);
-    console.log(response.body);
     expect(response.body.data.updateUser.username).toBe('BoatMcBoatFace');
-    // expect(response.status).toBe(200);
+    expect(response.status).toBe(200);
   });
 
 });
