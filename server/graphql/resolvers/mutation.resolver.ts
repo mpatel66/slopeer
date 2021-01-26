@@ -33,7 +33,7 @@ interface IUpdateRoute {
   input: IncomingRoute;
 }
 
-export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute|null|undefined> => {
+export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute|undefined> => {
   try {
     if (!input.picture) {
       const updated = {...input} as unknown as OutcomingRoute;
@@ -59,7 +59,7 @@ interface IRemoveRoute {
 }
 
 //not being used on the client end.
-export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute|null|undefined> => {
+export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute|undefined> => {
   try {
     const route = await Route.findByIdAndDelete(_id);
     if (!route) throw new Error('No Route found');

@@ -15,4 +15,7 @@ const routeSchema: Schema<OutcomingRoute, Model<OutcomingRoute>> = new Schema({
 
 const Route: Model<OutcomingRoute> = model('Route', routeSchema);
 
+
+
+
 export default Route;

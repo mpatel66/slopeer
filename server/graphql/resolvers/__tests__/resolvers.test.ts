@@ -154,6 +154,7 @@ describe('User Saved Routes', () => {
 });
 
 describe('User Owned Routes', () => {
+  let routeId = '';
   it('Should create new routes', async () => {
     const routePayload = {
       'query': `${mutations.createRoute}`,
@@ -170,8 +171,46 @@ describe('User Owned Routes', () => {
 
     const addRoute = await gqlRequest(routePayload);
     expect(addRoute.status).toBe(200);
+    routeId = addRoute.body.data.createRoute._id;
     const userOwnedRoutes = await User.findById(user._id, 'owned_routes');
     expect(userOwnedRoutes.owned_routes.length).toBe(1);
+  });
+
+  it('Should update an existing route', async () => {
+    const prevRoute = await Route.findById(routeId);
+
+    const updatePayload = {
+      'query': `${mutations.updateRoute}`,
+      'variables': {
+        '_id': `${routeId}`,
+        'name': 'Cyprus',
+        'grade': '7a',
+        'public': false,
+        'type':'boulder',
+        'description': 'a really big rock.'
+      }
+    };
+
+    const updatedRoute = await gqlRequest(updatePayload);
+    const {
+      name, 
+      grade, 
+      public: updatedPublic, 
+      type, 
+      description, 
+      lat, 
+      lng
+    } = updatedRoute.body.data.updateRoute;
+
+    expect(name).not.toBe(prevRoute.name);
+    expect(grade).not.toBe(prevRoute.grade);
+    expect(updatedPublic).not.toBe(prevRoute.public);
+    expect(type).not.toBe(prevRoute.type);
+    expect(description).not.toBe(prevRoute.description);
+    
+    expect(lat).toBe(prevRoute.lat);
+    expect(lng).toBe(prevRoute.lng);
 
   });
+
 });
