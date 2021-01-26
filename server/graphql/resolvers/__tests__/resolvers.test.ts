@@ -3,6 +3,7 @@ import app from '../../index';
 import {default as request} from 'supertest';
 import User  from '../../../models/user.model';
 import mutations from './test_client/clientMutations';
+import Route from '../../../models/route.model';
 
 const dbName = process.env.DB_NAME;
 const DB = process.env.DB;
@@ -15,6 +16,12 @@ const user = {
   _id: ''
 };
 
+const fakeDetails = {
+  email: 'jesus@god.com',
+  username: 'SonOfGod',
+  password: 'judas123',
+};
+
 async function gqlRequest (payload:any) {
   return await request(app)
     .post('/graphql')
@@ -23,12 +30,26 @@ async function gqlRequest (payload:any) {
 }
 
 beforeAll( async () => {
-  const url = `${DB}${dbName}`;
+  const url = `${DB}/${dbName}`;
   await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  const testUser = await User.create(fakeDetails);
+  // console.log('test',testUser);
+  const newRoute = await Route.create({
+    name: 'JEST',
+    grade: '6a',
+    author: testUser._id,
+    public:false,
+    lat: '42',
+    lng: '2.6'
+  });
+  console.log('route', newRoute);
+
 }); 
 
 afterAll(async ()=> {
   await User.deleteMany(); // drop all the data from users.
+  await Route.deleteMany(); // drop all the data from users.
   await mongoose.connection.close(); // close the db after the test finishes, otherwise jest will complain.
   console.log('clean up complete');
 });
