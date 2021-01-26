@@ -23,7 +23,7 @@ async function gqlRequest (payload:any) {
 }
 
 beforeAll( async () => {
-  const url = `${DB}${dbName}`;
+  const url = `${DB}/${dbName}`;
   await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 }); 
 
