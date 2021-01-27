@@ -3,13 +3,12 @@ import Render from "preact-render-to-string";
 import { render, fireEvent, screen, waitFor, getByText} from "@testing-library/preact";
 import { AuthProvider } from "../../context/AuthContext";
 import { Provider } from '@urql/preact';
-import { never, fromValue, fromArray, pipe, delay } from 'wonka';
+import { never, fromValue} from 'wonka';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-preact-pure';
 import MyRoutes from "./index.tsx";
 import { h } from "preact";
-import largeRouteCard from '../../components/largeRouteCard/largeRouteCard.tsx'
-import { LargeRouteCard } from '../../components';
+
 
 configure({ adapter: new Adapter() });
 
@@ -94,7 +93,7 @@ describe('server querying tests', () => {
     const wrapper = mount(
       <AuthProvider>
       <Provider value={mockClient}>
-        <MyRoutes _id={1234} />
+        <MyRoutes />
       </Provider>
       </AuthProvider>
      
