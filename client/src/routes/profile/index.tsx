@@ -13,7 +13,7 @@ import IUser from '../../../types/User';
 
 
 const Profile: FunctionComponent<any> = (props) => {
-  //matches: {id: 12345}
+
   const id = props.id;
   const { user, logout } = useAuth();
   const { online } = useNetwork();
@@ -37,7 +37,6 @@ const Profile: FunctionComponent<any> = (props) => {
           pictureStyle={style.avatar}
           imageStyle={style.image}
         />
-        {console.log(user === id, 'are they the same?')}
         {user === id ? (
           <div class={style.personal}>
             <button onClick={logout} class={style.logout}>
@@ -53,9 +52,7 @@ const Profile: FunctionComponent<any> = (props) => {
             )}
           </div>
         ) : null}
-      
         <h2>Public Routes</h2>
-        {console.log(routes, 'routesssssssss')}
         {routes.map((route) => (
           <SmallRouteCard data={route} />
         ))}

@@ -103,7 +103,7 @@ describe('server querying tests', () => {
   });
   
 
-  test('renders own routes (on load) and saved routes on click', () => {
+  test('renders own routes (on load) and saved routes on click - integration tests ', () => {
     const { container, getByText} = render(
       <Provider value={mockClient}>
         <AuthProvider>
