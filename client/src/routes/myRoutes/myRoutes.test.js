@@ -13,7 +13,7 @@ import { h } from "preact";
 configure({ adapter: new Adapter() });
 
 
-jest.mock("mapbox-gl", () => ({
+jest.mock('mapbox-gl', () => ({
   GeolocateControl: jest.fn(),
   Map: jest.fn(() => ({
     addControl: jest.fn(),
