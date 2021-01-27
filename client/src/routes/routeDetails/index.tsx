@@ -8,7 +8,7 @@ import { gradeBckgColor, gradeColor } from '../../utils/routes';
 import { Spinner, Content, Picture } from '../../components';
 import { useNetwork } from '../../context/NetworkContext';
 import IUser from '../../../types/User';
-import IRoute, { IData, IMatches } from '../../../types/Route';
+import IRoute, { IData } from '../../../types/Route';
 
 const style = require('./style.css');
 declare function require(name: string): any;
@@ -17,9 +17,16 @@ const saveIcon = '/assets/images/save.svg';
 const savedIcon = '/assets/images/saved.svg';
 const editIcon = '/assets/images/edit.svg';
 
-const RouteDetails: FunctionComponent<IMatches> = ({
+interface routeId {
+  matches: {
+    id: IRoute['_id'];
+  }
+}
+
+const RouteDetails: FunctionComponent<routeId> = ({
   matches: { id: _id },
 }) => {
+
   const { user } = useAuth();
   const { online } = useNetwork();
   const [saved, setSaved] = useState(false);
@@ -38,8 +45,8 @@ const RouteDetails: FunctionComponent<IMatches> = ({
   });
 
   if (!userRoutes || !data) {
-    console.log('No data here!');
-    return null;
+    route('/');
+    return; 
   }
   const handleToggleSave = async () => {
     const { error } = await toggleSaveRoute(saved, user, _id);
@@ -68,7 +75,7 @@ const RouteDetails: FunctionComponent<IMatches> = ({
       name,
       grade,
       picture,
-      author: { username, _id: userId },
+      author,
       type,
       description,
       lat,
@@ -130,8 +137,8 @@ const RouteDetails: FunctionComponent<IMatches> = ({
         <div class={style.routeInfo}>
           <h2>
             AUTHOR{' '}
-            <Link href={`/profile/${userId}`} class={style.author}>
-              {username}
+            <Link href={`/profile/${user._id}`} class={style.author}>
+              {user.username}
             </Link>{' '}
           </h2>
           <h3>

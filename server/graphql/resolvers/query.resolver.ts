@@ -3,19 +3,6 @@ import Route from '../../models/route.model';
 import IUser, { OutcomingUser } from '../../types/user';
 import IRoutes, { OutcomingRoute } from '../../types/route';
 
-// exports.routes = async (_, args) =>
-//   await Route.find({ ...args })
-//     .populate('author');
-
-// exports.route = async (_, { _id }) => await Route.findById(_id).populate('author');
-
-// exports.user = async (_, { _id }) =>
-//   await User.findById(_id)
-//     .populate('saved_routes')
-//     .populate('owned_routes');
-
-
-
 // routes will take an authorID and a boolean according to the querySchema file.
 interface IArgs {
   author: IUser['id'];

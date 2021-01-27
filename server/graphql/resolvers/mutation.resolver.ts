@@ -33,7 +33,8 @@ interface IUpdateRoute {
   input: IncomingRoute;
 }
 
-export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute|null|undefined> => {
+export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute|undefined> => {
+  console.log('input', input);
   try {
     if (!input.picture) {
       const updated = {...input} as unknown as OutcomingRoute;
@@ -42,7 +43,6 @@ export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise
       else throw new Error('No such route found');
      
     } else {
-      
       const picturePath = await uploadRoutePicture(input.picture, _id);
       const updated = {...input, picture: picturePath} as OutcomingRoute;
       const route = await Route.findByIdAndUpdate(_id, updated, { new: true, useFindAndModify: false });
@@ -58,8 +58,8 @@ interface IRemoveRoute {
   _id: OutcomingRoute['_id'];
 }
 
-
-export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute|null|undefined> => {
+//not being used on the client end.
+export const removeRoute = async (_:any, { _id }: IRemoveRoute): Promise<OutcomingRoute|undefined> => {
   try {
     const route = await Route.findByIdAndDelete(_id);
     if (!route) throw new Error('No Route found');
@@ -88,7 +88,8 @@ export const createUser = async (_: any, { input: { email, username, password }}
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
 
-  return user.generateAuthToken();
+  const token = await user.generateAuthToken();
+  return token;
 };
 
 interface IUpdateUser {

@@ -6,7 +6,6 @@
       "@types", // custom merged types MUST be first in a list
       "./node_modules/@types",
     ],
-    "types": ["jest", "node"],
     "target": "es2018",
     "module": "commonjs",   /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
     "allowJs": true,                       /* Allow javascript files to be compiled. */
@@ -39,6 +38,6 @@
     /* Advanced Options */
     "skipLibCheck": true,                     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true,  /* Disallow inconsistently-cased references to the same file. */
-  },
-  "files": ["@types/*"]
+  }
+  // "files": ["@types/*"]
 }

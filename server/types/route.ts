@@ -6,7 +6,7 @@ interface IRoutes extends Document {
   grade: string;
   author: string;
   public?: boolean;
-  type?: routeType;
+  type?: string;
   lat?: string;
   lng?: string;
   description?: string;

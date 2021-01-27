@@ -21,11 +21,13 @@ const initialRoute: IRoute = {
 }
 
 interface routeProps {
-id:IRoute['_id'];
-routeData:IData;     
+  matches: {
+    id:IRoute['_id'];
+  }
 }
 
-const EditRoute:FunctionComponent<IMatches> = ({ matches: { id } }) => {
+const EditRoute:FunctionComponent<routeProps> = ({ matches: { id } }) => {
+  console.log(id,'id')
   const { user } = useAuth();
   const [routeData, setRouteData] = useState<IRoute>(initialRoute);
   const [{ fetching: updatingRoute }, updateRoute] = useMutation(
@@ -53,10 +55,10 @@ const EditRoute:FunctionComponent<IMatches> = ({ matches: { id } }) => {
   }, []);
 
  
-  const handleSubmit = async (e:KeyboardEvent) => {
+  const handleSubmit = async (e:MouseEvent) => {
     e.preventDefault();
     if (routeData.name) {
-      await updateRoute({ _id: id, ...routeData});
+      await updateRoute({...routeData, _id: id,});
       route(`/route/${id}`);
     }
   };

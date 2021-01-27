@@ -18,6 +18,7 @@ import IUser from '../../../types/User';
 // }
 
 const Profile: FunctionComponent<IMatches> = ({ matches: { id } }) => {
+  console.log(id)
   const { user, logout } = useAuth();
   const { online } = useNetwork();
 
