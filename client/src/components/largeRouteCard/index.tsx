@@ -11,7 +11,8 @@ declare function require(name: string): any;
 const LargeRouteCard:FunctionComponent <IRoute> = ({ picture, name, grade, _id, type }) => {
 
   return (
-    <div class={style.split} onClick={() => route(`route/${_id}`)}>
+    <div class={style.split} onClick={() => route(`route/${_id}`)}
+    title='largeRouteCard'>
     <Picture 
       profile={false}
       picture={picture}
@@ -20,6 +21,7 @@ const LargeRouteCard:FunctionComponent <IRoute> = ({ picture, name, grade, _id, 
       pictureStyle={style.picture}
       imageStyle={style.image}
     />
+
     <div class={style.routeData}>
       <h2 class={style.routeName}>{name}</h2>
       <div class={style.details}>

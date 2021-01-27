@@ -1,32 +1,131 @@
-import '@testing-library/jest-dom';
-import { render } from '@testing-library/preact';
-import { AuthProvider } from '../../context/AuthContext';
+import "@testing-library/jest-dom";
+import Render from "preact-render-to-string";
+import { render, fireEvent, screen, waitFor, getByText} from "@testing-library/preact";
+import { AuthProvider } from "../../context/AuthContext";
+import { Provider } from '@urql/preact';
+import { never, fromValue} from 'wonka';
+import { configure, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-preact-pure';
+import MyRoutes from "./index.tsx";
+import { h } from "preact";
 
-import MyRoutes from './index.tsx';
-import { h } from 'preact';
-jest.mock('mapbox-gl', () => ({
+
+configure({ adapter: new Adapter() });
+
+
+jest.mock("mapbox-gl", () => ({
   GeolocateControl: jest.fn(),
   Map: jest.fn(() => ({
     addControl: jest.fn(),
     on: jest.fn(),
-    remove: jest.fn()
+    remove: jest.fn(),
   })),
-  NavigationControl: jest.fn()
+  NavigationControl: jest.fn(),
 }));
 
-// jest.mock('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker', () => {});
-describe('myroutes', () => {
+const mockClient = {
+  executeQuery: jest.fn(() => {
+  const result= fromValue({
+      data: {
+        user:{
+      _id:1234, 
+      owned_routes:[
+        {
+        _id:1,
+        name:'ownroute',
+        grade:'4a', 
+        picture:'SMD',
+        type:'hddvDFF',
+      }
+    ],
+      saved_routes:[
+      {
+        _id:4444,
+        name:'savedroute2',
+        grade:'4a',
+        picture:'W2F',
+        type:'kjsdbsbd' 
+      },
+    ]
+    }},
+    fetching:false, 
+    error:false
+    }, )
+    return result } ), 
+  executeMutation: jest.fn(() => never),
+  executeSubscription: jest.fn(() => never),
+};
+
+
+describe("myRoutes general tests", () => {
   beforeEach(() => {
     window.URL.createObjectURL = () => {};
   });
-  test('should display initial routes', () => {
-    console.log('window', window.URL.createObjectURL);
+  test("should display initial routes", () => {
 
     const { container } = render(
       <AuthProvider>
         <MyRoutes />
       </AuthProvider>
     );
-    expect(container.textContent).toMatch('1');
+    expect(container.textContent).toMatch("OWNED ROUTES");
+    expect(container.textContent).toMatch("SAVED ROUTES");
+  });
+
+  test("rendered component should match snapshot", () => {
+    const tree = Render(
+      <AuthProvider>
+        <MyRoutes />
+      </AuthProvider>
+    );
+    expect(tree).toMatchInlineSnapshot(
+      `"<header class=\\"header\\"><nav><button class=\\"selected\\">OWNED ROUTES</button><button class>SAVED ROUTES</button></nav></header><div class=\\"spinner_wrapper\\"><div class=\\"spinner\\"></div></div>"`
+    );
   });
 });
+
+describe('server querying tests', () => {
+  beforeEach(() => {
+    window.URL.createObjectURL = () => {};
+  });
+
+  test('component calls the query on load', () => {
+    const wrapper = mount(
+      <AuthProvider>
+      <Provider value={mockClient}>
+        <MyRoutes />
+      </Provider>
+      </AuthProvider>
+     
+    );
+    expect(mockClient.executeQuery).toBeCalledTimes(1);
+    
+  });
+  
+
+  test('renders own routes (on load) and saved routes on click - integration tests ', () => {
+    const { container, getByText} = render(
+      <Provider value={mockClient}>
+        <AuthProvider>
+        <MyRoutes />
+        </AuthProvider>
+      </Provider>
+    );
+   
+    // testing component is rendering on load 
+    expect(getByText('4a')).toBeInTheDocument()
+
+    //testing new component is rendering after firing the event 
+    const button = getByText('SAVED ROUTES');
+    fireEvent.click(button);
+    expect(getByText('savedroute2')).toBeInTheDocument()
+  });
+})
+
+
+
+  
+  // jest.mock('../../components/largeRouteCard/index', ()=> () =>
+  //     <div data-testid='largeRouteCard'>saved route 2</div>
+  //   )
+    // expect(getByTestId(/largeRouteCard/)).toContain('savedroute2')

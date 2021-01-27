@@ -4,7 +4,7 @@ import IUser from './User'
 export default interface IRoute {
   _id: string;
   name: string;
-  author: IUser;
+  author: IUser['_id'];
   public: boolean;
   picture: string;
   description: string;
