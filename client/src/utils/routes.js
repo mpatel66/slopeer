@@ -1,9 +1,9 @@
 import { profilePicturesUrl, routePicturesUrl } from '../../config';
 
 const gradeColors = {
-  1: ['#EAE2B7', 'black'],
-  2: ['#EAE2B7', 'black'],
-  3: ['#EAE2B7', 'black'],
+  '1': ['#EAE2B7', 'black'],
+  '2': ['#EAE2B7', 'black'],
+  '3': ['#EAE2B7', 'black'],
   '4a': ['#EAE2B7', 'black'],
   '4b': ['#EAE2B7', 'black'],
   '4c': ['#EAE2B7', 'black'],

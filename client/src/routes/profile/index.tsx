@@ -11,14 +11,12 @@ declare function require(name: string): any;
 import IRoute, { IData, IMatches } from '../../../types/Route';
 import IUser from '../../../types/User';
 
-// interface Props {
-//   searchTextChange(userInput: string): void;
-//   updateQueryType(index: IndexPath | IndexPath[]): void;
-//   search: SearchInterface;
-// }
 
-const Profile: FunctionComponent<IMatches> = ({ matches: { id } }) => {
-  console.log(id)
+const Profile: FunctionComponent<any> = (props) => {
+  //matches: {id: 12345}
+  console.log('props are', props);
+  const id = props.id;
+  // console.log('hllo', id)
   const { user, logout } = useAuth();
   const { online } = useNetwork();
 

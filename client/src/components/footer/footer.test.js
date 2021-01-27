@@ -5,6 +5,7 @@ import { AuthProvider } from "../../context/AuthContext";
 import { NetworkProvider } from "../../context/NetworkContext";
 import Footer from "./index";
 import { h } from "preact";
+
 jest.mock("mapbox-gl", () => ({
   GeolocateControl: jest.fn(),
   Map: jest.fn(() => ({
@@ -15,8 +16,6 @@ jest.mock("mapbox-gl", () => ({
   NavigationControl: jest.fn(),
 }));
 
-// jest.mock('/', () =>({
-// }))
 describe("footer rendering with links", () => {
   beforeEach(() => {
     window.URL.createObjectURL = () => {};

@@ -3,15 +3,14 @@ import Render from "preact-render-to-string";
 import { render, fireEvent, screen, waitFor, getByText} from "@testing-library/preact";
 import { AuthProvider } from "../../context/AuthContext";
 import { Provider } from '@urql/preact';
-import { never, fromValue } from 'wonka';
-// // test-setup.js
+import { never, fromValue, fromArray, pipe, delay } from 'wonka';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-preact-pure';
 import MyRoutes from "./index.tsx";
 import { h } from "preact";
 import largeRouteCard from '../../components/largeRouteCard/largeRouteCard.tsx'
 import { LargeRouteCard } from '../../components';
-// import {mockClient, MapMock} from '../../../tests/__mocks__/Mocks'
+
 configure({ adapter: new Adapter() });
 
 
@@ -25,31 +24,26 @@ jest.mock("mapbox-gl", () => ({
   NavigationControl: jest.fn(),
 }));
 
-jest.mock('@urql/preact', () => { 
-  return function useQuery() {
-  return [{
+const mockClient = {
+  executeQuery: jest.fn(() => {
+  const result= fromValue({
       data: {
         user:{
       _id:1234, 
-      owned_routes:{
+      owned_routes:[
+        {
         _id:1,
         name:'ownroute',
-        grade:'a',
+        grade:'4a', 
         picture:'SMD',
         type:'hddvDFF',
-      },
+      }
+    ],
       saved_routes:[
-        {
-        _id:111,
-        name:'savedroute',
-        grade:'wqdd',
-        picture:'picture',
-        type:'SDmHVBSdj', 
-      },
       {
         _id:4444,
         name:'savedroute2',
-        grade:'2',
+        grade:'4a',
         picture:'W2F',
         type:'kjsdbsbd' 
       },
@@ -57,9 +51,12 @@ jest.mock('@urql/preact', () => {
     }},
     fetching:false, 
     error:false
-    }, 'SDM']
-}})
-  
+    }, )
+    return result } ), 
+  executeMutation: jest.fn(() => never),
+  executeSubscription: jest.fn(() => never),
+};
+
 
 describe("myRoutes general tests", () => {
   beforeEach(() => {
@@ -97,34 +94,34 @@ describe('server querying tests', () => {
     const wrapper = mount(
       <AuthProvider>
       <Provider value={mockClient}>
-        <MyRoutes  />
+        <MyRoutes _id={1234} />
       </Provider>
       </AuthProvider>
      
     );
-    
     expect(mockClient.executeQuery).toBeCalledTimes(1);
-
-
+    
   });
   
   
-  jest.mock('../../components/largeRouteCard/index', ()=> () =>
-      <div data-testid='largeRouteCard'>saved route 2</div>
-    )
+  // jest.mock('../../components/largeRouteCard/index', ()=> () =>
+  //     <div data-testid='largeRouteCard'>saved route 2</div>
+  //   )
+    // expect(getByTestId(/largeRouteCard/)).toContain('savedroute2')
 
-//   test('renders route on screen', () => {
-//     const {getByTestId, container} = render(
-//       <Provider value={mockClient}>
-//         <AuthProvider>
-//         <MyRoutes/>
-//         </AuthProvider>
-//       </Provider>
-//     );
-//       expect(getByTestId(/largeRouteCard/)).toBeInTheDocument()
+  test('renders own routes (default) and saved routes on click', () => {
+    const {getByTestId, container, getByText} = render(
+      <Provider value={mockClient}>
+        <AuthProvider>
+        <MyRoutes />
+        </AuthProvider>
+      </Provider>
+    );
+   
+    expect(getByText('4a')).toBeInTheDocument()
 
-//     const button = getByText(/SAVED ROUTES/i);
-//     fireEvent.click(button);
-//     expect(getByTestId(/largeRouteCard/)).toContain('savedroute2')   
-//   });
+    const button = getByText('SAVED ROUTES');
+    fireEvent.click(button);
+    expect(getByText('savedroute2')).toBeInTheDocument()
+  });
 })

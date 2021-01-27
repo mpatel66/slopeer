@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2018",
     // "jsx": "react-jsx",
-    "jsx": "react",
+    "jsx": "preserve",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
     // "lib": ["dom", "esnext"],
