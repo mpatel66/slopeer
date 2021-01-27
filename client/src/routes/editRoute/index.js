@@ -36,6 +36,7 @@ const EditRoute = ({ matches: { id } }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (routeData.name) {
+      console.log(routeData);
       await updateRoute({ _id: id, ...routeData });
       route(`/route/${id}`);
     }
