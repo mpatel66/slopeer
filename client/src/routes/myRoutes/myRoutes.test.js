@@ -82,9 +82,6 @@ describe("myRoutes general tests", () => {
       `"<header class=\\"header\\"><nav><button class=\\"selected\\">OWNED ROUTES</button><button class>SAVED ROUTES</button></nav></header><div class=\\"spinner_wrapper\\"><div class=\\"spinner\\"></div></div>"`
     );
   });
-<<<<<<< HEAD
-});
-=======
 });
 
 describe('server querying tests', () => {
@@ -132,4 +129,3 @@ describe('server querying tests', () => {
   //     <div data-testid='largeRouteCard'>saved route 2</div>
   //   )
     // expect(getByTestId(/largeRouteCard/)).toContain('savedroute2')
->>>>>>> 07098b6afdd282336d6ab2ffa366ee05e9a4c228
