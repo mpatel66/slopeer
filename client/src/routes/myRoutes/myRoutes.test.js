@@ -102,14 +102,12 @@ describe('server querying tests', () => {
     
   });
   
-  
   // jest.mock('../../components/largeRouteCard/index', ()=> () =>
   //     <div data-testid='largeRouteCard'>saved route 2</div>
   //   )
     // expect(getByTestId(/largeRouteCard/)).toContain('savedroute2')
-
-  test('renders own routes (default) and saved routes on click', () => {
-    const {getByTestId, container, getByText} = render(
+    
+    const { container, getByText} = render(
       <Provider value={mockClient}>
         <AuthProvider>
         <MyRoutes />
@@ -117,8 +115,11 @@ describe('server querying tests', () => {
       </Provider>
     );
    
+  test('renders own routes (default on load)', () => {
     expect(getByText('4a')).toBeInTheDocument()
+  });
 
+  test('renders saved routes on click - testing integration of myroute page with route card component', () => {
     const button = getByText('SAVED ROUTES');
     fireEvent.click(button);
     expect(getByText('savedroute2')).toBeInTheDocument()
