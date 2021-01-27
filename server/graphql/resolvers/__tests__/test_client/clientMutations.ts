@@ -55,6 +55,13 @@ const mutations = {
       description: $description
     }) {
       _id
+      name
+      grade
+      public
+      type
+      description
+      lat
+      lng
     }
   }`,
   updateUser: `
