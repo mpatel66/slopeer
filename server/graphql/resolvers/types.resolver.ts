@@ -8,6 +8,7 @@ const getRoutes = async (_id: OutcomingUser['_id'], routes: string) => {
     if (!user) throw 'No User Found';
     else {
       const populatedUser = await user.populate(routes).execPopulate();
+      console.log('populated routes', populatedUser);
       return populatedUser.get(routes);
     }
   } catch (e) {
@@ -16,9 +17,21 @@ const getRoutes = async (_id: OutcomingUser['_id'], routes: string) => {
 };
 
 const types = {
-  get_owned_routes: async ({ _id }: OutcomingUser['_id']):Promise<OutcomingUser['owned_routes']> => await getRoutes(_id, 'owned_routes'),
+  get_owned_routes: async ({ _id }: OutcomingUser['_id']):Promise<OutcomingUser['owned_routes']> => {
+    try {
+      return await getRoutes(_id, 'owned_routes');
+    } catch (e) {
+      console.log(e);
+    }
+  },
 
-  get_saved_routes: async ({ _id }: OutcomingUser['_id']):Promise<OutcomingUser['saved_routes']> => await getRoutes(_id, 'saved_routes'),
+  get_saved_routes: async ({ _id }: OutcomingUser['_id']):Promise<OutcomingUser['saved_routes']> => {
+    try {
+      return await getRoutes(_id, 'saved_routes');
+    } catch (e) {
+      console.log(e);
+    }
+  },
 
   get_author: async ({ author: id }: OutcomingUser['_id']): Promise<OutcomingUser|undefined> => {
     try {

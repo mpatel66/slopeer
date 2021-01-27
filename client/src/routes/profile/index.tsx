@@ -11,21 +11,16 @@ declare function require(name: string): any;
 import IRoute, { IData, IMatches } from '../../../types/Route';
 import IUser from '../../../types/User';
 
-// interface Props {
-//   searchTextChange(userInput: string): void;
-//   updateQueryType(index: IndexPath | IndexPath[]): void;
-//   search: SearchInterface;
-// }
 
-const Profile: FunctionComponent<IMatches> = ({ matches: { id } }) => {
+const Profile: FunctionComponent<any> = (props) => {
+
+  const id = props.id;
   const { user, logout } = useAuth();
   const { online } = useNetwork();
-
   const [{ data, fetching, error }, _] = useQuery<IData>({
     query: queries.userDataQuery,
     variables: { _id: id },
   });
-
   const renderUserData = ({
     username,
     profile_picture,

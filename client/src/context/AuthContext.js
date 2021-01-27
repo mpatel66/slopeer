@@ -7,6 +7,8 @@ import * as authService from '../services/authService';
 const AuthContext = createContext();
 
 function AuthProvider (props) {
+  // console.log(props, 'props on auth context ')
+  // console.log(props.children.props, 'children props ')
   const [user, setUser] = useState(null);
 
   const loginWithToken = (token) => {

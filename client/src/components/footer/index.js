@@ -13,7 +13,7 @@ const Footer = () => {
       <Content>
         <nav>
           <Link activeClassName={style.active} href='/map'>
-            Map3
+            Map
           </Link>
           {online && (
             <NavButton text={'+'} to='/addRoute' class={style.addRoute} />

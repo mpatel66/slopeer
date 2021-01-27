@@ -21,6 +21,8 @@ const MyRoutes: FunctionComponent = (): JSX.Element => {
     variables: { _id: user },
   });
 
+
+
   const [shownRoutes, setShownRoutes] = useState<RouteType>('owned_routes');
 
   const showRoutes = () => {
