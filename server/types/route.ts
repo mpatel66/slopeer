@@ -21,7 +21,6 @@ export interface IncomingRoute extends IRoutes {
 }
 
 
-
 export enum routeType {
   OWNED = 'owned_routes',
   SAVED = 'saved_routes'

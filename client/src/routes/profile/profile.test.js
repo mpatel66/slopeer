@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import Profile from './';
 import { AuthProvider } from "../../context/AuthContext";
-import { render, screen } from "@testing-library/preact";
+import { render } from "@testing-library/preact";
 import { h } from "preact";
 import { NetworkProvider } from '../../context/NetworkContext';
 import { Provider } from '@urql/preact';

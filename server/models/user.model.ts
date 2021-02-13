@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import { OutcomingUser } from '../types/user';
 const JWTPrivateKey = process.env.JWTPrivateKey as string;
 
-// interface IUserModel extends IUser, Document 
 const userSchema: Schema<OutcomingUser, Model<OutcomingUser>> = new Schema({
   email: { type: String, required: true },
   username: { type: String, required: true },

@@ -11,7 +11,6 @@ declare global {
       JWTPrivateKey: Secret;
       AWS_S3_ID: string;
       AWS_S3_SECRET: string;
-      // BUCKET: string;
       BUCKET: BucketName;
     }
   }  

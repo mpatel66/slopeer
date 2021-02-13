@@ -121,11 +121,3 @@ describe('server querying tests', () => {
     expect(getByText('savedroute2')).toBeInTheDocument()
   });
 })
-
-
-
-  
-  // jest.mock('../../components/largeRouteCard/index', ()=> () =>
-  //     <div data-testid='largeRouteCard'>saved route 2</div>
-  //   )
-    // expect(getByTestId(/largeRouteCard/)).toContain('savedroute2')

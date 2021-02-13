@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 import s3 from './uploader';
 import { Document } from 'mongoose';
-// import webp from 'webp-converter';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const webp = require('webp-converter');
 import { S3 } from 'aws-sdk';
