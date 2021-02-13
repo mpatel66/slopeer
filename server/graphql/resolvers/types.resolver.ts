@@ -8,7 +8,6 @@ const getRoutes = async (_id: OutcomingUser['_id'], routes: string) => {
     if (!user) throw 'No User Found';
     else {
       const populatedUser = await user.populate(routes).execPopulate();
-      console.log('populated routes', populatedUser);
       return populatedUser.get(routes);
     }
   } catch (e) {

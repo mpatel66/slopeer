@@ -14,7 +14,6 @@ const EditProfile = () => {
     const currentData = await client
       .query(queries.userDataQuery, { _id: user })
       .toPromise();
-    console.log(currentData);
     const { username } = currentData.data.user;
     setUserData({ username });
   }, []);

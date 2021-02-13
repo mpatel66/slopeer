@@ -46,7 +46,7 @@ const RouteForm = ({
           name="name"
           value={routeData.name}
           placeholder="Name"
-          onInput={() => console.log('hello')}
+          onInput={() => {}}
         />
         <div></div>
         <div class={style.public}>

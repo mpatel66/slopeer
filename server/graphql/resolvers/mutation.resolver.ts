@@ -34,7 +34,6 @@ interface IUpdateRoute {
 }
 
 export const updateRoute = async (_: any, { _id, input }: IUpdateRoute): Promise<OutcomingRoute|undefined> => {
-  console.log('input', input);
   try {
     if (!input.picture) {
       const updated = {...input} as unknown as OutcomingRoute;
