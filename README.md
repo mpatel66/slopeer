@@ -1,9 +1,15 @@
 # Slopeer
 
-Slopeer is a PWA for climbers that allows users to discover new climbing routes around them, see detailed information about
-them and save that information for offline use when in the mountains ⛰.
+Slopeer is a PWA for climbers that allows users to discover new climbing routes around them, see detailed information about them and save that information for offline use when in the mountains ⛰. It can be used from the browser, but also installed to any computer or mobile phone as it it was a native app.
 
-In can be used from the browser, but also installed to any computer or mobile phone as it it was a native app.
+Slooper was initially developed by [Guillem Garcia](https://github.com/guillemgarciagomez/). As part of the legacy project at Codeworks, Ana and I spent a week refactoring parts of the project. We converted the back-end to TypeScript and added tests to the GraphQL mutations using jest and supertest. On the front-end, we added a variety of tests using Preact (no, there's no typo there, we don't meant React :wink:) Testing Library. We tested the router, the URQL queries, added snapshop testing, and tested whether some of the components were rendering correctly.
+
+
+<h1 style="text-align: center">Contributors</h1>
+
+- Guillem Garcia - https://github.com/guillemgarciagomez/
+- Ana Sau - https://github.com/anasau & [LinkedIn](https://www.linkedin.com/in/anasau/)
+- Meera Patel - https://github.com/mpatel66 & [LinkedIn](https://www.linkedin.com/in/meerapatel91/)
 
 <h1 style="text-align: center">Register or Log in</h1>
 <div style="width: 100%; display:flex; justify-content:space-evenly; flex-wrap: wrap">
