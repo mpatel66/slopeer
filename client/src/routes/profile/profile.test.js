@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import Profile from './';
 import { AuthProvider } from "../../context/AuthContext";
-import { render, screen } from "@testing-library/preact";
+import { render } from "@testing-library/preact";
 import { h } from "preact";
 import { NetworkProvider } from '../../context/NetworkContext';
 import { Provider } from '@urql/preact';
@@ -16,22 +16,6 @@ jest.mock("mapbox-gl", () => ({
   })),
   NavigationControl: jest.fn(),
 }));
-
-// const res =jest.mock(AuthProvider);
-// console.log(res)
-
-// jest.mock("../contexts/AuthContext", () => ({
-//   __esModule: true,
-//   default: React.createContext()
-// }));
-
-// jest.mock('../../context/AuthContext', () => {
-//   return {
-//     useAuth: jest.fn()
-//     AuthProvider: 
-//   }
-// })
-
 
 const mockClient = {
   executeQuery: jest.fn(() => {
@@ -89,7 +73,6 @@ describe("myRoutes general tests", () => {
       </Provider>
     );
     
-    // console.log(screen.debug())
     // Expect the header text to be rendered
     expect(container.textContent).toMatch("Public Routes");
     // Expect username to be rendered on screen

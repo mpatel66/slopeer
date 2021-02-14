@@ -1,4 +1,3 @@
-import { CombinedError } from '@urql/preact';
 import IUser from './User'
 
 export default interface IRoute {

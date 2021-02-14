@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 import s3 from './uploader';
 import { Document } from 'mongoose';
-// import webp from 'webp-converter';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const webp = require('webp-converter');
 import { S3 } from 'aws-sdk';
@@ -16,13 +15,11 @@ const uploadPicture = async (picture: FileUpload, id: Document['_id'], folder: s
   const pictureName = id + '.' + filename.split('.').slice(-1);
 
   const local_path = path.join(__dirname, '../images/' + folder);
-  console.log('before promise')
   await new Promise((res) =>
     createReadStream()
       .pipe(fs.createWriteStream(local_path + pictureName))
       .on('close', res));
 
-  console.log('hello')
   const webp_path = path.join(__dirname, '../images/' + folder, id + '.webp');
   await webp.cwebp(local_path + pictureName, webp_path, '-q 50 -quiet');
 

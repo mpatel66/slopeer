@@ -15,7 +15,6 @@ const Login = () => {
     e.preventDefault();
     if (credentials.email && credentials.password) {
       const success = await login(credentials);
-      console.log(success, 'success')
       if (!success) {
         setError(true);
         setCredentials(initialCredentials);

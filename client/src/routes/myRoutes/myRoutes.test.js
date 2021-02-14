@@ -13,7 +13,7 @@ import { h } from "preact";
 configure({ adapter: new Adapter() });
 
 
-jest.mock("mapbox-gl", () => ({
+jest.mock('mapbox-gl', () => ({
   GeolocateControl: jest.fn(),
   Map: jest.fn(() => ({
     addControl: jest.fn(),
@@ -121,11 +121,3 @@ describe('server querying tests', () => {
     expect(getByText('savedroute2')).toBeInTheDocument()
   });
 })
-
-
-
-  
-  // jest.mock('../../components/largeRouteCard/index', ()=> () =>
-  //     <div data-testid='largeRouteCard'>saved route 2</div>
-  //   )
-    // expect(getByTestId(/largeRouteCard/)).toContain('savedroute2')

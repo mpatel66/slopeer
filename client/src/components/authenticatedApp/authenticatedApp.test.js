@@ -1,17 +1,10 @@
 
 import "@testing-library/jest-dom";
-import {  render, screen, fireEvent } from "@testing-library/preact";
+import {  render, fireEvent } from "@testing-library/preact";
 import { h } from "preact";
-import { Router } from 'preact-router';
 import Profile from '../../routes/profile';
-import Redirect from '../redirect';
 import MyRoutes from '../../routes/myRoutes';
-import RouteDetails from '../../routes/routeDetails';
 import AddRoute from '../../routes/addRoute';
-import EditProfile from '../../routes/editProfile';
-import EditRoute from '../../routes/editRoute';
-import Map from '../../routes/map';
-import Footer from '../footer';
 import AuthenticatedApp from './index';
 import { NetworkProvider } from '../../context/NetworkContext';
 import { AuthProvider } from "../../context/AuthContext";

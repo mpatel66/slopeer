@@ -1,7 +1,7 @@
-import { Fragment, h } from 'preact'
+import { h } from 'preact'
 import { route } from 'preact-router';
-import IRoute from '../../../types/Route'
-import {FunctionComponent, JSX,  } from "preact"
+import IRoute from '../../../types/Route';
+import {FunctionComponent } from 'preact';
 import { Picture } from '..';
 import { gradeColor, gradeBckgColor } from '../../utils/routes';
 const style = require('./style.css');

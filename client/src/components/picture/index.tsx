@@ -1,8 +1,7 @@
 import { profilePicturesUrl, routePicturesUrl } from '../../../config';
 import { selectPlaceholder } from '../../utils/routes';
-import IRoute, {IPicture} from '../../../types/Route'
-// import User from '../../../types/User'
-import { h, FunctionComponent } from "preact";
+import {IPicture} from '../../../types/Route'
+import { h, FunctionComponent } from 'preact';
 
 
 const Picture:FunctionComponent<IPicture> = ({ profile, picture, username, type, routename, pictureStyle, imageStyle }) => {

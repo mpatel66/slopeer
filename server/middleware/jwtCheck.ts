@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response,NextFunction } from 'express-serve-static-core';
 import {Document} from 'mongoose';
-// import Request from 'express';
 
 const JWTPrivateKey = process.env.JWTPrivateKey as string;
 

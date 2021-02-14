@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-// import Route from './route.model';
-// import User from './user.model';
 
 const { DB_HOST, DB } = process.env;
 
@@ -9,10 +7,3 @@ export async function connection () {
     { useUnifiedTopology: true, useNewUrlParser: true },
     () => console.log(`Connected database ${DB} 🗄`)); //eslint-disable-line no-console
 }
-
-
-// module.exports = {
-//   connection,
-//   Route,
-//   User
-// }; 

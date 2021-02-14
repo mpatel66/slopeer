@@ -8,7 +8,7 @@ import { useNetwork } from '../../context/NetworkContext';
 const style = require('./style.css');
 declare function require(name: string): any;
 
-import IRoute, { IData, IMatches } from '../../../types/Route';
+import IRoute, { IData } from '../../../types/Route';
 import IUser from '../../../types/User';
 
 
